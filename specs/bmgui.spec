@@ -11,11 +11,13 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch:      x86_64
 
+Requires:       xinput_calibrator
+
 %description
 Sibek Balance Machine GUI for KonsulM
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q -n %{name}
 
 %build
 make %{?_smp_mflags}
