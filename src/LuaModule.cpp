@@ -48,9 +48,9 @@ int LuaModule::main(const std::vector<CL_String> &args, lua_State *luaState)
 }
 
 #if defined(WIN32) && defined(_DLL)
-extern "C" __declspec(dllexport) int luaopen_Balance(lua_State *luaState)
+extern "C" __declspec(dllexport) int luaopen_bmgui(lua_State *luaState)
 #else
-extern "C" int luaopen_Balance(lua_State *luaState)
+extern "C" int luaopen_bmgui(lua_State *luaState)
 #endif
 {
 	std::string cmd;
@@ -61,7 +61,7 @@ extern "C" int luaopen_Balance(lua_State *luaState)
 
 	// initialize the array with single required argument
 	std::vector<CL_String> args;
-	args.push_back("Game");
+	args.push_back("bmgui");
 
 	// extract all arguments from the command line, properly handling double quotes
 	std::string::size_type start, end;

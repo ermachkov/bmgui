@@ -38,7 +38,7 @@ Balance::Balance(Profile &profile)
 	profile.setString("dns", profile.getString("dns", "127.0.0.1"));
 	profile.setBool("remote_control", profile.getBool("remote_control", true));
 	profile.setInt("input_dev", profile.getInt("input_dev", 1));
-	profile.setString("cal_command", profile.getString("cal_command", "balance_xinput_calibrator"));
+	profile.setString("cal_command", profile.getString("cal_command", "bmgui_xinput_calibrator"));
 	profile.setString("update_command", profile.getString("update_command", "lxterminal -e \"sleep 5\""));
 	profile.setString("available_update_version", profile.getString("available_update_version", ""));
 	profile.setString("ignored_update_version", profile.getString("ignored_update_version", ""));
@@ -160,7 +160,7 @@ void Balance::onUpdate(int delta)
 void Balance::run()
 {
 #ifdef WIN32
-	CL_ConsoleWindow console("Balance", 80, 100);
+	CL_ConsoleWindow console("bmgui", 80, 100);
 	ShowWindow(GetConsoleWindow(), SW_SHOW);
 	ShowWindow(GetConsoleWindow(), SW_SHOW);
 #endif

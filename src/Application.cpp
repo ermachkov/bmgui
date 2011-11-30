@@ -13,7 +13,7 @@
 template<> Application *Singleton<Application>::mSingleton = NULL;
 
 Application::Application(const std::vector<CL_String> &args, lua_State *luaState)
-: mCompanyName("Sibek"), mApplicationName("Balance"), mApplicationVersion("3.0"), mQuit(false)
+: mCompanyName(""), mApplicationName("bmgui"), mApplicationVersion(""), mQuit(false)
 {
 	GAME_ASSERT(!args.empty());
 
@@ -32,7 +32,7 @@ Application::Application(const std::vector<CL_String> &args, lua_State *luaState
 	commandLine.parse_args(argv.size(), &argv[0]);
 
 #if defined(WIN32) || defined(__APPLE__)
-	mDataDirectory = CL_Directory::get_resourcedata("Game", "data");
+	mDataDirectory = CL_Directory::get_resourcedata("bmgui", "data");
 #else
 	mDataDirectory = CL_PathHelp::add_trailing_slash(GAME_DATA_DIR);
 #endif

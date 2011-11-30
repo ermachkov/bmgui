@@ -12,7 +12,7 @@ Graphics::Graphics(Profile &profile)
 {
 	// setup the graphics settings
 	CL_DisplayWindowDescription desc;
-	desc.set_title("Balance");
+	desc.set_title(Application::getSingleton().getApplicationName());
 	desc.set_size(CL_Size(profile.getInt("width", 1024), profile.getInt("height", 768)), true);
 	desc.set_swap_interval(mVSync ? 1 : 0);
 	if (profile.getBool("fullscreen", true))

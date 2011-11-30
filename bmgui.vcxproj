@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EFA73731-43B7-470C-A596-526FD967C70E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Balance_GUI</RootNamespace>
-    <ProjectName>Balance_GUI</ProjectName>
+    <RootNamespace>bmgui</RootNamespace>
+    <ProjectName>bmgui</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -67,25 +67,25 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>C:\Program Files\Microsoft DirectX SDK %28June 2010%29\Include;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Program Files\Microsoft DirectX SDK %28June 2010%29\Lib\x86;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
-    <TargetName>Balance</TargetName>
+    <TargetName>bmgui</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>C:\Program Files\Microsoft DirectX SDK %28June 2010%29\Include;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Program Files\Microsoft DirectX SDK %28June 2010%29\Lib\x86;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
-    <TargetName>Balance</TargetName>
+    <TargetName>bmgui</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>C:\Program Files\Microsoft DirectX SDK %28June 2010%29\Include;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Program Files\Microsoft DirectX SDK %28June 2010%29\Lib\x86;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
-    <TargetName>Balance</TargetName>
+    <TargetName>bmgui</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>C:\Program Files\Microsoft DirectX SDK %28June 2010%29\Include;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Program Files\Microsoft DirectX SDK %28June 2010%29\Lib\x86;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
-    <TargetName>Balance</TargetName>
+    <TargetName>bmgui</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

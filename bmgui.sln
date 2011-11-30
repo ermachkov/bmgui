@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C++ Express 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Balance_GUI", "Balance_GUI.vcxproj", "{EFA73731-43B7-470C-A596-526FD967C70E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bmgui", "bmgui.vcxproj", "{EFA73731-43B7-470C-A596-526FD967C70E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -305,5 +305,5 @@ end
 if not Application then
 	local dataDir = arg[0]:match("^.*[\\/]") or "./"
 	GAME_COMMAND_LINE = "-d \"" .. dataDir .. "\""
-	require("Balance")
+	require("bmgui")
 end
