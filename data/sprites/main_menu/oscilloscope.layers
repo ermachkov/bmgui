@@ -1,0 +1,49 @@
+sprites =
+[
+	["spriteOscBack", ["osc_back"]],
+	["spriteOscDisplay", ["osc_display"]],
+
+	["spriteVertScaleUpIcon", ["vert_scale_up_icon_normal", "vert_scale_up_icon_pressed"]],
+	["spriteVertScaleUpButton", ["vert_scale_up_button_normal", "vert_scale_up_button_pressed"]],
+	["spriteVertScaleDownIcon", ["vert_scale_down_icon_normal", "vert_scale_down_icon_pressed"]],
+	["spriteVertScaleDownButton", ["vert_scale_down_button_normal", "vert_scale_down_button_pressed"]],
+
+	["spriteHorzScaleUpIcon", ["horz_scale_up_icon_normal", "horz_scale_up_icon_pressed"]],
+	["spriteHorzScaleUpButton", ["horz_scale_up_button_normal", "horz_scale_up_button_pressed"]],
+	["spriteHorzScaleDownIcon", ["horz_scale_down_icon_normal", "horz_scale_down_icon_pressed"]],
+	["spriteHorzScaleDownButton", ["horz_scale_down_button_normal", "horz_scale_down_button_pressed"]],
+
+	["spriteVertScrollUpIcon", ["vert_scroll_up_icon_normal", "vert_scroll_up_icon_pressed"]],
+	["spriteVertScrollUpButton", ["vert_scroll_up_button_normal", "vert_scroll_up_button_pressed"]],
+	["spriteVertScrollDownIcon", ["vert_scroll_down_icon_normal", "vert_scroll_down_icon_pressed"]],
+	["spriteVertScrollDownButton", ["vert_scroll_down_button_normal", "vert_scroll_down_button_pressed"]],
+
+	["spriteHorzScrollUpIcon", ["horz_scroll_up_icon_normal", "horz_scroll_up_icon_pressed"]],
+	["spriteHorzScrollUpButton", ["horz_scroll_up_button_normal", "horz_scroll_up_button_pressed"]],
+	["spriteHorzScrollDownIcon", ["horz_scroll_down_icon_normal", "horz_scroll_down_icon_pressed"]],
+	["spriteHorzScrollDownButton", ["horz_scroll_down_button_normal", "horz_scroll_down_button_pressed"]],
+
+	["spritePlayUpIcon", ["play_up_play_icon_normal", "play_up_play_icon_pressed", "play_up_pause_icon_normal", "play_up_pause_icon_pressed"]],
+	["spritePlayUpButton", ["play_up_button_normal", "play_up_button_pressed"]],
+	["spritePlayDownIcon", ["play_down_auto_icon_normal", "play_down_auto_icon_pressed", "play_down_wait_icon_normal", "play_down_wait_icon_pressed"]],
+	["spritePlayDownButton", ["play_down_button_normal", "play_down_button_pressed"]],
+
+	["spriteOscStartUpIcon", ["osc_start_up_icon_normal", "osc_start_up_icon_pressed"]],
+	["spriteOscStartUpButton", ["osc_start_up_button_normal", "osc_start_up_button_pressed"]],
+	["spriteOscStartDownIcon", ["osc_start_down_icon_normal", "osc_start_down_icon_pressed"]],
+	["spriteOscStartDownButton", ["osc_start_down_button_normal", "osc_start_down_button_pressed"]],
+
+	["spriteOscStopIcon", ["osc_stop_icon_normal", "osc_stop_icon_pressed"]],
+	["spriteOscStopButton", ["osc_stop_button_normal", "osc_stop_button_pressed"]],
+
+	["spriteOscCloseButtonBack", ["osc_close_button_back"]],
+	["spriteOscCloseButton", ["osc_close_button_normal", "osc_close_button_pressed"]],
+
+	["spriteOscVertScaleIcon", ["osc_vert_scale_icon"]],
+	["spriteOscHorzScaleIcon", ["osc_horz_scale_icon"]],
+	["spriteOscVertScrollIcon", ["osc_vert_scroll_icon"]],
+	["spriteOscHorzScrollIcon", ["osc_horz_scroll_icon"]],
+	["spriteOscChannelIcon", ["osc_channel_icon"]],
+	["spriteOscPlayIcon", ["osc_play_icon"]],
+	["spriteOscStartIcon", ["osc_start_icon"]]
+]

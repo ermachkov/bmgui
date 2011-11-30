@@ -1,0 +1,10 @@
+#!/bin/sh
+rm /tmp/xinput_calibrator > /dev/null 2> /dev/null
+rm /tmp/autostart > /dev/null 2> /dev/null
+xinput_calibrator > /tmp/xinput_calibrator
+XINPUT=`cat /tmp/xinput_calibrator | grep "xinput s"`
+TOUCHCAL=`expr "$XINPUT" : '.*\(xinput.*\)'`
+grep -v set-int-prop /etc/xdg/lxsession/LXDE/autostart > /tmp/autostart
+echo "@"$TOUCHCAL >> /tmp/autostart
+sudo mv /tmp/autostart /etc/xdg/lxsession/LXDE/autostart
+rm /tmp/xinput_calibrator

@@ -1,0 +1,30 @@
+$#include "Mouse.h"
+
+// Buttons
+enum Buttons
+{
+	CL_MOUSE_LEFT @ MOUSE_LEFT,
+	CL_MOUSE_RIGHT @ MOUSE_RIGHT,
+	CL_MOUSE_MIDDLE @ MOUSE_MIDDLE,
+	CL_MOUSE_WHEEL_UP @ MOUSE_WHEEL_UP,
+	CL_MOUSE_WHEEL_DOWN @ MOUSE_WHEEL_DOWN
+};
+
+// Mouse class
+class Mouse
+{
+	// Returns the mouse position
+	void getPosition(float *x = NULL, float *y = NULL) const;
+
+	// Returns true if the mouse button is pressed
+	bool isKeyDown(int key) const;
+
+	// Shows the system cursor
+	void showCursor();
+
+	// Hides the system cursor
+	void hideCursor();
+
+	// Returns a reference to the global class instance
+	static Mouse &getSingleton();
+};

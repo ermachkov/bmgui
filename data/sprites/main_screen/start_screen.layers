@@ -1,0 +1,15 @@
+sprites =
+[
+	["spriteStartWorkButton", ["start_work_button_normal", "start_work_button_pressed"]],
+	["spriteBalanceCalibrationButton", ["balance_calibration_button_normal", "balance_calibration_button_pressed"]],
+	["spriteTouchscreenCalibrationButton", ["touchscreen_calibration_button_normal", "touchscreen_calibration_button_pressed"]],
+
+	["spriteStartWorkText", ["start_work_text"]],
+	["spriteBalanceCalibrationText", ["balance_calibration_text"]],
+	["spriteTouchscreenCalibrationText", ["touchscreen_calibration_text"]],
+
+	["spriteNetworkStatusIcon", ["network_status_icon"]],
+	["spriteMouseStatusIcon", ["mouse_status_icon"]],
+
+	["spriteStartPanel", ["start_panel"]]
+]

@@ -1,0 +1,22 @@
+sprites =
+[
+	["spriteStatsBack", ["stats_back"]],
+
+	["spriteStatsHeader", ["stats_header"]],
+	["spriteStatsMonth", ["stats_month"]],
+	["spriteStatsYear", ["stats_year"]],
+
+	["spriteStatsBar1", ["stats_bar_1"]],
+	["spriteStatsBar31", ["stats_bar_31"]],
+	["spriteStatsBar1Thick", ["stats_bar_1_thick"]],
+	["spriteStatsBar13Thick", ["stats_bar_13_thick"]],
+
+	["spriteStatsTextX1", ["stats_text_x_1"]],
+	["spriteStatsTextY1", ["stats_text_y_1"]],
+	["spriteStatsTextYLast", ["stats_text_y_last"]],
+
+	["spriteStatsSelectButton", ["stats_select_button_normal", "stats_select_button_pressed"]],
+	["spriteStatsPrevButton", ["stats_prev_button_normal", "stats_prev_button_pressed"]],
+	["spriteStatsNextButton", ["stats_next_button_normal", "stats_next_button_pressed"]],
+	["spriteStatsCloseButton", ["stats_close_button_normal", "stats_close_button_pressed"]]
+]

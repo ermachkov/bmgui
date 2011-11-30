@@ -1,0 +1,38 @@
+$#include "Balance.h"
+
+// Class for communication with the balance device
+class Balance
+{
+	// Returns the connection status
+	bool isConnected() const;
+
+	// Returns the protocol valid flag
+	bool isProtocolValid() const;
+
+	// Sets the balance address
+	void setServerAddr(const std::string &addr);
+
+	// Sets the oscilloscope mode
+	void setOscMode(int mode);
+
+	// Returns the balance parameter
+	std::string getParam(const std::string &name) const;
+
+	// Returns the integer balance parameter
+	int getIntParam(const std::string &name) const;
+
+	// Returns the floating-point balance parameter
+	float getFloatParam(const std::string &name) const;
+
+	// Sets the balance parameter
+	void setParam(const std::string &name, const std::string &value = "");
+
+	// Sets the integer balance parameter
+	void setIntParam(const std::string &name, int value = 0);
+
+	// Sets the floating-point balance parameter
+	void setFloatParam(const std::string &name, float value = 0.0f);
+
+	// Returns a reference to the global class instance
+	static Balance &getSingleton();
+};

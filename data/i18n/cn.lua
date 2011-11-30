@@ -1,0 +1,3 @@
+TRANSLATION_CN =
+{
+}

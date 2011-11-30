@@ -1,0 +1,20 @@
+$#include "ResourceManager.h"
+
+// Class for managing various game resources (sprites, fonts, sounds etc.)
+class ResourceManager
+{
+	// Loads a resource from the specified resource file
+	void loadResource(const std::string &name, const std::string &fileName);
+
+	// Loads all resources from the specified resource file
+	void loadAllResources(const std::string &fileName);
+
+	// Unloads the resource
+	void unloadResource(const std::string &name);
+
+	// Unloads all resources declared in the specified resource file
+	void unloadAllResources(const std::string &fileName);
+
+	// Returns a reference to the global class instance
+	static ResourceManager &getSingleton();
+};

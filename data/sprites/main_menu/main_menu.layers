@@ -1,0 +1,30 @@
+sprites =
+[
+	["spriteMainMenu", ["main_menu", "user_1_menu", "user_2_menu", "calibration_menu", "diagnostics_menu", "options_menu"]],
+	["spriteMainSubmenu", ["main_submenu"]],
+
+	["spriteUser1MenuIcon", ["user_1_menu_icon"]],
+	["spriteUser2MenuIcon", ["user_2_menu_icon"]],
+	["spriteCalibrationMenuIcon", ["calibration_menu_icon"]],
+	["spriteDiagnosticsMenuIcon", ["diagnostics_menu_icon"]],
+	["spriteOptionsMenuIcon", ["options_menu_icon"]],
+
+	["spriteMainMenuBackButton", ["main_menu_back_button_normal", "main_menu_back_button_pressed"]],
+	["spriteMainMenuCloseButton", ["main_menu_close_button_normal", "main_menu_close_button_pressed"]],
+	["spriteMainMenuUpButton", ["main_menu_up_button_normal", "main_menu_up_button_pressed"]],
+	["spriteMainMenuDownButton", ["main_menu_down_button_normal", "main_menu_down_button_pressed"]],
+
+	["spriteMainMenuItemNormal", ["main_menu_item_normal"]],
+	["spriteMainMenuTriangleNormal", ["main_menu_triangle_normal"]],
+	["spriteMainMenuItemPressed", ["main_menu_item_pressed"]],
+	["spriteMainMenuTrianglePressed", ["main_menu_triangle_pressed"]],
+	["spriteMainMenuItemSelected", ["main_menu_item_selected"]],
+
+	["spriteMainMenuItemIcon", ["main_menu_item_icon"]],
+	["spriteMainMenuItemHeader", ["main_menu_item_header"]],
+	["spriteMainMenuItemText", ["main_menu_item_text"]],
+	["spriteMainMenuItemValue", ["main_menu_item_value"]],
+
+	["spriteMainMenuScrollBack", ["main_menu_scroll_back"]],
+	["spriteMainMenuScrollFront", ["main_menu_scroll_front"]]
+]

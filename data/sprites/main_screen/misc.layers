@@ -1,0 +1,20 @@
+sprites =
+[
+	["spriteProgressBack", ["progress_back"]],
+	["spriteProgressFront", ["progress_front"]],
+	["spriteProgressText", ["progress_text_en", "progress_text_ru"]],
+
+	["spriteSpeedometerArrow", ["speedometer_arrow"]],
+	["spriteSpeedometerCenter", ["speedometer_center"]],
+	["spriteSpeedometerText", ["speedometer_text_en", "speedometer_text_ru"]],
+	["spriteSpeedometerSpeed", ["speedometer_speed"]],
+
+	["spriteCoverMessageBack", ["cover_message_back"]],
+	["spriteCoverMessageText", ["cover_message_text"]],
+
+	["spriteWheelMessageBack", ["wheel_message_back"]],
+	["spriteWheelMessageText", ["wheel_message_text"]],
+
+	["spriteAboutMessageBack", ["about_message_back"]],
+	["spriteAboutMessageText", ["about_message_text"]]
+]

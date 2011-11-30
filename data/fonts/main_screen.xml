@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<font name="fontSizes">
+		<freetype file="LiberationSans-Bold.ttf" height="54"/>
+	</font>
+	<font name="fontWeights">
+		<freetype file="LiberationSans-Bold.ttf" height="72"/>
+	</font>
+	<font name="fontWheel">
+		<freetype file="LiberationSans-Bold.ttf" height="70"/>
+	</font>
+	<font name="fontMessageHeader">
+		<freetype file="LiberationSans-Bold.ttf" height="40"/>
+	</font>
+	<font name="fontMessageText">
+		<freetype file="LiberationSans-Bold.ttf" height="28"/>
+	</font>
+	<font name="fontMessageBox">
+		<freetype file="LiberationSans-Bold.ttf" height="48"/>
+	</font>
+	<font name="fontKeyboardDisplay">
+		<freetype file="DS-DIGIB.TTF" height="85"/>
+	</font>
+	<font name="fontSpeedometer">
+		<freetype file="DS-DIGIB.TTF" height="33"/>
+	</font>
+</resources>

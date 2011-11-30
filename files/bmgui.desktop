@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Balance Machine
+Name[ru_RU]=Балансировка
+Comment=Sibek Balance Machine GUI
+Exec=bmgui_start
+Icon=/usr/share/pixmaps/bmgui.png
+Terminal=false
+Type=Application

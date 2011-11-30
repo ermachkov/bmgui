@@ -1,0 +1,23 @@
+$#include "ResourceQueue.h"
+
+// Class for loading game resources in the background thread
+class ResourceQueue
+{
+	// Adds a resource from the specified resource file to the queue
+	void addResource(const std::string &name, const std::string &fileName);
+
+	// Adds all resources from the specified resource file to the queue
+	void addAllResources(const std::string &fileName);
+
+	// Starts the background loading
+	void startLoading();
+
+	// Returns true if the background loading is currently active
+	bool isLoadingActive() const;
+
+	// Returns the current background loading progress
+	float getLoadingProgress() const;
+
+	// Returns a reference to the global class instance
+	static ResourceQueue &getSingleton();
+};

@@ -1,0 +1,68 @@
+$#include "Sprite.h"
+
+// Sprite class
+class Sprite
+{
+	// Constructor
+	Sprite(const std::string &name, float x, float y);
+
+	// X coordinate
+	tolua_property float x;
+
+	// Y coordinate
+	tolua_property float y;
+
+	// Red color component
+	tolua_property float red;
+
+	// Green color component
+	tolua_property float green;
+
+	// Blue color component
+	tolua_property float blue;
+
+	// Alpha color component
+	tolua_property float alpha;
+
+	// Returns the total number of animation frames
+	int getNumFrames() const;
+
+	// Current animation frame
+	tolua_property int frame;
+
+	// Returns the sprite width
+	int getWidth() const;
+
+	// Returns the sprite height
+	int getHeight() const;
+
+	// Returns the sprite hotspot
+	void getHotSpot(int *x = NULL, int *y = NULL) const;
+
+	// Sets the sprite hotspot
+	void setHotSpot(int x, int y);
+
+	// Sprite rotation angle
+	tolua_property float angle;
+
+	// Returns the scale factors
+	void getScale(float *x = NULL, float *y = NULL) const;
+
+	// Sets the scale factors
+	void setScale(float x, float y = 0.0f);
+
+	// Tests if a point is inside the sprite
+	bool isPointInside(float x, float y) const;
+
+	// Draws the sprite
+	void draw();
+
+	// Draws the sprite in specified point
+	void draw(float x, float y);
+
+	// Draws the sprite in specified rectangle
+	void draw(float x1, float y1, float x2, float y2);
+
+	// Draws the part of sprite in specified rectangle
+	void draw(float x1, float y1, float x2, float y2, float sx1, float sy1, float sx2, float sy2);
+};

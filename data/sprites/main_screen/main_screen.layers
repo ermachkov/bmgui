@@ -1,0 +1,81 @@
+sprites =
+[
+	["spriteMainScreenBack", ["main_screen_back"]],
+
+	["spriteMenuButton", ["menu_button_normal", "menu_button_pressed", "menu_button_disabled"]],
+	["spriteMenuButtonText", ["menu_button_text_en_normal", "menu_button_text_en_pressed", "menu_button_text_en_disabled", "menu_button_text_ru_normal", "menu_button_text_ru_pressed", "menu_button_text_ru_disabled"]],
+
+	["spriteHelpButton", ["help_button_normal", "help_button_pressed", "help_button_disabled"]],
+	["spriteHelpButtonText", ["help_button_text_en_normal", "help_button_text_en_pressed", "help_button_text_en_disabled", "help_button_text_ru_normal", "help_button_text_ru_pressed", "help_button_text_ru_disabled"]],
+
+	["spriteLayoutButton", ["layout_button_normal", "layout_button_pressed"]],
+	["spriteLayoutButtonText", ["layout_button_text_en_normal", "layout_button_text_en_pressed", "layout_button_text_ru_normal", "layout_button_text_ru_pressed"]],
+	["spriteLayoutIcon", ["layout_icon_dyn_15", "layout_icon_dyn_25", "layout_icon_dyn_14", "layout_icon_dyn_13", "layout_icon_dyn_23", "layout_icon_dyn_24", "layout_icon_stat_1", "layout_icon_stat_2", "layout_icon_stat_3", "layout_icon_stat_4", "layout_icon_stat_5"]],
+
+	["spriteDiskButton", ["disk_button_normal", "disk_button_pressed"]],
+	["spriteDiskButtonText", ["disk_button_text_en_normal", "disk_button_text_en_pressed", "disk_button_text_ru_normal", "disk_button_text_ru_pressed"]],
+	["spriteDiskIcon", ["disk_icon_alu", "disk_icon_steel", "disk_icon_truck", "disk_icon_abs", "disk_icon_stat", "disk_icon_alu_3", "disk_icon_alu_4", "disk_icon_alu_5", "disk_icon_alu_6", "disk_icon_alu_7", "disk_icon_alu_8", "disk_icon_alu_9", "disk_icon_alu_10", "disk_icon_alu_11", "disk_icon_alu_12", "disk_icon_alu_13", "disk_icon_alu_14"]],
+
+	["spriteStartButton", ["start_button_normal", "start_button_pressed"]],
+	["spriteStartButtonText", ["start_button_text_en_normal", "start_button_text_en_pressed", "start_button_text_ru_normal", "start_button_text_ru_pressed"]],
+
+	["spriteStopButton", ["stop_button_normal", "stop_button_pressed"]],
+	["spriteStopButtonText", ["stop_button_text_en_normal", "stop_button_text_en_pressed", "stop_button_text_ru_normal", "stop_button_text_ru_pressed"]],
+
+	["spriteWidthStickBack", ["width_stick_back"]],
+	["spriteWidthStickButton", ["width_stick_button_normal", "width_stick_button_pressed"]],
+	["spriteWidthIcon", ["width_icon_normal", "width_icon_pressed"]],
+	["spriteStickIcon", ["stick_icon_normal", "stick_icon_pressed"]],
+	["spriteWidthStickButtonRed", ["width_stick_button_normal_red"]],
+	["spriteWidthIconRed", ["width_icon_normal_red"]],
+	["spriteStickIconRed", ["stick_icon_normal_red"]],
+
+	["spriteDiamBack", ["diam_back"]],
+	["spriteDiamButton", ["diam_button_normal", "diam_button_pressed"]],
+	["spriteDiamIcon", ["diam_icon_normal", "diam_icon_pressed"]],
+	["spriteDiamButtonRed", ["diam_button_normal_red"]],
+	["spriteDiamIconRed", ["diam_icon_normal_red"]],
+
+	["spriteOfsBack", ["ofs_back"]],
+	["spriteOfsButton", ["ofs_button_normal", "ofs_button_pressed"]],
+	["spriteOfsIcon", ["ofs_icon_normal", "ofs_icon_pressed"]],
+	["spriteOfsButtonRed", ["ofs_button_normal_red"]],
+	["spriteOfsIconRed", ["ofs_icon_normal_red"]],
+
+	["spriteUsersBack", ["users_back"]],
+	["spriteUsersLed", ["users_led"]],
+	["spriteUser1", ["user_1_normal", "user_1_pressed"]],
+	["spriteUser1Text", ["user_1_text_en"]],
+	["spriteUser2", ["user_2_normal", "user_2_pressed"]],
+	["spriteUser2Text", ["user_2_text_en"]],
+
+	["spriteLeftTopAngle", ["left_top_angle_empty", "left_top_angle_0", "left_top_angle_1", "left_top_angle_2", "left_top_angle_3", "left_top_angle_4", "left_top_angle_5", "left_top_angle_6", "left_top_angle_7"]],
+	["spriteLeftBottomAngle", ["left_bottom_angle_empty", "left_bottom_angle_0", "left_bottom_angle_1", "left_bottom_angle_2", "left_bottom_angle_3", "left_bottom_angle_4", "left_bottom_angle_5", "left_bottom_angle_6", "left_bottom_angle_7"]],
+	["spriteLeftGreenBack", ["left_green_back"]],
+	["spriteLeftTopArrow", ["left_top_arrow_off", "left_top_arrow_on"]],
+	["spriteLeftBottomArrow", ["left_bottom_arrow_off", "left_bottom_arrow_on"]],
+	["spriteLeftWeight", ["left_weight_normal", "left_weight_pressed"]],
+
+	["spriteRightTopAngle", ["right_top_angle_empty", "right_top_angle_0", "right_top_angle_1", "right_top_angle_2", "right_top_angle_3", "right_top_angle_4", "right_top_angle_5", "right_top_angle_6", "right_top_angle_7"]],
+	["spriteRightBottomAngle", ["right_bottom_angle_empty", "right_bottom_angle_0", "right_bottom_angle_1", "right_bottom_angle_2", "right_bottom_angle_3", "right_bottom_angle_4", "right_bottom_angle_5", "right_bottom_angle_6", "right_bottom_angle_7"]],
+	["spriteRightGreenBack", ["right_green_back"]],
+	["spriteRightTopArrow", ["right_top_arrow_off", "right_top_arrow_on"]],
+	["spriteRightBottomArrow", ["right_bottom_arrow_off", "right_bottom_arrow_on"]],
+	["spriteRightWeight", ["right_weight_normal", "right_weight_pressed"]],
+
+	["spriteRightBack2", ["right_back_2"]],
+	["spriteRightGreenBack2", ["right_green_back_2"]],
+	["spriteRightTopArrow2", ["right_top_arrow_2_off", "right_top_arrow_2_on"]],
+	["spriteRightBottomArrow2", ["right_bottom_arrow_2_off", "right_bottom_arrow_2_on"]],
+	["spriteRightWeight2", ["right_weight_2_normal", "right_weight_2_pressed"]],
+
+	["spriteAutoAluPopupBack", ["auto_alu_popup_back"]],
+	["spriteAutoAluPopupIcon", ["auto_alu_popup_icon"]],
+
+	["spriteErrorPopupBack", ["error_popup_back"]],
+	["spriteErrorPopupIcon", ["error_popup_icon"]],
+	["spriteErrorPopupText", ["error_popup_text"]],
+
+	["spriteUpdatePopupBack", ["update_popup_back"]],
+	["spriteUpdatePopupIcon", ["update_popup_icon"]]
+]

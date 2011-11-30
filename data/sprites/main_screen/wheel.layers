@@ -1,0 +1,32 @@
+sprites =
+[
+	["spriteWheelBack", ["wheel_back"]],
+
+	["spriteWheelArrowMeasure1", ["wheel_arrow_measure_1"]],
+	["spriteWheelArrowMeasure2", ["wheel_arrow_measure_2"]],
+	["spriteWheelArrowMeasure3", ["wheel_arrow_measure_3"]],
+
+	["spriteWheelArrowInstall1", ["wheel_arrow_install_forward_1", "wheel_arrow_install_backward_1"]],
+	["spriteWheelArrowInstall2", ["wheel_arrow_install_forward_2", "wheel_arrow_install_backward_2"]],
+	["spriteWheelArrowInstall3", ["wheel_arrow_install_forward_3", "wheel_arrow_install_backward_3"]],
+
+	["spriteWheelArrowForwardText1", ["wheel_arrow_forward_text_1"]],
+	["spriteWheelArrowForwardText2", ["wheel_arrow_forward_text_2"]],
+	["spriteWheelArrowForwardText3", ["wheel_arrow_forward_text_3"]],
+
+	["spriteWheelArrowBackwardText1", ["wheel_arrow_backward_text_1"]],
+	["spriteWheelArrowBackwardText2", ["wheel_arrow_backward_text_2"]],
+	["spriteWheelArrowBackwardText3", ["wheel_arrow_backward_text_3"]],
+
+	["spriteWheelTarget1", ["wheel_target_1"]],
+	["spriteWheelTarget2", ["wheel_target_2"]],
+	["spriteWheelTarget3", ["wheel_target_3"]],
+	["spriteWheelTarget4", ["wheel_target_4"]],
+	["spriteWheelTarget5", ["wheel_target_5"]],
+
+	["spriteWheelWeight1", ["wheel_weight_inactive_1", "wheel_weight_active_1", "wheel_weight_measure_1"]],
+	["spriteWheelWeight2", ["wheel_weight_inactive_2", "wheel_weight_active_2", "wheel_weight_measure_2"]],
+	["spriteWheelWeight3", ["wheel_weight_inactive_3", "wheel_weight_active_3", "wheel_weight_measure_3"]],
+	["spriteWheelWeight4", ["wheel_weight_inactive_4", "wheel_weight_active_4", "wheel_weight_measure_4"]],
+	["spriteWheelWeight5", ["wheel_weight_inactive_5", "wheel_weight_active_5", "wheel_weight_measure_5"]]
+]

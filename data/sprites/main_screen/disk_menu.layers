@@ -1,0 +1,32 @@
+sprites =
+[
+	["spriteDiskMenu", ["alu_menu", "steel_truck_abs_menu"]],
+	["spriteDiskSubmenu", ["alu_submenu"]],
+
+	["spriteAluMenuDie", ["alu_menu_die"]],
+	["spriteAluMenuText", ["alu_menu_text_en", "alu_menu_text_ru"]],
+	["spriteSteelMenuDie", ["steel_menu_die"]],
+	["spriteSteelMenuText", ["steel_menu_text_en", "steel_menu_text_ru"]],
+	["spriteTruckMenuDie", ["truck_menu_die"]],
+	["spriteTruckMenuText", ["truck_menu_text_en", "truck_menu_text_ru"]],
+	["spriteAbsMenuDie", ["abs_menu_die"]],
+	["spriteAbsMenuText", ["abs_menu_text_en", "abs_menu_text_ru"]],
+
+	["spriteSteelHighlight", ["steel_highlight"]],
+	["spriteTruckHighlight", ["truck_highlight"]],
+	["spriteAbsHighlight", ["abs_highlight"]],
+
+	["spriteAluDie", ["alu_die"]],
+	["spriteAluDie3", ["alu_die_3"]],
+	["spriteAluDie4", ["alu_die_4"]],
+	["spriteAluDie5", ["alu_die_5"]],
+	["spriteAluDie6", ["alu_die_6"]],
+	["spriteAluDie7", ["alu_die_7"]],
+	["spriteAluDie8", ["alu_die_8"]],
+	["spriteAluDie9", ["alu_die_9"]],
+	["spriteAluDie10", ["alu_die_10"]],
+	["spriteAluDie11", ["alu_die_11"]],
+	["spriteAluDie12", ["alu_die_12"]],
+	["spriteAluDie13", ["alu_die_13"]],
+	["spriteAluDie14", ["alu_die_14"]]
+]

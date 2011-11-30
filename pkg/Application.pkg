@@ -1,0 +1,32 @@
+$#include "Application.h"
+
+// Game application class
+class Application
+{
+	// Returns path to the data directory
+	std::string getDataDirectory() const;
+
+	// Returns the company name
+	std::string getCompanyName() const;
+
+	// Sets the company name
+	void setCompanyName(const std::string &name);
+
+	// Returns the application name
+	std::string getApplicationName() const;
+
+	// Sets the application name
+	void setApplicationName(const std::string &name);
+
+	// Returns the application version
+	std::string getApplicationVersion() const;
+
+	// Sets the application version
+	void setApplicationVersion(const std::string &version);
+
+	// Quits the application
+	void quit();
+
+	// Returns a reference to the global class instance
+	static Application &getSingleton();
+};

@@ -1,0 +1,60 @@
+$#include "Graphics.h"
+
+// Blending modes
+enum BlendMode
+{
+	BLEND_DISABLE,      // Blending is disabled
+	BLEND_ALPHA,        // Premultiplied alpha blending mode
+	BLEND_ADD,          // Additive blending mode
+	BLEND_SUBTRACT,     // Subtractive blending mode
+	BLEND_MULTIPLY      // Multiplicative blending mode
+};
+
+// Graphics engine
+class Graphics
+{
+	// Sets the virtual screen size
+	void setScreenSize(float width, float height, float minAspect = 0.0f, float maxAspect = 0.0f);
+
+	// Returns the visible rectangle on the virtual screen
+	void getVisibleRect(float *x1 = NULL, float *y1 = NULL, float *x2 = NULL, float *y2 = NULL) const;
+
+	// Shows the display window
+	void show();
+
+	// Hides the display window
+	void hide();
+
+	// Returns the current vertical synchronization flag
+	bool isVSync() const;
+
+	// Sets the vertical synchronization flag
+	void setVSync(bool vsync);
+
+	// Returns the current FPS
+	float getFPS() const;
+
+	// Returns the blending mode
+	BlendMode getBlendMode() const;
+
+	// Sets the blending mode
+	void setBlendMode(BlendMode blendMode);
+
+	// Sets the clip rectangle
+	void setClipRect(float x1, float y1, float x2, float y2);
+
+	// Resets the clip rectangle
+	void resetClipRect();
+
+	// Clears the screen
+	void clear(float r, float g, float b);
+
+	// Fills a rectangle with specified color
+	void fillRect(float x1, float y1, float x2, float y2, float r, float g, float b, float a);
+
+	// Fills a rectangle with gradient
+	void gradientFill(float x1, float y1, float x2, float y2, float r1, float g1, float b1, float a1, float r2, float g2, float b2, float a2);
+
+	// Returns a reference to the global class instance
+	static Graphics &getSingleton();
+};

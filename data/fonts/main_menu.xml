@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<font name="fontMainMenu">
+		<freetype file="LiberationSans-Bold.ttf" height="30"/>
+	</font>
+	<font name="fontMainMenuItemHeader">
+		<freetype file="LiberationSans-Bold.ttf" height="40"/>
+	</font>
+	<font name="fontMainMenuItemText">
+		<freetype file="LiberationSans-Bold.ttf" height="22"/>
+	</font>
+	<font name="fontMainMenuItemValue">
+		<freetype file="LiberationSans-Bold.ttf" height="50"/>
+	</font>
+	<font name="fontStatsHeader">
+		<freetype file="LiberationSans-Bold.ttf" height="35"/>
+	</font>
+	<font name="fontStatsMonth">
+		<freetype file="LiberationSans-Bold.ttf" height="40"/>
+	</font>
+	<font name="fontStatsMode">
+		<freetype file="LiberationSans-Bold.ttf" height="32"/>
+	</font>
+	<font name="fontStatsAxis">
+		<freetype file="LiberationSans-Bold.ttf" height="23"/>
+	</font>
+</resources>

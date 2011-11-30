@@ -1,0 +1,13 @@
+// Include all package files
+$pfile "Application.pkg"
+$pfile "Balance.pkg"
+$pfile "Database.pkg"
+$pfile "Font.pkg"
+$pfile "Graphics.pkg"
+$pfile "Keyboard.pkg"
+$pfile "Mouse.pkg"
+$pfile "Profile.pkg"
+$pfile "ResourceManager.pkg"
+$pfile "ResourceQueue.pkg"
+$pfile "Sound.pkg"
+$pfile "Sprite.pkg"

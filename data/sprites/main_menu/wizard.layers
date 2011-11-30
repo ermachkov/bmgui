@@ -1,0 +1,17 @@
+sprites =
+[
+	["spriteWizardBack", ["wizard_back"]],
+	["spriteWizardHeader", ["wizard_header"]],
+	["spriteWizardText", ["wizard_text"]],
+	["spriteWizardText2", ["wizard_text_2"]],
+	["spriteWizardIcon", ["wizard_icon"]],
+	["spriteWizardIconGlass", ["wizard_icon_glass"]],
+
+	["spriteWizardNextButton", ["wizard_next_button_normal", "wizard_next_button_pressed"]],
+	["spriteWizardNextButtonText", ["wizard_next_button_text_en_normal", "wizard_next_button_text_en_pressed", "wizard_next_button_text_ru_normal", "wizard_next_button_text_ru_pressed"]],
+
+	["spriteWizardCancelButton", ["wizard_cancel_button_normal", "wizard_cancel_button_pressed"]],
+	["spriteWizardCancelButtonText", ["wizard_cancel_button_text_en_normal", "wizard_cancel_button_text_en_pressed", "wizard_cancel_button_text_ru_normal", "wizard_cancel_button_text_ru_pressed"]],
+
+	["spriteWizardCloseButton", ["wizard_close_button_normal", "wizard_close_button_pressed"]]
+]

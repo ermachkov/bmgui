@@ -1,0 +1,163 @@
+#!/usr/bin/python
+
+import sys,  socket,  re,  os,  time
+import subprocess as sub
+
+#Get firmware version from file
+def GetVersionFromFile( filename ):
+    f = open(filename, "rb")
+    data = ""
+    try:
+        #Type
+        while(1):
+            byte = f.read(1)
+            if(byte=="\x3A"):
+                count = f.read(2)
+                count = int(count,16)
+                f.read(4)
+                type = f.read(2);
+                if (type == "00"):
+                    data = (data + f.read(count*2))
+                    f.read(2)
+                    continue
+                elif(type == "04"):
+                   f.read(3)
+                   continue
+                elif (type == "01"):
+                   f.read(1)
+                   break
+                elif (type == "02"):
+                   f.read(3)
+                   continue
+                elif (type == "05"):
+                   f.read(5)
+                   continue
+    finally:
+        f.close()
+
+    ver = [0, 0]
+    pos = data.find("C2EE20E2F1B8EC20E2E8EDEEE2E0F2FB20EFEEEFFB") + 42
+    ver[0] = data[pos] + data[pos+1]
+    ver[1] = data[pos+2] + data[pos+3]
+
+    ver[0] = int(ver[0])-30
+    ver[1] = int(ver[1])-30
+    
+    return ver;
+
+#Connect to MB
+def ConnectMB( ip ):
+    HOST = ip
+    PORT = 23
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    try:
+        s.connect((HOST, PORT))
+    except socket.error:
+        return 0
+    else:
+        s.send('\xff\xfd\x03\xff\xfb\x18\xff\xfb\x1f\xff\xfb\x20\xff\xfb\x21\xff\xfb\x22\xff\xfb\x27\xff\xfd\x05\xff\xfb\x23')
+        data = s.recv(1024)
+        s.send('\xff\xfb\x03')
+        data = s.recv(1024)
+        return s
+
+#Disconnect from MB
+def DisconnectMB( socket ):
+    socket.send('\xff\xf4\xff\xfd\x06')
+    socket.shutdown(2)
+    socket.close()
+
+#MAIN
+#Check args
+if( len(sys.argv) != 3 ):
+  print "usage: "+sys.argv[0]+" ip firmware"
+  exit(0)
+
+#Get args
+ip = sys.argv[1]
+fwfile = sys.argv[2]
+
+#Connecting to MB
+MB = ConnectMB(ip)
+if ( not MB ):
+    print "Can't connect to MB. Check network connection."
+    exit(1)
+print "Connection to MB established"
+
+#Get firmware version on MB
+MB.send('g ver\r\n')
+data = MB.recv(1024)
+link_re = re.compile('Version ([0-9])*\.([0-9]*)')
+buf = link_re.findall(data)
+
+hwver = [0, 0];
+hwver[0] = int(buf[0][0])
+hwver[1] = int(buf[0][1])
+
+#Backup original firmware
+print "Backing up original firmware..."
+
+curdir = os.getcwd()
+
+os.popen("mkdir /tmp/tmpbsfw  > /dev/null 2> /dev/null")
+os.popen("cd /tmp/tmpbsfw && wget http://"+ip+"/balance.ini > /dev/null 2> /dev/null")
+os.popen("cd /tmp/tmpbsfw && wget http://"+ip+"/balanca.hex > /dev/null 2> /dev/null")
+os.popen("cd /tmp/tmpbsfw && wget http://"+ip+"/firmware.a00 > /dev/null 2> /dev/null")
+os.popen("cd /tmp/tmpbsfw && wget http://"+ip+"/fware.hex > /dev/null 2> /dev/null")
+os.popen("cd /tmp/tmpbsfw && wget http://"+ip+"/sciload.a00 > /dev/null 2> /dev/null")
+os.popen("cd /tmp/tmpbsfw && tar -jcvf bsfw-"+str(hwver[0])+"."+str(hwver[1])+".backup.tbz * > /dev/null 2> /dev/null")
+os.popen("mv /tmp/tmpbsfw/bsfw-"+str(hwver[0])+"."+str(hwver[1])+".backup.tbz "+curdir+" && rm -rf /tmp/tmpbsfw")
+
+print "Backup saved into: "+curdir+"/bsfw-"+str(hwver[0])+"."+str(hwver[1])+".backup.tbz"
+
+#Cheking new firmware
+os.popen("mkdir /tmp/tmpbsfw  > /dev/null 2> /dev/null")
+os.popen("tar -jxvf "+fwfile+" -C /tmp/tmpbsfw/   > /dev/null 2> /dev/null")
+
+ver = GetVersionFromFile("/tmp/tmpbsfw/balanca.hex")
+
+if (hwver[0] == ver[0]):
+    print "HW Matches"
+    print "\nBalance firmware version: " + str(hwver[1])
+    print "File firmware version: " + str(ver[1])
+    print "continue? (Y/n)", 
+    ch = sys.stdin.read(1)
+    ch = ord(ch)
+    if( ch == 10 or ch == 121 or ch == 89):
+        print "Flashing..." 
+        os.popen("cd /tmp/tmpbsfw/ && cksum fware.hex > fware.crc")
+        os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=firmware.a00\" --post-file=firmware.a00 -O /dev/null > /dev/null 2> /dev/null")
+        print "firmware.a00 flashed"
+        os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=fware.hex\" --post-file=fware.hex -O /dev/null > /dev/null 2> /dev/null")
+        os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=fware.crc\" --post-file=fware.crc -O /dev/null > /dev/null 2> /dev/null")
+        print "fware.hex flashed"
+        os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=balanca.hex\" --post-file=balanca.hex -O /dev/null > /dev/null 2> /dev/null")
+        print "balanca.hex flashed"
+        os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=sciload.a00\" --post-file=sciload.a00 -O /dev/null > /dev/null 2> /dev/null")
+        print "sciload.a00 flashed"
+        os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=balance.ini\" --post-file=balance.ini -O /dev/null > /dev/null 2> /dev/null")
+        print "balance.ini flashed"
+        os.popen("rm -rf /tmp/tmpbsfw/ > /dev/null 2> /dev/null")
+        #Going in flash mode
+        MB.send('softpart\r\n')
+        data = MB.recv(1024)
+        DisconnectMB(MB)
+        print("Waiting for flash mode")
+        time.sleep(5)
+        MB = ConnectMB(ip)
+        MB.send('writehware\r\n')
+        data = MB.recv(1024)
+        print "done"
+        print "MB Disconnected"
+        print "\nReboot Balance please"
+    else:
+        print "Aborting..."
+        exit(1)
+else:
+   print "HW mismatch. Wrong firmware"
+   exit(1)
+
+os.popen("rm -rf /tmp/tmpbsfw");
+
+exit(0)
+

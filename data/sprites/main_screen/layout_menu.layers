@@ -1,0 +1,23 @@
+sprites =
+[
+	["spriteLayoutMenu", ["dyn_menu", "stat_menu"]],
+	["spriteLayoutSubmenu", ["dyn_submenu", "stat_submenu"]],
+
+	["spriteDynMenuDie", ["dyn_menu_die"]],
+	["spriteDynMenuText", ["dyn_menu_text_en", "dyn_menu_text_ru"]],
+	["spriteStatMenuDie", ["stat_menu_die"]],
+	["spriteStatMenuText", ["stat_menu_text_en", "stat_menu_text_ru"]],
+
+	["spriteDynDie15", ["dyn_die_15"]],
+	["spriteDynDie25", ["dyn_die_25"]],
+	["spriteDynDie14", ["dyn_die_14"]],
+	["spriteDynDie13", ["dyn_die_13"]],
+	["spriteDynDie23", ["dyn_die_23"]],
+	["spriteDynDie24", ["dyn_die_24"]],
+
+	["spriteStatDie1", ["stat_die_1"]],
+	["spriteStatDie2", ["stat_die_2"]],
+	["spriteStatDie3", ["stat_die_3"]],
+	["spriteStatDie4", ["stat_die_4"]],
+	["spriteStatDie5", ["stat_die_5"]]
+]

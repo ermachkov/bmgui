@@ -1,0 +1,15 @@
+sprites =
+[
+	["spriteMessageBack", ["message_back"]],
+
+	["spriteMessageText", ["message_text"]],
+
+	["spriteMessageYesButton", ["message_yes_button_normal", "message_yes_button_pressed"]],
+	["spriteMessageYesButtonText", ["message_yes_button_text_en_normal", "message_yes_button_text_en_pressed", "message_yes_button_text_ru_normal", "message_yes_button_text_ru_pressed"]],
+	["spriteMessageNoButton", ["message_no_button_normal", "message_no_button_pressed"]],
+	["spriteMessageNoButtonText", ["message_no_button_text_en_normal", "message_no_button_text_en_pressed", "message_no_button_text_ru_normal", "message_no_button_text_ru_pressed"]],
+	["spriteMessageOkButton", ["message_ok_button_normal", "message_ok_button_pressed"]],
+	["spriteMessageOkButtonText", ["message_ok_button_text_en_normal", "message_ok_button_text_en_pressed", "message_ok_button_text_ru_normal", "message_ok_button_text_ru_pressed"]],
+
+	["spriteMessageIcon", ["message_warning_icon", "message_error_icon", "message_no_touchscreen_icon"]]
+]

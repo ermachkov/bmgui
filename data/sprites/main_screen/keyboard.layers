@@ -1,0 +1,43 @@
+sprites =
+[
+	["spriteKeyboardBack", ["keyboard_back"]],
+
+	["spriteKey0", ["key_0_normal", "key_0_pressed"]],
+	["spriteKey0Text", ["key_0_text_en_normal", "key_0_text_en_pressed"]],
+	["spriteKey1", ["key_1_normal", "key_1_pressed"]],
+	["spriteKey1Text", ["key_1_text_en_normal", "key_1_text_en_pressed"]],
+	["spriteKey2", ["key_2_normal", "key_2_pressed"]],
+	["spriteKey2Text", ["key_2_text_en_normal", "key_2_text_en_pressed"]],
+	["spriteKey3", ["key_3_normal", "key_3_pressed"]],
+	["spriteKey3Text", ["key_3_text_en_normal", "key_3_text_en_pressed"]],
+	["spriteKey4", ["key_4_normal", "key_4_pressed"]],
+	["spriteKey4Text", ["key_4_text_en_normal", "key_4_text_en_pressed"]],
+	["spriteKey5", ["key_5_normal", "key_5_pressed"]],
+	["spriteKey5Text", ["key_5_text_en_normal", "key_5_text_en_pressed"]],
+	["spriteKey6", ["key_6_normal", "key_6_pressed"]],
+	["spriteKey6Text", ["key_6_text_en_normal", "key_6_text_en_pressed"]],
+	["spriteKey7", ["key_7_normal", "key_7_pressed"]],
+	["spriteKey7Text", ["key_7_text_en_normal", "key_7_text_en_pressed"]],
+	["spriteKey8", ["key_8_normal", "key_8_pressed"]],
+	["spriteKey8Text", ["key_8_text_en_normal", "key_8_text_en_pressed"]],
+	["spriteKey9", ["key_9_normal", "key_9_pressed"]],
+	["spriteKey9Text", ["key_9_text_en_normal", "key_9_text_en_pressed"]],
+	["spriteKeyPoint", ["key_point_normal", "key_point_pressed"]],
+	["spriteKeyPointText", ["key_point_text_en_normal", "key_point_text_en_pressed"]],
+	["spriteKeyEnter", ["key_enter_normal", "key_enter_pressed"]],
+	["spriteKeyEnterText", ["key_enter_text_en_normal", "key_enter_text_en_pressed"]],
+	["spriteKeyBackspace", ["key_backspace_normal", "key_backspace_pressed"]],
+	["spriteKeyBackspaceText", ["key_backspace_text_en_normal", "key_backspace_text_en_pressed"]],
+	["spriteKeyClear", ["key_clear_normal", "key_clear_pressed"]],
+	["spriteKeyClearText", ["key_clear_text_en_normal", "key_clear_text_en_pressed"]],
+
+	["spriteKeyboardDisplay", ["keyboard_display"]],
+	["spriteKeyboardDisplayPassword", ["keyboard_display_password"]],
+	["spriteKeyboardDisplayBack", ["keyboard_display_back"]],
+	["spriteKeyboardDisplayText", ["keyboard_display_text"]],
+
+	["spriteLeftFasteners", ["left_fasteners"]],
+	["spriteTopFasteners", ["top_fasteners"]],
+	["spriteRightFasteners", ["right_fasteners"]],
+	["spriteBottomFasteners", ["bottom_fasteners"]]
+]
