@@ -101,14 +101,14 @@ curdir = os.getcwd()
 
 os.popen("mkdir /tmp/tmpbsfw  > /dev/null 2> /dev/null")
 os.popen("cd /tmp/tmpbsfw && wget http://"+ip+"/balance.ini > /dev/null 2> /dev/null")
-os.popen("cd /tmp/tmpbsfw && wget http://"+ip+"/balanca.hex > /dev/null 2> /dev/null")
 os.popen("cd /tmp/tmpbsfw && wget http://"+ip+"/firmware.a00 > /dev/null 2> /dev/null")
 os.popen("cd /tmp/tmpbsfw && wget http://"+ip+"/fware.hex > /dev/null 2> /dev/null")
 os.popen("cd /tmp/tmpbsfw && wget http://"+ip+"/sciload.a00 > /dev/null 2> /dev/null")
 os.popen("cd /tmp/tmpbsfw && tar -jcvf bsfw-"+str(hwver[0])+"."+str(hwver[1])+".backup.tbz * > /dev/null 2> /dev/null")
-os.popen("mv /tmp/tmpbsfw/bsfw-"+str(hwver[0])+"."+str(hwver[1])+".backup.tbz "+curdir+" && rm -rf /tmp/tmpbsfw")
+os.popen("mkdir -p /usr/share/bmgui/fw > /dev/null 2> /dev/null")
+os.popen("mv /tmp/tmpbsfw/bsfw-"+str(hwver[0])+"."+str(hwver[1])+".backup.tbz /usr/share/bmgui/fw/ && rm -rf /tmp/tmpbsfw")
 
-print "Backup saved into: "+curdir+"/bsfw-"+str(hwver[0])+"."+str(hwver[1])+".backup.tbz"
+print "Backup saved into: /usr/share/bmgui/fw/bsfw-"+str(hwver[0])+"."+str(hwver[1])+".backup.tbz"
 
 #Cheking new firmware
 os.popen("mkdir /tmp/tmpbsfw  > /dev/null 2> /dev/null")
@@ -124,19 +124,31 @@ if (hwver[0] == ver[0]):
     ch = sys.stdin.read(1)
     ch = ord(ch)
     if( ch == 10 or ch == 121 or ch == 89):
-        print "Flashing..." 
-        os.popen("cd /tmp/tmpbsfw/ && cksum fware.hex > fware.crc")
-        os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=firmware.a00\" --post-file=firmware.a00 -O /dev/null > /dev/null 2> /dev/null")
-        print "firmware.a00 flashed"
-        os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=fware.hex\" --post-file=fware.hex -O /dev/null > /dev/null 2> /dev/null")
-        os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=fware.crc\" --post-file=fware.crc -O /dev/null > /dev/null 2> /dev/null")
-        print "fware.hex flashed"
-        os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=balanca.hex\" --post-file=balanca.hex -O /dev/null > /dev/null 2> /dev/null")
-        print "balanca.hex flashed"
-        os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=sciload.a00\" --post-file=sciload.a00 -O /dev/null > /dev/null 2> /dev/null")
-        print "sciload.a00 flashed"
-        os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=balance.ini\" --post-file=balance.ini -O /dev/null > /dev/null 2> /dev/null")
-        print "balance.ini flashed"
+        print "Flashing..."
+        proc = sub.Popen(["ls", "-1", "/tmp/tmpbsfw/"], stdout=sub.PIPE)
+        files = proc.communicate()
+        link_re = re.compile('^(fware\.hex)')
+        buf = link_re.findall(files[0]) 
+        if ( buf ) :
+          os.popen("cd /tmp/tmpbsfw/ && cksum fware.hex > fware.crc")
+          os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=fware.hex\" --post-file=fware.hex -O /dev/null > /dev/null 2> /dev/null")
+          os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=fware.crc\" --post-file=fware.crc -O /dev/null > /dev/null 2> /dev/null")
+          print "fware.hex flashed"
+        link_re = re.compile('^(firmware\.a00)')
+        buf = link_re.findall(files[0])
+        if ( buf ) : 
+          os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=firmware.a00\" --post-file=firmware.a00 -O /dev/null > /dev/null 2> /dev/null")
+          print "firmware.a00 flashed"
+        link_re = re.compile('^(sciload\.a00)')
+        buf = link_re.findall(files[0])  
+        if ( buf ) :
+          os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=sciload.a00\" --post-file=sciload.a00 -O /dev/null > /dev/null 2> /dev/null")
+          print "sciload.a00 flashed"
+        ink_re = re.compile('^(balance\.ini)')
+        buf = link_re.findall(files[0])
+        if ( buf ) :
+          os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=balance.ini\" --post-file=balance.ini -O /dev/null > /dev/null 2> /dev/null")
+          print "balance.ini flashed"
         os.popen("rm -rf /tmp/tmpbsfw/ > /dev/null 2> /dev/null")
         #Going in flash mode
         MB.send('softpart\r\n')
