@@ -121,50 +121,44 @@ if (hwver[0] == ver[0]):
     print "\nBalance firmware version: " + str(hwver[1])
     print "File firmware version: " + str(ver[1])
     print "continue? (Y/n)", 
-    ch = sys.stdin.read(1)
-    ch = ord(ch)
-    if( ch == 10 or ch == 121 or ch == 89):
-        print "Flashing..."
-        proc = sub.Popen(["ls", "-1", "/tmp/tmpbsfw/"], stdout=sub.PIPE)
-        files = proc.communicate()
-        link_re = re.compile('^(fware\.hex)')
-        buf = link_re.findall(files[0]) 
-        if ( buf ) :
-          os.popen("cd /tmp/tmpbsfw/ && cksum fware.hex > fware.crc")
-          os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=fware.hex\" --post-file=fware.hex -O /dev/null > /dev/null 2> /dev/null")
-          os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=fware.crc\" --post-file=fware.crc -O /dev/null > /dev/null 2> /dev/null")
-          print "fware.hex flashed"
-        link_re = re.compile('^(firmware\.a00)')
-        buf = link_re.findall(files[0])
-        if ( buf ) : 
-          os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=firmware.a00\" --post-file=firmware.a00 -O /dev/null > /dev/null 2> /dev/null")
-          print "firmware.a00 flashed"
-        link_re = re.compile('^(sciload\.a00)')
-        buf = link_re.findall(files[0])  
-        if ( buf ) :
-          os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=sciload.a00\" --post-file=sciload.a00 -O /dev/null > /dev/null 2> /dev/null")
-          print "sciload.a00 flashed"
-        ink_re = re.compile('^(balance\.ini)')
-        buf = link_re.findall(files[0])
-        if ( buf ) :
-          os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=balance.ini\" --post-file=balance.ini -O /dev/null > /dev/null 2> /dev/null")
-          print "balance.ini flashed"
-        os.popen("rm -rf /tmp/tmpbsfw/ > /dev/null 2> /dev/null")
-        #Going in flash mode
-        MB.send('softpart\r\n')
-        data = MB.recv(1024)
-        DisconnectMB(MB)
-        print("Waiting for flash mode")
-        time.sleep(5)
-        MB = ConnectMB(ip)
-        MB.send('writehware\r\n')
-        data = MB.recv(1024)
-        print "done"
-        print "MB Disconnected"
-        print "\nReboot Balance please"
-    else:
-        print "Aborting..."
-        exit(1)
+    print "Flashing..."
+    proc = sub.Popen(["ls", "-1", "/tmp/tmpbsfw/"], stdout=sub.PIPE)
+    files = proc.communicate()
+    link_re = re.compile('^(fware\.hex)')
+    buf = link_re.findall(files[0]) 
+    if ( buf ) :
+        os.popen("cd /tmp/tmpbsfw/ && cksum fware.hex > fware.crc")
+        os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=fware.hex\" --post-file=fware.hex -O /dev/null > /dev/null 2> /dev/null")
+        os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=fware.crc\" --post-file=fware.crc -O /dev/null > /dev/null 2> /dev/null")
+        print "fware.hex flashed"
+    link_re = re.compile('^(firmware\.a00)')
+    buf = link_re.findall(files[0])
+    if ( buf ) : 
+        os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=firmware.a00\" --post-file=firmware.a00 -O /dev/null > /dev/null 2> /dev/null")
+        print "firmware.a00 flashed"
+    link_re = re.compile('^(sciload\.a00)')
+    buf = link_re.findall(files[0])  
+    if ( buf ) :
+        os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=sciload.a00\" --post-file=sciload.a00 -O /dev/null > /dev/null 2> /dev/null")
+        print "sciload.a00 flashed"
+    ink_re = re.compile('^(balance\.ini)')
+    buf = link_re.findall(files[0])
+    if ( buf ) :
+        os.popen("cd /tmp/tmpbsfw/ && wget "+ip+" --header=\"666:filename=balance.ini\" --post-file=balance.ini -O /dev/null > /dev/null 2> /dev/null")
+        print "balance.ini flashed"
+    os.popen("rm -rf /tmp/tmpbsfw/ > /dev/null 2> /dev/null")
+    #Going in flash mode
+    MB.send('softpart\r\n')
+    data = MB.recv(1024)
+    DisconnectMB(MB)
+    print("Waiting for flash mode")
+    time.sleep(5)
+    MB = ConnectMB(ip)
+    MB.send('writehware\r\n')
+    data = MB.recv(1024)
+    print "done"
+    print "MB Disconnected"
+    print "\nReboot Balance please"
 else:
    print "HW mismatch. Wrong firmware"
    exit(1)
