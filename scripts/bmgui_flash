@@ -114,7 +114,7 @@ print "Backup saved into: /usr/share/bmgui/fw/bsfw-"+str(hwver[0])+"."+str(hwver
 os.popen("mkdir /tmp/tmpbsfw  > /dev/null 2> /dev/null")
 os.popen("tar -jxvf "+fwfile+" -C /tmp/tmpbsfw/   > /dev/null 2> /dev/null")
 
-ver = GetVersionFromFile("/tmp/tmpbsfw/balanca.hex")
+ver = GetVersionFromFile("/tmp/tmpbsfw/fware.hex")
 
 if (hwver[0] == ver[0]):
     print "HW Matches"
