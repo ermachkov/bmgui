@@ -1,4 +1,2 @@
-cd ~/Balance_GUI
-git pull
 make
 sudo make install
