@@ -1,10 +1,14 @@
 #!/bin/bash
 
-amixer sset Master 100
-
 export MOUSE="1"
 
 lsusb -v > /tmp/lsusb 2> /dev/null
+
+if [ `grep -i Tenx -c /tmp/lsusb` -eq 0 ]; then
+  amixer sset Master 100%
+else
+  amixer sset PCM 100%
+fi
 
 if [ `grep -i mouse -c /tmp/lsusb` -eq 0 ]; then
   export MOUSE="0"
@@ -51,3 +55,10 @@ sync
 
 bmgui
 
+RET=$?
+
+if [ $RET -eq 13 ]; then
+  roxterm -e bmgui_update&
+  wait $!
+  bmgui
+fi

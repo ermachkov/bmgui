@@ -43,6 +43,7 @@ install:
 	install $(BIN) $(PREFIX)/bin
 	mkdir -p $(PREFIX)/share/bmgui
 	cp -rf data/* $(PREFIX)/share/bmgui
+	install files/bmgui_update $(PREFIX)/bin
 	cp -f files/bmgui.png $(PREFIX)/share/pixmaps
 	cp -f files/bmgui.desktop /home/bm/Desktop
 	cp -f files/bminfo /etc
@@ -52,6 +53,7 @@ install:
 
 uninstall:
 	rm -f $(PREFIX)/bin/$(BIN)
+	rm -f $(PREFIX)/bin/bmgui_update
 	rm -rf $(PREFIX)/share/bmgui
 	rm -f $(PREFIX)/share/pixmaps/bmgui.png
 	rm -f /home/bm/Desktop/bmgui.desktop
