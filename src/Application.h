@@ -59,9 +59,6 @@ public:
 	// Quits the application
 	void quit();
 
-	// Executes the system command asynchronously
-	static void execute(const std::string &command);
-
 private:
 
 	CL_SetupCore                    mSetupCore;

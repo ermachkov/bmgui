@@ -148,13 +148,3 @@ void Application::quit()
 {
 	mQuit = true;
 }
-
-void Application::execute(const std::string &command)
-{
-#ifdef WIN32
-	system(command.c_str());
-#else
-	if (fork() == 0)
-		execl(command.c_str(), command.c_str(), NULL);
-#endif
-}

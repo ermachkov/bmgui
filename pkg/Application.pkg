@@ -27,9 +27,6 @@ class Application
 	// Quits the application
 	void quit();
 
-	// Executes the system command asynchronously
-	static void execute(const std::string &command);
-
 	// Returns a reference to the global class instance
 	static Application &getSingleton();
 };
