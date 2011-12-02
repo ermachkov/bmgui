@@ -41,6 +41,7 @@ $(BIN) : $(PCH) $(OBJ)
 
 install:
 	install $(BIN) $(PREFIX)/bin
+	install bmgui_start $(PREFIX)/bin
 	mkdir -p $(PREFIX)/share/bmgui
 	cp -rf data/* $(PREFIX)/share/bmgui
 	install files/bmgui_update $(PREFIX)/bin
@@ -54,6 +55,7 @@ install:
 uninstall:
 	rm -f $(PREFIX)/bin/$(BIN)
 	rm -f $(PREFIX)/bin/bmgui_update
+	rm -f $(PREFIX)/bin/bmgui_start
 	rm -rf $(PREFIX)/share/bmgui
 	rm -f $(PREFIX)/share/pixmaps/bmgui.png
 	rm -f /home/bm/Desktop/bmgui.desktop
