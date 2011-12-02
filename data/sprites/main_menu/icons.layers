@@ -79,6 +79,7 @@ sprites =
 	["spriteRemoteControlDisabledIcon", ["remote_control_disabled_icon"]],
 
 	["spriteSoftwareUpdateIcon", ["software_update_icon"]],
+	["spriteSaveSettingsIcon", ["save_settings_icon"]],
 	["spriteFactorySettingsIcon", ["factory_settings_icon"]],
 	["spriteQuitIcon", ["quit_icon"]]
 ]

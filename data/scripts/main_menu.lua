@@ -403,7 +403,7 @@ local function initMenus()
 				header = tr("{ruler_cal_header}"),
 				text = tr("{ruler_cal_text}"),
 				password = true,
-				
+
 				{
 					icon = spriteRulerCal0Icon,
 					header = tr("{rruler_cal_0_header}"),
@@ -780,7 +780,14 @@ local function initMenus()
 				header = tr("{software_update_header}"),
 				text = tr("{software_update_text}"),
 				password = true,
-				onClick = function() hideMainMenu(); graphics:hide(); os.execute(profile:getString("update_command")); graphics:show() end
+				onClick = function() os.exit(13) end
+			},
+			{
+				icon = spriteSaveSettingsIcon,
+				header = tr("{save_settings_header}"),
+				text = tr("{save_settings_text}"),
+				password = true,
+				onClick = function() balance:setParam("saveref"); hideMainMenu() end
 			},
 			{
 				icon = spriteFactorySettingsIcon,

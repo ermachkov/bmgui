@@ -2,12 +2,17 @@
 <resources>
 	<sprite name="spriteQuitIcon">
 		<image file="texture8.png">
-			<grid pos="296,0" size="147,147"/>
+			<grid pos="444,0" size="147,147"/>
 		</image>
 	</sprite>
 	<sprite name="spriteFactorySettingsIcon">
 		<image file="texture8.png">
-			<grid pos="444,0" size="146,146"/>
+			<grid pos="592,0" size="146,146"/>
+		</image>
+	</sprite>
+	<sprite name="spriteSaveSettingsIcon">
+		<image file="texture8.png">
+			<grid pos="296,0" size="147,147"/>
 		</image>
 	</sprite>
 	<sprite name="spriteSoftwareUpdateIcon">
@@ -468,10 +473,10 @@
 	</sprite>
 	<sprite name="spriteMainMenuCloseButton">
 		<image file="texture9.png">
-			<grid pos="0,673" size="90,90"/>
+			<grid pos="0,776" size="90,90"/>
 		</image>
 		<image file="texture9.png">
-			<grid pos="0,582" size="90,90"/>
+			<grid pos="0,685" size="90,90"/>
 		</image>
 		<frame nr="0" x="0" y="0"/>
 		<frame nr="1" x="0" y="0"/>
@@ -563,15 +568,15 @@
 	</sprite>
 	<sprite name="spriteOscCloseButtonBack">
 		<image file="texture8.png">
-			<grid pos="591,0" size="144,144"/>
+			<grid pos="739,0" size="144,144"/>
 		</image>
 	</sprite>
 	<sprite name="spriteOscCloseButton">
 		<image file="texture9.png">
-			<grid pos="0,491" size="90,90"/>
+			<grid pos="0,594" size="90,90"/>
 		</image>
 		<image file="texture9.png">
-			<grid pos="0,400" size="90,90"/>
+			<grid pos="0,503" size="90,90"/>
 		</image>
 		<frame nr="0" x="0" y="0"/>
 		<frame nr="1" x="0" y="0"/>
@@ -864,7 +869,7 @@
 	</sprite>
 	<sprite name="spriteStatsCloseButton">
 		<image file="texture8.png">
-			<grid pos="736,0" size="109,109"/>
+			<grid pos="884,0" size="109,109"/>
 		</image>
 		<image file="texture5.png">
 			<grid pos="911,891" size="109,109"/>
@@ -874,20 +879,20 @@
 	</sprite>
 	<sprite name="spriteStatsNextButton">
 		<image file="texture9.png">
-			<grid pos="0,206" size="106,102"/>
+			<grid pos="0,309" size="106,102"/>
 		</image>
 		<image file="texture9.png">
-			<grid pos="0,103" size="106,102"/>
+			<grid pos="0,206" size="106,102"/>
 		</image>
 		<frame nr="0" x="0" y="0"/>
 		<frame nr="1" x="0" y="0"/>
 	</sprite>
 	<sprite name="spriteStatsPrevButton">
 		<image file="texture9.png">
-			<grid pos="0,0" size="107,102"/>
+			<grid pos="0,103" size="107,102"/>
 		</image>
-		<image file="texture8.png">
-			<grid pos="846,0" size="107,102"/>
+		<image file="texture9.png">
+			<grid pos="0,0" size="107,102"/>
 		</image>
 		<frame nr="0" x="0" y="0"/>
 		<frame nr="1" x="0" y="0"/>
@@ -984,7 +989,7 @@
 	</sprite>
 	<sprite name="spriteWizardCloseButton">
 		<image file="texture9.png">
-			<grid pos="0,309" size="90,90"/>
+			<grid pos="0,412" size="90,90"/>
 		</image>
 		<image file="texture4.png">
 			<grid pos="884,926" size="90,90"/>

@@ -9,6 +9,9 @@
 #include "Profile.h"
 #include "ResourceManager.h"
 #include "ResourceQueue.h"
+#ifndef WIN32
+#include <unistd.h>
+#endif
 
 template<> Application *Singleton<Application>::mSingleton = NULL;
 

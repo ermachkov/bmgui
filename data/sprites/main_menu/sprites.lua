@@ -1,6 +1,7 @@
 function main_menu_createSprites()
 	spriteQuitIcon = Sprite("spriteQuitIcon", 0, 0)
 	spriteFactorySettingsIcon = Sprite("spriteFactorySettingsIcon", 0, 0)
+	spriteSaveSettingsIcon = Sprite("spriteSaveSettingsIcon", 0, 0)
 	spriteSoftwareUpdateIcon = Sprite("spriteSoftwareUpdateIcon", 0, 0)
 	spriteRemoteControlEnabledIcon = Sprite("spriteRemoteControlEnabledIcon", 0, 0)
 	spriteRemoteControlDisabledIcon = Sprite("spriteRemoteControlDisabledIcon", 0, 0)
@@ -163,6 +164,7 @@ end
 function main_menu_deleteSprites()
 	spriteQuitIcon = nil
 	spriteFactorySettingsIcon = nil
+	spriteSaveSettingsIcon = nil
 	spriteSoftwareUpdateIcon = nil
 	spriteRemoteControlEnabledIcon = nil
 	spriteRemoteControlDisabledIcon = nil
