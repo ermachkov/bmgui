@@ -9,6 +9,9 @@
 #include "Profile.h"
 #include "ResourceManager.h"
 #include "ResourceQueue.h"
+#ifndef WIN32
+#include <unistd.h>
+#endif
 
 template<> Application *Singleton<Application>::mSingleton = NULL;
 
@@ -144,4 +147,14 @@ void Application::run()
 void Application::quit()
 {
 	mQuit = true;
+}
+
+void Application::execute(const std::string &command)
+{
+#ifdef WIN32
+	system(command.c_str());
+#else
+	if (fork() == 0)
+		execl(command.c_str(), command.c_str(), NULL);
+#endif
 }

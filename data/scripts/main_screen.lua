@@ -58,7 +58,7 @@ local function askForUpdatePassword()
 	local top = SCREEN_HEIGHT - (spriteBottomFasteners.y + spriteBottomFasteners:getHeight())
 	showKeyboard(left, top, left, SCREEN_HEIGHT, "passwd", TYPE_PASSWORD, spriteBottomFasteners, nil,
 		function(value) if checkPassword(value) then local str = profile:getString("available_update_version"); profile:setString("ignored_update_version", str); profile:save();
-		graphics:hide(); os.execute(profile:getString("update_command")); graphics:show() end end)
+		str = profile:getString("update_command"); Application:execute(str); application:quit() end end)
 end
 
 function showAutoAluWeights()

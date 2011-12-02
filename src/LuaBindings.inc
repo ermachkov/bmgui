@@ -1,6 +1,6 @@
 /*
 ** Lua binding: LuaBindings
-** Generated automatically by tolua++-1.0.92 on 11/29/11 15:16:58.
+** Generated automatically by tolua++-1.0.92 on 12/02/11 13:13:19.
 */
 
 #ifndef __cplusplus
@@ -332,6 +332,36 @@ static int tolua_LuaBindings_Application_quit00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'quit'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: execute of class  Application */
+#ifndef TOLUA_DISABLE_tolua_LuaBindings_Application_execute00
+static int tolua_LuaBindings_Application_execute00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"Application",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const std::string command = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  {
+   Application::execute(command);
+   tolua_pushcppstring(tolua_S,(const char*)command);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'execute'.",&tolua_err);
  return 0;
 #endif
 }
@@ -1222,68 +1252,6 @@ static int tolua_LuaBindings_Graphics_getVisibleRect00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'getVisibleRect'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: show of class  Graphics */
-#ifndef TOLUA_DISABLE_tolua_LuaBindings_Graphics_show00
-static int tolua_LuaBindings_Graphics_show00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"Graphics",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  Graphics* self = (Graphics*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'show'", NULL);
-#endif
-  {
-   self->show();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'show'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: hide of class  Graphics */
-#ifndef TOLUA_DISABLE_tolua_LuaBindings_Graphics_hide00
-static int tolua_LuaBindings_Graphics_hide00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"Graphics",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  Graphics* self = (Graphics*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'hide'", NULL);
-#endif
-  {
-   self->hide();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'hide'.",&tolua_err);
  return 0;
 #endif
 }
@@ -3587,6 +3555,7 @@ TOLUA_API int tolua_LuaBindings_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getApplicationVersion",tolua_LuaBindings_Application_getApplicationVersion00);
    tolua_function(tolua_S,"setApplicationVersion",tolua_LuaBindings_Application_setApplicationVersion00);
    tolua_function(tolua_S,"quit",tolua_LuaBindings_Application_quit00);
+   tolua_function(tolua_S,"execute",tolua_LuaBindings_Application_execute00);
    tolua_function(tolua_S,"getSingleton",tolua_LuaBindings_Application_getSingleton00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"Balance","Balance","",NULL);
@@ -3635,8 +3604,6 @@ TOLUA_API int tolua_LuaBindings_open (lua_State* tolua_S)
   tolua_beginmodule(tolua_S,"Graphics");
    tolua_function(tolua_S,"setScreenSize",tolua_LuaBindings_Graphics_setScreenSize00);
    tolua_function(tolua_S,"getVisibleRect",tolua_LuaBindings_Graphics_getVisibleRect00);
-   tolua_function(tolua_S,"show",tolua_LuaBindings_Graphics_show00);
-   tolua_function(tolua_S,"hide",tolua_LuaBindings_Graphics_hide00);
    tolua_function(tolua_S,"isVSync",tolua_LuaBindings_Graphics_isVSync00);
    tolua_function(tolua_S,"setVSync",tolua_LuaBindings_Graphics_setVSync00);
    tolua_function(tolua_S,"getFPS",tolua_LuaBindings_Graphics_getFPS00);

@@ -780,7 +780,7 @@ local function initMenus()
 				header = tr("{software_update_header}"),
 				text = tr("{software_update_text}"),
 				password = true,
-				onClick = function() hideMainMenu(); graphics:hide(); os.execute(profile:getString("update_command")); graphics:show() end
+				onClick = function() local str = profile:getString("update_command"); Application:execute(str); application:quit() end
 			},
 			{
 				icon = spriteSaveSettingsIcon,
