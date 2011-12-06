@@ -367,11 +367,13 @@ function onMainScreenUpdate(delta)
 				spriteWheelTarget3:draw()
 				fontWheel:drawText(spriteWheelArrowForwardText3.x, spriteWheelArrowForwardText3.y, balance:getIntParam("rofs"), 0.0, 0.0, 0.0)
 			end
+			autoAluTime = AUTO_ALU_TIME
 		elseif balanceSubstate == RULER_MEASURE_L then
 			spriteWheelArrowMeasure3.frame = 0
 			spriteWheelArrowMeasure3:draw()
 			spriteWheelTarget3:draw()
 			fontWheel:drawText(spriteWheelArrowForwardText3.x, spriteWheelArrowForwardText3.y, balance:getIntParam("rstick"), 0.0, 0.0, 0.0)
+			autoAluTime = AUTO_ALU_TIME
 		elseif balanceSubstate == RULER_SHOW_L1 then
 			local dist = balance:getIntParam("weightdist")
 			local frame = (math.abs(currAngle - angle1) <= angleEpsilon and dist == 0) and 1 or 0
@@ -421,18 +423,32 @@ function onMainScreenUpdate(delta)
 	end
 
 	-- show auto alu weights
-	if autoAluTime > 0 --[[and (balanceSubstate == RULER_MEASURE or balanceSubstate == RULER_DONTSHOW or balanceSubstate == RULER_MEASURE_L)]] then
-		if layout == LAYOUT_1_3 then
+	if autoAluTime ~= 0 then
+		local alpha = autoAluTime / AUTO_ALU_TIME
+		if (mode ~= MODE_STAT and (layout == LAYOUT_1_3 or layout == LAYOUT_1_4 or layout == LAYOUT_1_5)) or (mode == MODE_STAT and layout == LAYOUT_1) then
+			spriteWheelWeight1.alpha = alpha
 			spriteWheelWeight1.frame = 2
 			spriteWheelWeight1:draw()
-		elseif layout == LAYOUT_2_3 then
+		end
+		if (mode ~= MODE_STAT and (layout == LAYOUT_2_3 or layout == LAYOUT_2_4 or layout == LAYOUT_2_5)) or (mode == MODE_STAT and layout == LAYOUT_2) then
+			spriteWheelWeight2.alpha = alpha
 			spriteWheelWeight2.frame = 2
 			spriteWheelWeight2:draw()
 		end
-
-		if layout == LAYOUT_1_3 or layout == LAYOUT_2_3 then
+		if (mode ~= MODE_STAT and (layout == LAYOUT_1_3 or layout == LAYOUT_2_3)) or (mode == MODE_STAT and layout == LAYOUT_3) then
+			spriteWheelWeight3.alpha = alpha
 			spriteWheelWeight3.frame = 2
 			spriteWheelWeight3:draw()
+		end
+		if (mode ~= MODE_STAT and (layout == LAYOUT_1_4 or layout == LAYOUT_2_4)) or (mode == MODE_STAT and layout == LAYOUT_4) then
+			spriteWheelWeight4.alpha = alpha
+			spriteWheelWeight4.frame = 2
+			spriteWheelWeight4:draw()
+		end
+		if (mode ~= MODE_STAT and (layout == LAYOUT_1_5 or layout == LAYOUT_2_5)) or (mode == MODE_STAT and layout == LAYOUT_5) then
+			spriteWheelWeight5.alpha = alpha
+			spriteWheelWeight5.frame = 2
+			spriteWheelWeight5:draw()
 		end
 	end
 

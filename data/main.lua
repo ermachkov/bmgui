@@ -162,9 +162,6 @@ function onUpdate(delta)
 		soundBalanceSuccess:play()
 	elseif newBalanceState == STATE_RULER and newBalanceSubstate == RULER_WAIT and balanceState == STATE_RULER and (balanceSubstate == RULER_MEASURE or balanceSubstate == RULER_MEASURE_L) or
 		newBalanceState == STATE_RULER_CAL0 and newBalanceSubstate == RULER_WAIT and balanceState == STATE_RULER_CAL0 and (balanceSubstate == RULER_MEASURE or balanceSubstate == RULER_MEASURE_L) then
-		if balance:getIntParam("mode") == MODE_ALU and balance:getIntParam("autoalu") ~= 0 then
-			showAutoAluWeights()
-		end
 		soundRulerSuccess:play()
 	end
 
