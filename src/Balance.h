@@ -46,6 +46,9 @@ public:
 	// Sets the floating-point balance parameter
 	void setFloatParam(const std::string &name, float value = 0.0f);
 
+	// Draws the oscilloscope signal
+	void drawOscilloscope(float x1, float y1, float x2, float y2);
+
 private:
 
 	// Name -> value map type
@@ -57,6 +60,9 @@ private:
 
 	static const int POLL_INTERVAL = 100;           // Polling interval
 	static const int MAX_RETRIES = 50;              // Maximum number of polling retries
+
+	static const int NUM_SAMPLES = 29239;
+	static const int TOTAL_SAMPLES = NUM_SAMPLES * 30;
 
 	// Update event handler
 	void onUpdate(int delta);
@@ -78,7 +84,11 @@ private:
 	bool                        mSocketNameChanged; // Socket change flag
 	CL_SocketName               mNewSocketName;     // New socket name
 
-	int                         mOscMode;           // New oscilloscope mode
+	int                         mOscMode;                       // New oscilloscope mode
+	CL_Mutex                    mOscMutex;                      // Oscilloscope mutex
+	short                       mChannels[3][TOTAL_SAMPLES];    // Channels array
+	int                         mCurrSample;                    // Current sample index
+	bool                        mPlaying;                       // Playing flag
 };
 
 #endif

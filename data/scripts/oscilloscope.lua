@@ -1,5 +1,6 @@
 oscilloscopeActive = false
 local mainMenuLoaded = false
+local prevClockwise
 local playing
 local auto
 local pressedButton, pressedIcon
@@ -22,6 +23,7 @@ function showOscilloscope()
 	if not oscilloscopeActive and mainMenuLoaded then
 		oscilloscopeActive = true
 		balance:setOscMode(1)
+		prevClockwise = balance:getIntParam("clockwise")
 		playing = true
 		auto = true
 		pressedButton, pressedIcon = nil, nil
@@ -34,6 +36,8 @@ function hideOscilloscope()
 	if oscilloscopeActive then
 		oscilloscopeActive = false
 		balance:setOscMode(0)
+		balance:setParam("stop")
+		balance:setIntParam("clockwise", prevClockwise)
 	end
 end
 
@@ -74,6 +78,9 @@ function onOscilloscopeUpdate(delta)
 	-- display
 	spriteOscDisplay0:draw()
 	spriteOscDisplay1:draw()
+
+	-- signal
+	balance:drawOscilloscope(spriteOscDisplay0.x, spriteOscDisplay0.y, spriteOscDisplay1.x + spriteOscDisplay1:getWidth(), spriteOscDisplay1.y + spriteOscDisplay1:getHeight())
 
 	-- buttons with icons
 	spriteOscCloseButtonBack:draw()
@@ -123,6 +130,14 @@ function onOscilloscopeMouseUp(x, y, key)
 				playing = not playing
 			elseif pressedButton == spritePlayDownButton then
 				auto = not auto
+			elseif pressedButton == spriteOscStartUpButton then
+				balance:setIntParam("clockwise", 1)
+				balance:setParam("testdrv")
+			elseif pressedButton == spriteOscStartDownButton then
+				balance:setIntParam("clockwise", 0)
+				balance:setParam("testdrv")
+			elseif pressedButton == spriteOscStopButton then
+				balance:setParam("stop")
 			elseif pressedButton == spriteOscCloseButton then
 				hideOscilloscope()
 			end

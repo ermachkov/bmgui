@@ -1,6 +1,6 @@
 /*
 ** Lua binding: LuaBindings
-** Generated automatically by tolua++-1.0.92 on 12/02/11 15:51:41.
+** Generated automatically by tolua++-1.0.92 on 12/03/11 17:25:20.
 */
 
 #ifndef __cplusplus
@@ -734,6 +734,45 @@ static int tolua_LuaBindings_Balance_setFloatParam00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'setFloatParam'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: drawOscilloscope of class  Balance */
+#ifndef TOLUA_DISABLE_tolua_LuaBindings_Balance_drawOscilloscope00
+static int tolua_LuaBindings_Balance_drawOscilloscope00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Balance",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Balance* self = (Balance*)  tolua_tousertype(tolua_S,1,0);
+  float x1 = ((float)  tolua_tonumber(tolua_S,2,0));
+  float y1 = ((float)  tolua_tonumber(tolua_S,3,0));
+  float x2 = ((float)  tolua_tonumber(tolua_S,4,0));
+  float y2 = ((float)  tolua_tonumber(tolua_S,5,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'drawOscilloscope'", NULL);
+#endif
+  {
+   self->drawOscilloscope(x1,y1,x2,y2);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'drawOscilloscope'.",&tolua_err);
  return 0;
 #endif
 }
@@ -3540,6 +3579,7 @@ TOLUA_API int tolua_LuaBindings_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setParam",tolua_LuaBindings_Balance_setParam01);
    tolua_function(tolua_S,"setIntParam",tolua_LuaBindings_Balance_setIntParam00);
    tolua_function(tolua_S,"setFloatParam",tolua_LuaBindings_Balance_setFloatParam00);
+   tolua_function(tolua_S,"drawOscilloscope",tolua_LuaBindings_Balance_drawOscilloscope00);
    tolua_function(tolua_S,"getSingleton",tolua_LuaBindings_Balance_getSingleton00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"Database","Database","",NULL);

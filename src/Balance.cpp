@@ -1,6 +1,7 @@
 #include "Precompiled.h"
 #include "Balance.h"
 #include "Application.h"
+#include "Graphics.h"
 #include "Profile.h"
 
 template<> Balance *Singleton<Balance>::mSingleton = NULL;
@@ -23,7 +24,7 @@ const std::string Balance::PARAMS[MAX_PARAMS] =
 };
 
 Balance::Balance(Profile &profile)
-: mProtocolValid(true), mSocketNameChanged(false), mOscMode(0)
+: mProtocolValid(true), mSocketNameChanged(false), mOscMode(0), mCurrSample(0), mPlaying(true)
 {
 	for (int i = 0; i < MAX_PARAMS; ++i)
 		mParams.insert(std::make_pair(PARAMS[i], "0"));
@@ -39,7 +40,6 @@ Balance::Balance(Profile &profile)
 	profile.setBool("remote_control", profile.getBool("remote_control", true));
 	profile.setInt("input_dev", profile.getInt("input_dev", 1));
 	profile.setString("cal_command", profile.getString("cal_command", "bmgui_xinput_calibrator"));
-	profile.setString("update_command", profile.getString("update_command", "lxterminal -e \"sleep 5\""));
 	profile.setString("available_update_version", profile.getString("available_update_version", ""));
 	profile.setString("ignored_update_version", profile.getString("ignored_update_version", ""));
 
@@ -124,6 +124,41 @@ void Balance::setFloatParam(const std::string &name, float value)
 	setParam(name, CL_StringHelp::float_to_text(value, 2));
 }
 
+void Balance::drawOscilloscope(float x1, float y1, float x2, float y2)
+{
+	float width = x2 - x1, height = y2 - y1;
+	CL_Vec2f positions[3][NUM_SAMPLES];
+	CL_Colorf colors[3] = {CL_Colorf(1.0f, 0.0f, 0.0f), CL_Colorf(0.0f, 1.0f, 0.0f), CL_Colorf(0.0f, 0.0f, 1.0f)};
+
+	// copy data to the buffers
+	mOscMutex.lock();
+	int index = mCurrSample - NUM_SAMPLES;
+	if (index < 0)
+		index += TOTAL_SAMPLES;
+	for (int i = 0; i < NUM_SAMPLES; ++i)
+	{
+		positions[0][i].x = positions[1][i].x = positions[2][i].x = x1 + width * i / NUM_SAMPLES;
+		positions[0][i].y = y1 + 1.0f * height / 4.0f - mChannels[0][index] / 32768.0f * height / 2.0f;
+		positions[1][i].y = y1 + 2.0f * height / 4.0f - mChannels[1][index] / 32768.0f * height / 2.0f;
+		positions[2][i].y = y1 + 3.0f * height / 4.0f - mChannels[2][index] / 32768.0f * height / 2.0f;
+		if (++index >= TOTAL_SAMPLES)
+			index = 0;
+	}
+	mOscMutex.unlock();
+
+	// draw graphs
+	CL_GraphicContext &gc = Graphics::getSingleton().getWindow().get_gc();
+	CL_PrimitivesArray array(gc);
+	gc.set_program_object(cl_program_color_only);
+	for (int i = 0; i < 3; ++i)
+	{
+		array.set_attributes(0, positions[i]);
+		array.set_attribute(1, colors[i]);
+		gc.draw_primitives(cl_line_strip, NUM_SAMPLES, array);
+	}
+	gc.reset_program_object();
+}
+
 void Balance::onUpdate(int delta)
 {
 	// process the reply queue
@@ -169,18 +204,18 @@ void Balance::run()
 	{
 		try
 		{
-			if (mStopThread.get() != 0)
-				return;
-
 			if (mSocketNameChanged)
 			{
 				mSocketName = mNewSocketName;
 				mSocketNameChanged = false;
 			}
 
+			CL_MutexSection mutexSection(&mRequestMutex);
+			mRequests.clear();
+			mutexSection.unlock();
+
 			CL_Console::write_line("Connecting...");
 			mConnected.set(0);
-			mRequests.clear();
 			CL_TCPConnection connection(mSocketName);
 			mConnected.set(1);
 			CL_Console::write_line("*** OK ***");
@@ -203,13 +238,11 @@ void Balance::run()
 
 					// first send all pending requests in the queue
 					CL_MutexSection mutexSection(&mRequestMutex);
-
 					for (std::vector<std::string>::const_iterator it = mRequests.begin(); it != mRequests.end(); ++it)
 					{
 						CL_Console::write_line("> " + it->substr(0, it->length() - 2));
 						connection.write(it->c_str(), it->length());
 					}
-
 					mRequests.clear();
 					mutexSection.unlock();
 
@@ -239,11 +272,13 @@ void Balance::run()
 				else
 				{
 					// read data from TCP socket
-					if (connection.get_read_event().wait(oscMode == 0 ? POLL_INTERVAL - elapsedTime : 0))
+					if (connection.get_read_event().wait(oscMode == 0 ? POLL_INTERVAL - elapsedTime : 1))
 					{
 						// append received data to the data buffer
-						char buf[1024];
+						char buf[2048];
 						int size = connection.read(buf, sizeof(buf), false);
+						if (size <= 0)
+							continue;
 						data.append(buf, size);
 
 						// split received data to CR+LF-terminated strings
@@ -257,16 +292,20 @@ void Balance::run()
 							CL_MutexSection mutexSection(&mReplyMutex);
 							mReplies.push_back(reply);
 						}
+
+						// clear data string on overflow
+						if (data.length() > 2048)
+							data.clear();
 					}
 
 					// read data from UDP socket
-					if (socket.get_read_event().wait(oscMode != 0 ? POLL_INTERVAL - elapsedTime : 0))
+					if (socket.get_read_event().wait(oscMode != 0 ? POLL_INTERVAL - elapsedTime : 1))
 					{
 						// receive data
 						unsigned char buf[2048];
 						CL_SocketName sender;
 						int size = socket.receive(buf, sizeof(buf), sender);
-						if (sender.get_address() != serverSocketName.get_address() || size < 4 || buf[0] != 'P' || buf[1] != 'S')
+						if (size < 4 || sender.get_address() != serverSocketName.get_address() || buf[0] != 'P' || buf[1] != 'S')
 							continue;
 						numRetries = 0;
 
@@ -275,12 +314,30 @@ void Balance::run()
 						if (newIndex != ((oldIndex + 1) & 0xFFFF))
 							CL_Console::write_line(cl_format("Packet lost: %1", (oldIndex + 1) & 0xFFFF));
 						oldIndex = newIndex;
+
+						// decode the received data
+						if (mPlaying)
+						{
+							CL_MutexSection mutexSection(&mOscMutex);
+							for (int i = 0; i < (size - 4) * 8; i += 3)
+							{
+								mChannels[0][mCurrSample] = buf[(i + 0) / 8 + 4] & (1 << (i + 0) % 8) ? 6000 : 0;
+								mChannels[1][mCurrSample] = buf[(i + 1) / 8 + 4] & (1 << (i + 1) % 8) ? 6000 : 0;
+								mChannels[2][mCurrSample] = buf[(i + 2) / 8 + 4] & (1 << (i + 2) % 8) ? 6000 : 0;
+								if (++mCurrSample >= TOTAL_SAMPLES)
+									mCurrSample = 0;
+							}
+						}
 					}
 				}
 			}
 
 			if (oscMode != 0)
-				connection.write("osc 0\r\n", 7);
+			{
+				std::string request = "osc 0\r\n";
+				CL_Console::write_line("> " + request.substr(0, request.length() - 2));
+				connection.write(request.c_str(), request.length());
+			}
 		}
 		catch (const std::exception &exception)
 		{

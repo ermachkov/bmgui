@@ -53,6 +53,11 @@ function onBalanceProgressInit()
 end
 
 function onBalanceProgressUpdate(delta)
+	-- exit if not active
+	if startScreenActive or oscilloscopeActive then
+		return
+	end
+
 	-- check the balance progress screen state
 	if balanceProgressActive then
 		balanceProgressTime = math.min(balanceProgressTime + delta, BALANCE_PROGRESS_FADE_DELAY)
@@ -135,7 +140,7 @@ end
 
 function onBalanceProgressMouseDown(x, y, key)
 	-- exit if not active
-	if not balanceProgressActive then
+	if not balanceProgressActive or startScreenActive or oscilloscopeActive then
 		return false
 	end
 
