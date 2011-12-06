@@ -5,7 +5,7 @@ local ANGLE_TABLE = {4, 36, 64, 110, 160, 230, 352, NUM_ANGLES}
 local POPUP_ANIM_DELAY = 200
 
 -- Auto alu indication time
-local AUTO_ALU_TIME = 1000
+local AUTO_ALU_TIME = 5000
 
 local mainMenuLoaded = false
 local blinkTime = 0
@@ -418,21 +418,21 @@ function onMainScreenUpdate(delta)
 				fontWheel:drawText(spriteWheelArrowBackwardText3.x, spriteWheelArrowBackwardText3.y, math.abs(dist), 0.0, 0.0, 0.0)
 			end
 		end
+	end
 
-		-- show auto alu weights
-		if mode == MODE_ALU and autoAluTime ~= 0 and (balanceSubstate == RULER_MEASURE or balanceSubstate == RULER_DONTSHOW or balanceSubstate == RULER_MEASURE_L) then
-			if layout == LAYOUT_1_3 then
-				spriteWheelWeight1.frame = 2
-				spriteWheelWeight1:draw()
-			elseif layout == LAYOUT_2_3 then
-				spriteWheelWeight2.frame = 2
-				spriteWheelWeight2:draw()
-			end
+	-- show auto alu weights
+	if autoAluTime > 0 --[[and (balanceSubstate == RULER_MEASURE or balanceSubstate == RULER_DONTSHOW or balanceSubstate == RULER_MEASURE_L)]] then
+		if layout == LAYOUT_1_3 then
+			spriteWheelWeight1.frame = 2
+			spriteWheelWeight1:draw()
+		elseif layout == LAYOUT_2_3 then
+			spriteWheelWeight2.frame = 2
+			spriteWheelWeight2:draw()
+		end
 
-			if layout == LAYOUT_1_3 or layout == LAYOUT_2_3 then
-				spriteWheelWeight3.frame = 2
-				spriteWheelWeight3:draw()
-			end
+		if layout == LAYOUT_1_3 or layout == LAYOUT_2_3 then
+			spriteWheelWeight3.frame = 2
+			spriteWheelWeight3:draw()
 		end
 	end
 

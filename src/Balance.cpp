@@ -223,17 +223,18 @@ void Balance::run()
 			CL_SocketName serverSocketName(mSocketName.get_address(), "16666");
 			CL_UDPSocket socket(CL_SocketName("16679"));
 
-			unsigned startTime = CL_System::get_time();
+			unsigned lastTime = CL_System::get_time();
 			int numRetries = 0;
 			int oscMode = 0;
 			std::string data;
 			unsigned short oldIndex = 0xFFFF;
 			while (mStopThread.get() == 0 && numRetries <= MAX_RETRIES && !mSocketNameChanged)
 			{
-				int elapsedTime = CL_System::get_time() - startTime;
-				if (elapsedTime >= POLL_INTERVAL)
+				unsigned currTime = CL_System::get_time();
+				int delta = cl_clamp(static_cast<int>(currTime - lastTime), 0, 1000);
+				if (delta >= POLL_INTERVAL)
 				{
-					startTime += POLL_INTERVAL;
+					lastTime = currTime;
 					++numRetries;
 
 					// first send all pending requests in the queue
@@ -272,13 +273,11 @@ void Balance::run()
 				else
 				{
 					// read data from TCP socket
-					if (connection.get_read_event().wait(oscMode == 0 ? POLL_INTERVAL - elapsedTime : 1))
+					if (connection.get_read_event().wait(oscMode == 0 ? POLL_INTERVAL - delta : 0))
 					{
 						// append received data to the data buffer
 						char buf[2048];
 						int size = connection.read(buf, sizeof(buf), false);
-						if (size <= 0)
-							continue;
 						data.append(buf, size);
 
 						// split received data to CR+LF-terminated strings
@@ -299,7 +298,7 @@ void Balance::run()
 					}
 
 					// read data from UDP socket
-					if (socket.get_read_event().wait(oscMode != 0 ? POLL_INTERVAL - elapsedTime : 1))
+					if (socket.get_read_event().wait(oscMode != 0 ? POLL_INTERVAL - delta : 0))
 					{
 						// receive data
 						unsigned char buf[2048];
