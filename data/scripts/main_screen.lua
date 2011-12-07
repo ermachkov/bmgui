@@ -420,7 +420,7 @@ function onMainScreenUpdate(delta)
 		end
 
 		-- setup yellow weights timer
-		if balanceSubstate == RULER_MEASURE or balanceSubstate == RULER_WAIT or balanceSubstate == RULER_SHOW_L1 or balanceSubstate == RULER_DONTSHOW then
+		if balanceSubstate ~= RULER_SHOW_L1 and balanceSubstate ~= RULER_SHOW_L2 and balanceSubstate ~= RULER_SHOW_L3 then
 			autoAluTime = AUTO_ALU_TIME
 		end
 	end
