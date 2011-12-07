@@ -5,7 +5,7 @@ local ANGLE_TABLE = {4, 36, 64, 110, 160, 230, 352, NUM_ANGLES}
 local POPUP_ANIM_DELAY = 200
 
 -- Auto alu indication time
-local AUTO_ALU_TIME = 5000
+local AUTO_ALU_TIME = 3000
 
 local mainMenuLoaded = false
 local blinkTime = 0
@@ -367,13 +367,11 @@ function onMainScreenUpdate(delta)
 				spriteWheelTarget3:draw()
 				fontWheel:drawText(spriteWheelArrowForwardText3.x, spriteWheelArrowForwardText3.y, balance:getIntParam("rofs"), 0.0, 0.0, 0.0)
 			end
-			autoAluTime = AUTO_ALU_TIME
 		elseif balanceSubstate == RULER_MEASURE_L then
 			spriteWheelArrowMeasure3.frame = 0
 			spriteWheelArrowMeasure3:draw()
 			spriteWheelTarget3:draw()
 			fontWheel:drawText(spriteWheelArrowForwardText3.x, spriteWheelArrowForwardText3.y, balance:getIntParam("rstick"), 0.0, 0.0, 0.0)
-			autoAluTime = AUTO_ALU_TIME
 		elseif balanceSubstate == RULER_SHOW_L1 then
 			local dist = balance:getIntParam("weightdist")
 			local frame = (math.abs(currAngle - angle1) <= angleEpsilon and dist == 0) and 1 or 0
@@ -419,6 +417,11 @@ function onMainScreenUpdate(delta)
 			else
 				fontWheel:drawText(spriteWheelArrowBackwardText3.x, spriteWheelArrowBackwardText3.y, math.abs(dist), 0.0, 0.0, 0.0)
 			end
+		end
+
+		-- setup yellow weights timer
+		if balanceSubstate == RULER_MEASURE or balanceSubstate == RULER_WAIT or balanceSubstate == RULER_SHOW_L1 or balanceSubstate == RULER_DONTSHOW then
+			autoAluTime = AUTO_ALU_TIME
 		end
 	end
 
