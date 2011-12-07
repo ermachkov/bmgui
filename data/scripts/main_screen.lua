@@ -60,10 +60,6 @@ local function askForUpdatePassword()
 		function(value) if checkPassword(value) then local str = profile:getString("available_update_version"); profile:setString("ignored_update_version", str); profile:save(); os.exit(13) end end)
 end
 
-function showAutoAluWeights()
-	autoAluTime = AUTO_ALU_TIME
-end
-
 -- Draws left weight indicator
 function drawLeftWeight()
 	-- retrieve the current wheel angle
@@ -328,9 +324,11 @@ function onMainScreenUpdate(delta)
 		-- show left weight
 		if weight1 ~= 0 then
 			if layout == LAYOUT_1_3 or layout == LAYOUT_1_4 or layout == LAYOUT_1_5 then
+				spriteWheelWeight1.alpha = 1.0
 				spriteWheelWeight1.frame = (math.abs(currAngle - angle1) <= angleEpsilon) and 1 or 0
 				spriteWheelWeight1:draw()
 			elseif layout == LAYOUT_2_3 or layout == LAYOUT_2_4 or layout == LAYOUT_2_5 then
+				spriteWheelWeight2.alpha = 1.0
 				spriteWheelWeight2.frame = 0
 				spriteWheelWeight2:draw()
 			end
@@ -339,12 +337,15 @@ function onMainScreenUpdate(delta)
 		-- show right weight
 		if weight2 ~= 0 or weight3 ~= 0 then
 			if layout == LAYOUT_1_3 or layout == LAYOUT_2_3 then
+				spriteWheelWeight3.alpha = 1.0
 				spriteWheelWeight3.frame = 0
 				spriteWheelWeight3:draw()
 			elseif layout == LAYOUT_1_4 or layout == LAYOUT_2_4 then
+				spriteWheelWeight4.alpha = 1.0
 				spriteWheelWeight4.frame = (math.abs(currAngle - (weight2 ~= 0 and angle2 or angle3)) <= angleEpsilon) and 1 or 0
 				spriteWheelWeight4:draw()
 			elseif layout == LAYOUT_1_5 or layout == LAYOUT_2_5 then
+				spriteWheelWeight5.alpha = 1.0
 				spriteWheelWeight5.frame = (math.abs(currAngle - (weight2 ~= 0 and angle2 or angle3)) <= angleEpsilon) and 1 or 0
 				spriteWheelWeight5:draw()
 			end
@@ -381,6 +382,7 @@ function onMainScreenUpdate(delta)
 				if spriteWheelWeight1.frame == 0 and frame == 1 then
 					soundRuler:play()
 				end
+				spriteWheelWeight1.alpha = 1.0
 				spriteWheelWeight1.frame = frame
 				spriteWheelWeight1:draw()
 				if dist >= 0 then
@@ -394,6 +396,7 @@ function onMainScreenUpdate(delta)
 				if spriteWheelWeight2.frame == 0 and frame == 1 then
 					soundRuler:play()
 				end
+				spriteWheelWeight2.alpha = 1.0
 				spriteWheelWeight2.frame = frame
 				spriteWheelWeight2:draw()
 				if dist >= 0 then
@@ -410,6 +413,7 @@ function onMainScreenUpdate(delta)
 			if spriteWheelWeight3.frame == 0 and frame == 1 then
 				soundRuler:play()
 			end
+			spriteWheelWeight3.alpha = 1.0
 			spriteWheelWeight3.frame = frame
 			spriteWheelWeight3:draw()
 			if dist >= 0 then
