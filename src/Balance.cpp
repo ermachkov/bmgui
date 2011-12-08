@@ -24,7 +24,7 @@ const std::string Balance::PARAMS[MAX_PARAMS] =
 };
 
 Balance::Balance(Profile &profile)
-: mProtocolValid(true), mSocketNameChanged(false), mOscMode(0), mCurrSample(0), mPlaying(true)
+: mProtocolValid(true), mSocketNameChanged(false), mOscMode(OSC_NONE), mCurrSample(0), mPlaying(true), mVertScale(1.0f)
 {
 	for (int i = 0; i < MAX_PARAMS; ++i)
 		mParams.insert(std::make_pair(PARAMS[i], "0"));
@@ -82,6 +82,16 @@ void Balance::setOscMode(int mode)
 	mOscMode = mode;
 }
 
+void Balance::setVertScale(float scale)
+{
+	mVertScale = scale;
+}
+
+void Balance::setPlaying(bool playing)
+{
+	mPlaying = playing;
+}
+
 std::string Balance::getParam(const std::string &name) const
 {
 	ParamMap::const_iterator it = mParams.find(name);
@@ -126,23 +136,49 @@ void Balance::setFloatParam(const std::string &name, float value)
 
 void Balance::drawOscilloscope(float x1, float y1, float x2, float y2)
 {
+	if (mOscMode == OSC_NONE)
+		return;
+
 	float width = x2 - x1, height = y2 - y1;
-	CL_Vec2f positions[3][NUM_SAMPLES];
+	CL_Vec2f positions[3][NUM_SAMPLES_QEP];
 	CL_Colorf colors[3] = {CL_Colorf(1.0f, 0.0f, 0.0f), CL_Colorf(0.0f, 1.0f, 0.0f), CL_Colorf(0.0f, 0.0f, 1.0f)};
 
 	// copy data to the buffers
 	mOscMutex.lock();
-	int index = mCurrSample - NUM_SAMPLES;
-	if (index < 0)
-		index += TOTAL_SAMPLES;
-	for (int i = 0; i < NUM_SAMPLES; ++i)
+	int numSamples, numChannels;
+	if (mOscMode == OSC_QEP)
 	{
-		positions[0][i].x = positions[1][i].x = positions[2][i].x = x1 + width * i / NUM_SAMPLES;
-		positions[0][i].y = y1 + 1.0f * height / 4.0f - mChannels[0][index] / 32768.0f * height / 2.0f;
-		positions[1][i].y = y1 + 2.0f * height / 4.0f - mChannels[1][index] / 32768.0f * height / 2.0f;
-		positions[2][i].y = y1 + 3.0f * height / 4.0f - mChannels[2][index] / 32768.0f * height / 2.0f;
-		if (++index >= TOTAL_SAMPLES)
-			index = 0;
+		numSamples = NUM_SAMPLES_QEP;
+		numChannels = 3;
+		int index = mCurrSample - numSamples;
+		if (index < 0)
+			index += TOTAL_SAMPLES;
+		for (int i = 0; i < numSamples; ++i)
+		{
+			positions[0][i].x = positions[1][i].x = positions[2][i].x = x1 + width * i / numSamples;
+			positions[0][i].y = y1 + 1.0f * height / 4.0f - mChannels[0][index] / 32768.0f * height / 2.0f;
+			positions[1][i].y = y1 + 2.0f * height / 4.0f - mChannels[1][index] / 32768.0f * height / 2.0f;
+			positions[2][i].y = y1 + 3.0f * height / 4.0f - mChannels[2][index] / 32768.0f * height / 2.0f;
+			if (++index >= TOTAL_SAMPLES)
+				index = 0;
+		}
+	}
+	else
+	{
+		numSamples = NUM_SAMPLES_ANALOG;
+		numChannels = 2;
+		float avgSample[2] = {static_cast<float>(mSampleSum[0] / numSamples), static_cast<float>(mSampleSum[1] / numSamples)};
+		int index = mCurrSample - numSamples;
+		if (index < 0)
+			index += TOTAL_SAMPLES;
+		for (int i = 0; i < numSamples; ++i)
+		{
+			positions[0][i].x = positions[1][i].x = x1 + width * i / numSamples;
+			positions[0][i].y = y1 + height / 2.0f - (mChannels[0][index] - avgSample[0]) / 32768.0f * height / 2.0f * mVertScale;
+			positions[1][i].y = y1 + height / 2.0f - (mChannels[1][index] - avgSample[1]) / 32768.0f * height / 2.0f * mVertScale;
+			if (++index >= TOTAL_SAMPLES)
+				index = 0;
+		}
 	}
 	mOscMutex.unlock();
 
@@ -150,11 +186,11 @@ void Balance::drawOscilloscope(float x1, float y1, float x2, float y2)
 	CL_GraphicContext &gc = Graphics::getSingleton().getWindow().get_gc();
 	CL_PrimitivesArray array(gc);
 	gc.set_program_object(cl_program_color_only);
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < numChannels; ++i)
 	{
 		array.set_attributes(0, positions[i]);
 		array.set_attribute(1, colors[i]);
-		gc.draw_primitives(cl_line_strip, NUM_SAMPLES, array);
+		gc.draw_primitives(cl_line_strip, numSamples, array);
 	}
 	gc.reset_program_object();
 }
@@ -210,9 +246,9 @@ void Balance::run()
 				mSocketNameChanged = false;
 			}
 
-			CL_MutexSection mutexSection(&mRequestMutex);
+			mRequestMutex.lock();
 			mRequests.clear();
-			mutexSection.unlock();
+			mRequestMutex.unlock();
 
 			CL_Console::write_line("Connecting...");
 			mConnected.set(0);
@@ -225,7 +261,7 @@ void Balance::run()
 
 			unsigned lastTime = CL_System::get_time();
 			int numRetries = 0;
-			int oscMode = 0;
+			int oscMode = OSC_NONE;
 			std::string data;
 			unsigned short oldIndex = 0xFFFF;
 			while (mStopThread.get() == 0 && numRetries <= MAX_RETRIES && !mSocketNameChanged)
@@ -250,20 +286,31 @@ void Balance::run()
 					// finally send the polling/oscilloscope request
 					if (oscMode != mOscMode)
 					{
-						std::string request = cl_format("osc %1\r\n", mOscMode);
+						oscMode = mOscMode;
+
+						mOscMutex.lock();
+						memset(mChannels, 0, sizeof(mChannels));
+						mCurrSample = 0;
+						mSampleSum[0] = mSampleSum[1] = 0.0;
+						mOscMutex.unlock();
+
+						std::string request = "osc 0\r\n";
 						CL_Console::write_line("> " + request.substr(0, request.length() - 2));
 						connection.write(request.c_str(), request.length());
+						CL_System::sleep(250);
 
-						if (oscMode == 0)
+						if (oscMode != OSC_NONE)
 						{
-							CL_System::sleep(500);
+							request = cl_format("osc %1\r\n", oscMode);
+							CL_Console::write_line("> " + request.substr(0, request.length() - 2));
+							connection.write(request.c_str(), request.length());
+							CL_System::sleep(250);
+
 							char ch = '1';
 							socket.send(&ch, sizeof(ch), serverSocketName);
 						}
-
-						oscMode = mOscMode;
 					}
-					else if (oscMode == 0)
+					else if (oscMode == OSC_NONE)
 					{
 						std::string request = "state\r\n";
 						CL_Console::write_line("> " + request.substr(0, request.length() - 2));
@@ -273,7 +320,7 @@ void Balance::run()
 				else
 				{
 					// read data from TCP socket
-					if (connection.get_read_event().wait(oscMode == 0 ? POLL_INTERVAL - delta : 0))
+					if (connection.get_read_event().wait(oscMode == OSC_NONE ? POLL_INTERVAL - delta : 0))
 					{
 						// append received data to the data buffer
 						char buf[2048];
@@ -298,7 +345,7 @@ void Balance::run()
 					}
 
 					// read data from UDP socket
-					if (socket.get_read_event().wait(oscMode != 0 ? POLL_INTERVAL - delta : 0))
+					if (socket.get_read_event().wait(oscMode != OSC_NONE ? POLL_INTERVAL - delta : 0))
 					{
 						// receive data
 						unsigned char buf[2048];
@@ -318,20 +365,43 @@ void Balance::run()
 						if (mPlaying)
 						{
 							CL_MutexSection mutexSection(&mOscMutex);
-							for (int i = 0; i < (size - 4) * 8; i += 3)
+							if (oscMode == OSC_QEP)
 							{
-								mChannels[0][mCurrSample] = buf[(i + 0) / 8 + 4] & (1 << (i + 0) % 8) ? 6000 : 0;
-								mChannels[1][mCurrSample] = buf[(i + 1) / 8 + 4] & (1 << (i + 1) % 8) ? 6000 : 0;
-								mChannels[2][mCurrSample] = buf[(i + 2) / 8 + 4] & (1 << (i + 2) % 8) ? 6000 : 0;
-								if (++mCurrSample >= TOTAL_SAMPLES)
-									mCurrSample = 0;
+								for (int i = 0; i < (size - 4) * 8; i += 3)
+								{
+									mChannels[0][mCurrSample] = buf[(i + 0) / 8 + 4] & (1 << (i + 0) % 8) ? 6000 : 0;
+									mChannels[1][mCurrSample] = buf[(i + 1) / 8 + 4] & (1 << (i + 1) % 8) ? 6000 : 0;
+									mChannels[2][mCurrSample] = buf[(i + 2) / 8 + 4] & (1 << (i + 2) % 8) ? 6000 : 0;
+									if (++mCurrSample >= TOTAL_SAMPLES)
+										mCurrSample = 0;
+								}
+							}
+							else
+							{
+								for (int i = 4; i < size; i += 6)
+								{
+									int index = mCurrSample - NUM_SAMPLES_ANALOG;
+									if (index < 0)
+										index += TOTAL_SAMPLES;
+									mSampleSum[0] -= mChannels[0][index];
+									mSampleSum[1] -= mChannels[1][index];
+
+									mChannels[0][mCurrSample] = buf[i + 0] | buf[i + 1] << 8;
+									mChannels[1][mCurrSample] = buf[i + 2] | buf[i + 3] << 8;
+
+									mSampleSum[0] += mChannels[0][mCurrSample];
+									mSampleSum[1] += mChannels[1][mCurrSample];
+
+									if (++mCurrSample >= TOTAL_SAMPLES)
+										mCurrSample = 0;
+								}
 							}
 						}
 					}
 				}
 			}
 
-			if (oscMode != 0)
+			if (oscMode != OSC_NONE)
 			{
 				std::string request = "osc 0\r\n";
 				CL_Console::write_line("> " + request.substr(0, request.length() - 2));

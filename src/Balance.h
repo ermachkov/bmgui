@@ -28,6 +28,12 @@ public:
 	// Sets the oscilloscope mode
 	void setOscMode(int mode);
 
+	// Sets the vertical scale
+	void setVertScale(float scale);
+
+	// Plays/pauses oscilloscope signal
+	void setPlaying(bool playing);
+
 	// Returns the balance parameter
 	std::string getParam(const std::string &name) const;
 
@@ -51,6 +57,14 @@ public:
 
 private:
 
+	// Oscilloscope modes
+	enum OscMode
+	{
+		OSC_NONE,
+		OSC_QEP,
+		OSC_ANALOG
+	};
+
 	// Name -> value map type
 	typedef std::map<std::string, std::string> ParamMap;
 
@@ -61,8 +75,9 @@ private:
 	static const int POLL_INTERVAL = 100;           // Polling interval
 	static const int MAX_RETRIES = 50;              // Maximum number of polling retries
 
-	static const int NUM_SAMPLES = 29239;
-	static const int TOTAL_SAMPLES = NUM_SAMPLES * 30;
+	static const int NUM_SAMPLES_QEP = 29239;
+	static const int NUM_SAMPLES_ANALOG = 4873;
+	static const int TOTAL_SAMPLES = NUM_SAMPLES_QEP * 30;
 
 	// Update event handler
 	void onUpdate(int delta);
@@ -88,7 +103,9 @@ private:
 	CL_Mutex                    mOscMutex;                      // Oscilloscope mutex
 	short                       mChannels[3][TOTAL_SAMPLES];    // Channels array
 	int                         mCurrSample;                    // Current sample index
-	bool                        mPlaying;                       // Playing flag
+	bool                        mPlaying;                       // Play/pause flag
+	double                      mSampleSum[2];                  // Sum of all samples
+	float                       mVertScale;                     // Vertical scale
 };
 
 #endif

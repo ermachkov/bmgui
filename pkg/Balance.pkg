@@ -15,6 +15,12 @@ class Balance
 	// Sets the oscilloscope mode
 	void setOscMode(int mode);
 
+	// Sets the vertical scale
+	void setVertScale(float scale);
+
+	// Plays/pauses oscilloscope signal
+	void setPlaying(bool playing);
+
 	// Returns the balance parameter
 	std::string getParam(const std::string &name) const;
 

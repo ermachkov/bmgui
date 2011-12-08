@@ -1,8 +1,15 @@
+-- Oscilloscope modes
+OSC_NONE = 0
+OSC_QEP = 1
+OSC_ANALOG = 2
+
 oscilloscopeActive = false
 local mainMenuLoaded = false
-local prevClockwise
+local oscMode
+local vertScale
 local playing
 local auto
+local prevClockwise
 local pressedButton, pressedIcon
 local buttons, icons, smallIcons
 
@@ -22,10 +29,16 @@ end
 function showOscilloscope()
 	if not oscilloscopeActive and mainMenuLoaded then
 		oscilloscopeActive = true
-		balance:setOscMode(1)
-		prevClockwise = balance:getIntParam("clockwise")
+		oscMode = OSC_ANALOG
+		vertScale = 1.0
 		playing = true
 		auto = true
+		prevClockwise = balance:getIntParam("clockwise")
+
+		balance:setVertScale(vertScale)
+		balance:setPlaying(playing)
+		balance:setOscMode(oscMode)
+
 		pressedButton, pressedIcon = nil, nil
 		spritePlayUpIcon.frame, spritePlayDownIcon.frame = 2, 2
 	end
@@ -35,7 +48,8 @@ end
 function hideOscilloscope()
 	if oscilloscopeActive then
 		oscilloscopeActive = false
-		balance:setOscMode(0)
+		oscMode = OSC_NONE
+		balance:setOscMode(oscMode)
 		balance:setParam("stop")
 		balance:setIntParam("clockwise", prevClockwise)
 	end
@@ -126,8 +140,27 @@ function onOscilloscopeMouseUp(x, y, key)
 	-- release the pressed button if any
 	if pressedButton then
 		if pressedButton:isPointInside(x, y) then
-			if pressedButton == spritePlayUpButton then
+			if pressedButton == spriteVertScaleUpButton then
+				vertScale = vertScale * 2.0
+				balance:setVertScale(vertScale)
+			elseif pressedButton == spriteVertScaleDownButton then
+				vertScale = vertScale / 2.0
+				balance:setVertScale(vertScale)
+			elseif pressedButton == spriteHorzScrollUpButton then
+				oscMode = oscMode + 1
+				if oscMode > OSC_ANALOG then
+					oscMode = OSC_QEP
+				end
+				balance:setOscMode(oscMode)
+			elseif pressedButton == spriteHorzScrollDownButton then
+				oscMode = oscMode - 1
+				if oscMode < OSC_QEP then
+					oscMode = OSC_ANALOG
+				end
+				balance:setOscMode(oscMode)
+			elseif pressedButton == spritePlayUpButton then
 				playing = not playing
+				balance:setPlaying(playing)
 			elseif pressedButton == spritePlayDownButton then
 				auto = not auto
 			elseif pressedButton == spriteOscStartUpButton then

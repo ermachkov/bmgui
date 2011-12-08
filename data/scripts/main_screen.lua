@@ -5,7 +5,8 @@ local ANGLE_TABLE = {4, 36, 64, 110, 160, 230, 352, NUM_ANGLES}
 local POPUP_ANIM_DELAY = 200
 
 -- Auto alu indication time
-local AUTO_ALU_TIME = 3000
+local AUTO_ALU_TIME = 8000
+local AUTO_ALU_DELAY = 3000
 
 local mainMenuLoaded = false
 local blinkTime = 0
@@ -431,7 +432,7 @@ function onMainScreenUpdate(delta)
 
 	-- show auto alu weights
 	if autoAluTime ~= 0 then
-		local alpha = autoAluTime / AUTO_ALU_TIME
+		local alpha = autoAluTime < AUTO_ALU_DELAY and autoAluTime / AUTO_ALU_DELAY or 1.0
 		if (mode ~= MODE_STAT and (layout == LAYOUT_1_3 or layout == LAYOUT_1_4 or layout == LAYOUT_1_5)) or (mode == MODE_STAT and layout == LAYOUT_1) then
 			spriteWheelWeight1.alpha = alpha
 			spriteWheelWeight1.frame = 2
