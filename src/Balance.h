@@ -26,7 +26,7 @@ public:
 	void setServerAddr(const std::string &addr);
 
 	// Sets the oscilloscope mode
-	void setOscMode(int mode);
+	void setOscMode(int ch1, int ch2);
 
 	// Sets the vertical scale
 	void setVertScale(float scale);
@@ -56,14 +56,6 @@ public:
 	void drawOscilloscope(float x1, float y1, float x2, float y2);
 
 private:
-
-	// Oscilloscope modes
-	enum OscMode
-	{
-		OSC_NONE,
-		OSC_QEP,
-		OSC_ANALOG
-	};
 
 	// Name -> value map type
 	typedef std::map<std::string, std::string> ParamMap;
@@ -101,7 +93,7 @@ private:
 
 	int                         mOscMode;                       // New oscilloscope mode
 	CL_Mutex                    mOscMutex;                      // Oscilloscope mutex
-	short                       mChannels[3][TOTAL_SAMPLES];    // Channels array
+	int                         mChannels[3][TOTAL_SAMPLES];    // Channels array
 	int                         mCurrSample;                    // Current sample index
 	bool                        mPlaying;                       // Play/pause flag
 	double                      mSampleSum[2];                  // Sum of all samples

@@ -13,7 +13,7 @@ class Balance
 	void setServerAddr(const std::string &addr);
 
 	// Sets the oscilloscope mode
-	void setOscMode(int mode);
+	void setOscMode(int ch1, int ch2);
 
 	// Sets the vertical scale
 	void setVertScale(float scale);

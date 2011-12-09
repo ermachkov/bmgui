@@ -1,11 +1,13 @@
 -- Oscilloscope modes
-OSC_NONE = 0
-OSC_QEP = 1
-OSC_ANALOG = 2
+local OSC_NONE = 0
+local OSC_QEP = 1
+local OSC_RAW = 2
+local OSC_FIR = 3
+local OSC_IIR = 4
 
 oscilloscopeActive = false
 local mainMenuLoaded = false
-local oscMode
+local channel1, channel2
 local vertScale
 local playing
 local auto
@@ -29,7 +31,7 @@ end
 function showOscilloscope()
 	if not oscilloscopeActive and mainMenuLoaded then
 		oscilloscopeActive = true
-		oscMode = OSC_ANALOG
+		channel1, channel2 = OSC_RAW, OSC_RAW
 		vertScale = 1.0
 		playing = true
 		auto = true
@@ -37,7 +39,7 @@ function showOscilloscope()
 
 		balance:setVertScale(vertScale)
 		balance:setPlaying(playing)
-		balance:setOscMode(oscMode)
+		balance:setOscMode(channel1, channel2)
 
 		pressedButton, pressedIcon = nil, nil
 		spritePlayUpIcon.frame, spritePlayDownIcon.frame = 2, 2
@@ -48,8 +50,8 @@ end
 function hideOscilloscope()
 	if oscilloscopeActive then
 		oscilloscopeActive = false
-		oscMode = OSC_NONE
-		balance:setOscMode(oscMode)
+		channel1, channel2 = OSC_NONE, OSC_NONE
+		balance:setOscMode(channel1, channel2)
 		balance:setParam("stop")
 		balance:setIntParam("clockwise", prevClockwise)
 	end
@@ -141,37 +143,73 @@ function onOscilloscopeMouseUp(x, y, key)
 	if pressedButton then
 		if pressedButton:isPointInside(x, y) then
 			if pressedButton == spriteVertScaleUpButton then
+				-- increase vertical scale
 				vertScale = vertScale * 2.0
 				balance:setVertScale(vertScale)
 			elseif pressedButton == spriteVertScaleDownButton then
+				-- decrease vertical scale
 				vertScale = vertScale / 2.0
 				balance:setVertScale(vertScale)
 			elseif pressedButton == spriteHorzScrollUpButton then
-				oscMode = oscMode + 1
-				if oscMode > OSC_ANALOG then
-					oscMode = OSC_QEP
+				-- increment channel 1
+				if channel1 == OSC_QEP then
+					channel1, channel2 = OSC_RAW, OSC_RAW
+				elseif channel1 == OSC_IIR then
+					channel1, channel2 = OSC_QEP, OSC_QEP
+				else
+					channel1 = channel1 + 1
 				end
-				balance:setOscMode(oscMode)
+				balance:setOscMode(channel1, channel2)
 			elseif pressedButton == spriteHorzScrollDownButton then
-				oscMode = oscMode - 1
-				if oscMode < OSC_QEP then
-					oscMode = OSC_ANALOG
+				-- decrement channel 1
+				if channel1 == OSC_QEP then
+					channel1, channel2 = OSC_IIR, OSC_IIR
+				elseif channel1 == OSC_RAW then
+					channel1, channel2 = OSC_QEP, OSC_QEP
+				else
+					channel1 = channel1 - 1
 				end
-				balance:setOscMode(oscMode)
+				balance:setOscMode(channel1, channel2)
+			elseif pressedButton == spriteVertScrollUpButton then
+				-- increment channel 2
+				if channel2 == OSC_QEP then
+					channel1, channel2 = OSC_RAW, OSC_RAW
+				elseif channel2 == OSC_IIR then
+					channel1, channel2 = OSC_QEP, OSC_QEP
+				else
+					channel2 = channel2 + 1
+				end
+				balance:setOscMode(channel1, channel2)
+			elseif pressedButton == spriteVertScrollDownButton then
+				-- decrement channel 2
+				if channel2 == OSC_QEP then
+					channel1, channel2 = OSC_IIR, OSC_IIR
+				elseif channel2 == OSC_RAW then
+					channel1, channel2 = OSC_QEP, OSC_QEP
+				else
+					channel2 = channel2 - 1
+				end
+				balance:setOscMode(channel1, channel2)
 			elseif pressedButton == spritePlayUpButton then
+				-- toggle play/pause mode
 				playing = not playing
 				balance:setPlaying(playing)
 			elseif pressedButton == spritePlayDownButton then
+				-- toggle auto/wait mode
 				auto = not auto
 			elseif pressedButton == spriteOscStartUpButton then
+				-- start driver in clockwise direction
 				balance:setIntParam("clockwise", 1)
 				balance:setParam("testdrv")
 			elseif pressedButton == spriteOscStartDownButton then
+				-- start driver in counter-clockwise direction
 				balance:setIntParam("clockwise", 0)
 				balance:setParam("testdrv")
 			elseif pressedButton == spriteOscStopButton then
+				-- stop driver
 				balance:setParam("stop")
 			elseif pressedButton == spriteOscCloseButton then
+				-- exit from the oscilloscope mode
 				hideOscilloscope()
 			end
 		end

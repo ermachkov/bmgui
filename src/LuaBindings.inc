@@ -1,6 +1,6 @@
 /*
 ** Lua binding: LuaBindings
-** Generated automatically by tolua++-1.0.92 on 12/08/11 17:46:51.
+** Generated automatically by tolua++-1.0.92 on 12/09/11 16:44:45.
 */
 
 #ifndef __cplusplus
@@ -472,19 +472,21 @@ static int tolua_LuaBindings_Balance_setOscMode00(lua_State* tolua_S)
  if (
      !tolua_isusertype(tolua_S,1,"Balance",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   Balance* self = (Balance*)  tolua_tousertype(tolua_S,1,0);
-  int mode = ((int)  tolua_tonumber(tolua_S,2,0));
+  int ch1 = ((int)  tolua_tonumber(tolua_S,2,0));
+  int ch2 = ((int)  tolua_tonumber(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setOscMode'", NULL);
 #endif
   {
-   self->setOscMode(mode);
+   self->setOscMode(ch1,ch2);
   }
  }
  return 0;
