@@ -45,5 +45,10 @@ sprites =
 	["spriteOscHorzScrollIcon", ["osc_horz_scroll_icon"]],
 	["spriteOscChannelIcon", ["osc_channel_icon"]],
 	["spriteOscPlayIcon", ["osc_play_icon"]],
-	["spriteOscStartIcon", ["osc_start_icon"]]
+	["spriteOscStartIcon", ["osc_start_icon"]],
+
+	["spriteVertScaleIndicatorFront", ["vert_scale_indicator_front"]],
+	["spriteVertScaleIndicatorBack", ["vert_scale_indicator_back"]],
+	["spriteHorzScaleIndicatorFront", ["horz_scale_indicator_front"]],
+	["spriteHorzScaleIndicatorBack", ["horz_scale_indicator_back"]]
 ]

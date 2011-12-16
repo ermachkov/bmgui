@@ -18,6 +18,12 @@ class Balance
 	// Sets the vertical scale
 	void setVertScale(float scale);
 
+	// Sets the horizontal scale
+	void setHorzScale(float scale);
+
+	// Sets the sample offset
+	void setSampleOffset(int offset);
+
 	// Plays/pauses oscilloscope signal
 	void setPlaying(bool playing);
 

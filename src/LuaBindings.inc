@@ -1,6 +1,6 @@
 /*
 ** Lua binding: LuaBindings
-** Generated automatically by tolua++-1.0.92 on 12/09/11 16:44:45.
+** Generated automatically by tolua++-1.0.92 on 12/16/11 13:11:52.
 */
 
 #ifndef __cplusplus
@@ -526,6 +526,72 @@ static int tolua_LuaBindings_Balance_setVertScale00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'setVertScale'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setHorzScale of class  Balance */
+#ifndef TOLUA_DISABLE_tolua_LuaBindings_Balance_setHorzScale00
+static int tolua_LuaBindings_Balance_setHorzScale00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Balance",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Balance* self = (Balance*)  tolua_tousertype(tolua_S,1,0);
+  float scale = ((float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setHorzScale'", NULL);
+#endif
+  {
+   self->setHorzScale(scale);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setHorzScale'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setSampleOffset of class  Balance */
+#ifndef TOLUA_DISABLE_tolua_LuaBindings_Balance_setSampleOffset00
+static int tolua_LuaBindings_Balance_setSampleOffset00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Balance",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Balance* self = (Balance*)  tolua_tousertype(tolua_S,1,0);
+  int offset = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setSampleOffset'", NULL);
+#endif
+  {
+   self->setSampleOffset(offset);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setSampleOffset'.",&tolua_err);
  return 0;
 #endif
 }
@@ -3641,6 +3707,8 @@ TOLUA_API int tolua_LuaBindings_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setServerAddr",tolua_LuaBindings_Balance_setServerAddr00);
    tolua_function(tolua_S,"setOscMode",tolua_LuaBindings_Balance_setOscMode00);
    tolua_function(tolua_S,"setVertScale",tolua_LuaBindings_Balance_setVertScale00);
+   tolua_function(tolua_S,"setHorzScale",tolua_LuaBindings_Balance_setHorzScale00);
+   tolua_function(tolua_S,"setSampleOffset",tolua_LuaBindings_Balance_setSampleOffset00);
    tolua_function(tolua_S,"setPlaying",tolua_LuaBindings_Balance_setPlaying00);
    tolua_function(tolua_S,"getParam",tolua_LuaBindings_Balance_getParam00);
    tolua_function(tolua_S,"getIntParam",tolua_LuaBindings_Balance_getIntParam00);

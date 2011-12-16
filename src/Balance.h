@@ -31,6 +31,12 @@ public:
 	// Sets the vertical scale
 	void setVertScale(float scale);
 
+	// Sets the horizontal scale
+	void setHorzScale(float scale);
+
+	// Sets the sample offset
+	void setSampleOffset(int offset);
+
 	// Plays/pauses oscilloscope signal
 	void setPlaying(bool playing);
 
@@ -98,6 +104,8 @@ private:
 	bool                        mPlaying;                       // Play/pause flag
 	double                      mSampleSum[2];                  // Sum of all samples
 	float                       mVertScale;                     // Vertical scale
+	float                       mHorzScale;                     // Horizontal scale
+	int                         mSampleOffset;                  // Current sample offset
 };
 
 #endif

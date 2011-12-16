@@ -132,6 +132,10 @@ function main_menu_createSprites()
 	spriteVertScaleDownIcon = Sprite("spriteVertScaleDownIcon", 130, 933)
 	spriteVertScaleUpButton = Sprite("spriteVertScaleUpButton", 89, 760)
 	spriteVertScaleUpIcon = Sprite("spriteVertScaleUpIcon", 130, 779)
+	spriteHorzScaleIndicatorBack = Sprite("spriteHorzScaleIndicatorBack", 254, 443)
+	spriteHorzScaleIndicatorFront = Sprite("spriteHorzScaleIndicatorFront", 254, 443)
+	spriteVertScaleIndicatorBack = Sprite("spriteVertScaleIndicatorBack", 91, 443)
+	spriteVertScaleIndicatorFront = Sprite("spriteVertScaleIndicatorFront", 91, 443)
 	spriteStatsBack1 = Sprite("spriteStatsBack1", 1086, 34)
 	spriteStatsBack0 = Sprite("spriteStatsBack0", 63, 34)
 	spriteStatsCloseButton = Sprite("spriteStatsCloseButton", 1143, 46)
@@ -295,6 +299,10 @@ function main_menu_deleteSprites()
 	spriteVertScaleDownIcon = nil
 	spriteVertScaleUpButton = nil
 	spriteVertScaleUpIcon = nil
+	spriteHorzScaleIndicatorBack = nil
+	spriteHorzScaleIndicatorFront = nil
+	spriteVertScaleIndicatorBack = nil
+	spriteVertScaleIndicatorFront = nil
 	spriteStatsBack1 = nil
 	spriteStatsBack0 = nil
 	spriteStatsCloseButton = nil

@@ -1,14 +1,34 @@
 -- Oscilloscope modes
 local OSC_NONE = 0
 local OSC_QEP = 1
-local OSC_RAW = 2
-local OSC_FIR = 3
-local OSC_IIR = 4
+local OSC_RAW_1 = 2
+local OSC_IIR_1 = 3
+local OSC_FIR_1 = 4
+local OSC_RAW_2 = 5
+local OSC_IIR_2 = 6
+local OSC_FIR_2 = 7
+
+-- Indicator settings
+local INDICATOR_ITEM_HEIGHT = 24
+local INDICATOR_TIME = 3000
+local INDICATOR_DELAY = 1000
+
+-- Scale tables
+local VERT_SCALE_TABLE = {15000, 15000, 15000, 15000, 15000, 15000, 15000, 15000, 15000, 15000, 15000}
+local HORZ_SCALE_TABLE = {1.0, 2.0, 4.0, 10.0, 20.0, 40.0, 100.0, 200.0, 1000.0, 2000.0, 4000.0}
+
+-- Horizontal scroll constants
+local NUM_SAMPLES_QEP = 29239
+local NUM_SAMPLES_ANALOG = 4873
+local HORZ_SCROLL_SPEED = 0.2
+local HORZ_SCROLL_TIME = 29
 
 oscilloscopeActive = false
 local mainMenuLoaded = false
 local channel1, channel2
-local vertScale
+local vertScale, horzScale
+local vertScaleTime, horzScaleTime = 0, 0
+local sampleOffset
 local playing
 local auto
 local prevClockwise
@@ -31,13 +51,16 @@ end
 function showOscilloscope()
 	if not oscilloscopeActive and mainMenuLoaded then
 		oscilloscopeActive = true
-		channel1, channel2 = OSC_RAW, OSC_RAW
-		vertScale = 1.0
+		channel1, channel2 = OSC_FIR_1, OSC_FIR_2
+		vertScale, horzScale = 0, 0
+		sampleOffset = 0
 		playing = true
 		auto = true
 		prevClockwise = balance:getIntParam("clockwise")
 
-		balance:setVertScale(vertScale)
+		balance:setVertScale(VERT_SCALE_TABLE[vertScale + 1])
+		balance:setHorzScale(HORZ_SCALE_TABLE[horzScale + 1])
+		balance:setSampleOffset(sampleOffset)
 		balance:setPlaying(playing)
 		balance:setOscMode(channel1, channel2)
 
@@ -85,6 +108,19 @@ function onOscilloscopeUpdate(delta)
 		pressedButton.frame, pressedIcon.frame = pressed and 1 or 0, getPressedIconFrame(pressed)
 	end
 
+	-- process horizontal scroll
+	if (pressedButton == spriteHorzScrollUpButton or pressedButton == spriteHorzScrollDownButton) and not playing then
+		local numSamples = channel1 ~= OSC_QEP and NUM_SAMPLES_ANALOG or NUM_SAMPLES_QEP
+		local maxSamples = numSamples * HORZ_SCROLL_TIME
+		local ofs = (delta / 1000.0) * HORZ_SCROLL_SPEED * (1.0 / HORZ_SCALE_TABLE[horzScale + 1]) * numSamples
+		if pressedButton == spriteHorzScrollUpButton then
+			sampleOffset = clamp(sampleOffset + ofs, -maxSamples, 0)
+		else
+			sampleOffset = clamp(sampleOffset - ofs, -maxSamples, 0)
+		end
+		balance:setSampleOffset(sampleOffset)
+	end
+
 	-- background
 	graphics:setBlendMode(BLEND_DISABLE)
 	spriteOscBack0:draw()
@@ -102,15 +138,47 @@ function onOscilloscopeUpdate(delta)
 	spriteOscCloseButtonBack:draw()
 	for i, button in ipairs(buttons) do
 		button:draw()
+		icons[i]:draw()
 	end
-	for i, icon in ipairs(icons) do
-		icon:draw()
-	end
+
+	-- small icons
 	for i, smallIcon in ipairs(smallIcons) do
 		if smallIcon == spriteOscChannelIcon and not playing then
 			spriteOscHorzScrollIcon:draw()
 		else
 			smallIcon:draw()
+		end
+	end
+
+	-- decrement indicator counters
+	vertScaleTime = math.max(vertScaleTime - delta, 0)
+	horzScaleTime = math.max(horzScaleTime - delta, 0)
+
+	-- vertical scale indicator
+	if vertScaleTime ~= 0 then
+		local alpha = vertScaleTime < INDICATOR_DELAY and vertScaleTime / INDICATOR_DELAY or 1.0
+		spriteVertScaleIndicatorBack.alpha = alpha
+		spriteVertScaleIndicatorBack:draw()
+
+		if vertScale ~= 0 then
+			local left, top = spriteVertScaleIndicatorFront.x, spriteVertScaleIndicatorFront.y
+			local width, height = spriteVertScaleIndicatorFront:getWidth(), spriteVertScaleIndicatorFront:getHeight()
+			spriteVertScaleIndicatorFront.alpha = alpha
+			spriteVertScaleIndicatorFront:draw(left, top + (10 - vertScale) * INDICATOR_ITEM_HEIGHT, left + width, top + height, 0, (10 - vertScale) * INDICATOR_ITEM_HEIGHT, width, height)
+		end
+	end
+
+	-- horizontal scale indicator
+	if horzScaleTime ~= 0 then
+		local alpha = horzScaleTime < INDICATOR_DELAY and horzScaleTime / INDICATOR_DELAY or 1.0
+		spriteHorzScaleIndicatorBack.alpha = alpha
+		spriteHorzScaleIndicatorBack:draw()
+
+		if horzScale ~= 0 then
+			local left, top = spriteHorzScaleIndicatorFront.x, spriteHorzScaleIndicatorFront.y
+			local width, height = spriteHorzScaleIndicatorFront:getWidth(), spriteHorzScaleIndicatorFront:getHeight()
+			spriteHorzScaleIndicatorFront.alpha = alpha
+			spriteHorzScaleIndicatorFront:draw(left, top + (10 - horzScale) * INDICATOR_ITEM_HEIGHT, left + width, top + height, 0, (10 - horzScale) * INDICATOR_ITEM_HEIGHT, width, height)
 		end
 	end
 end
@@ -144,56 +212,78 @@ function onOscilloscopeMouseUp(x, y, key)
 		if pressedButton:isPointInside(x, y) then
 			if pressedButton == spriteVertScaleUpButton then
 				-- increase vertical scale
-				vertScale = vertScale * 2.0
-				balance:setVertScale(vertScale)
+				vertScale = math.min(vertScale + 1, 10)
+				vertScaleTime = INDICATOR_TIME
+				balance:setVertScale(VERT_SCALE_TABLE[vertScale + 1])
 			elseif pressedButton == spriteVertScaleDownButton then
 				-- decrease vertical scale
-				vertScale = vertScale / 2.0
-				balance:setVertScale(vertScale)
+				vertScale = math.max(vertScale - 1, 0)
+				vertScaleTime = INDICATOR_TIME
+				balance:setVertScale(VERT_SCALE_TABLE[vertScale + 1])
+			elseif pressedButton == spriteHorzScaleUpButton then
+				-- increase horizontal scale
+				horzScale = math.min(horzScale + 1, 10)
+				horzScaleTime = INDICATOR_TIME
+				balance:setHorzScale(HORZ_SCALE_TABLE[horzScale + 1])
+			elseif pressedButton == spriteHorzScaleDownButton then
+				-- decrease horizontal scale
+				horzScale = math.max(horzScale - 1, 0)
+				horzScaleTime = INDICATOR_TIME
+				balance:setHorzScale(HORZ_SCALE_TABLE[horzScale + 1])
 			elseif pressedButton == spriteHorzScrollUpButton then
-				-- increment channel 1
-				if channel1 == OSC_QEP then
-					channel1, channel2 = OSC_RAW, OSC_RAW
-				elseif channel1 == OSC_IIR then
-					channel1, channel2 = OSC_QEP, OSC_QEP
-				else
-					channel1 = channel1 + 1
+				if playing then
+					-- increment channel 1
+					if channel1 == OSC_QEP then
+						channel1, channel2 = OSC_RAW_1, OSC_RAW_1
+					elseif channel1 == OSC_FIR_2 then
+						channel1, channel2 = OSC_QEP, OSC_QEP
+					else
+						channel1 = channel1 + 1
+					end
+					balance:setOscMode(channel1, channel2)
 				end
-				balance:setOscMode(channel1, channel2)
 			elseif pressedButton == spriteHorzScrollDownButton then
-				-- decrement channel 1
-				if channel1 == OSC_QEP then
-					channel1, channel2 = OSC_IIR, OSC_IIR
-				elseif channel1 == OSC_RAW then
-					channel1, channel2 = OSC_QEP, OSC_QEP
-				else
-					channel1 = channel1 - 1
+				if playing then
+					-- decrement channel 1
+					if channel1 == OSC_QEP then
+						channel1, channel2 = OSC_FIR_2, OSC_FIR_2
+					elseif channel1 == OSC_RAW_1 then
+						channel1, channel2 = OSC_QEP, OSC_QEP
+					else
+						channel1 = channel1 - 1
+					end
+					balance:setOscMode(channel1, channel2)
 				end
-				balance:setOscMode(channel1, channel2)
 			elseif pressedButton == spriteVertScrollUpButton then
-				-- increment channel 2
-				if channel2 == OSC_QEP then
-					channel1, channel2 = OSC_RAW, OSC_RAW
-				elseif channel2 == OSC_IIR then
-					channel1, channel2 = OSC_QEP, OSC_QEP
-				else
-					channel2 = channel2 + 1
+				if playing then
+					-- increment channel 2
+					if channel2 == OSC_QEP then
+						channel1, channel2 = OSC_RAW_1, OSC_RAW_1
+					elseif channel2 == OSC_FIR_2 then
+						channel1, channel2 = OSC_QEP, OSC_QEP
+					else
+						channel2 = channel2 + 1
+					end
+					balance:setOscMode(channel1, channel2)
 				end
-				balance:setOscMode(channel1, channel2)
 			elseif pressedButton == spriteVertScrollDownButton then
-				-- decrement channel 2
-				if channel2 == OSC_QEP then
-					channel1, channel2 = OSC_IIR, OSC_IIR
-				elseif channel2 == OSC_RAW then
-					channel1, channel2 = OSC_QEP, OSC_QEP
-				else
-					channel2 = channel2 - 1
+				if playing then
+					-- decrement channel 2
+					if channel2 == OSC_QEP then
+						channel1, channel2 = OSC_FIR_2, OSC_FIR_2
+					elseif channel2 == OSC_RAW_1 then
+						channel1, channel2 = OSC_QEP, OSC_QEP
+					else
+						channel2 = channel2 - 1
+					end
+					balance:setOscMode(channel1, channel2)
 				end
-				balance:setOscMode(channel1, channel2)
 			elseif pressedButton == spritePlayUpButton then
 				-- toggle play/pause mode
 				playing = not playing
 				balance:setPlaying(playing)
+				sampleOffset = 0
+				balance:setSampleOffset(sampleOffset)
 			elseif pressedButton == spritePlayDownButton then
 				-- toggle auto/wait mode
 				auto = not auto

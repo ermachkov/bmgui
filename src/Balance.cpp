@@ -24,7 +24,7 @@ const std::string Balance::PARAMS[MAX_PARAMS] =
 };
 
 Balance::Balance(Profile &profile)
-: mProtocolValid(true), mSocketNameChanged(false), mOscMode(0), mCurrSample(0), mPlaying(true), mVertScale(1.0f)
+: mProtocolValid(true), mSocketNameChanged(false), mOscMode(0), mCurrSample(0), mPlaying(true), mVertScale(1.0f), mHorzScale(1.0f), mSampleOffset(0)
 {
 	for (int i = 0; i < MAX_PARAMS; ++i)
 		mParams.insert(std::make_pair(PARAMS[i], "0"));
@@ -92,6 +92,16 @@ void Balance::setVertScale(float scale)
 	mVertScale = scale;
 }
 
+void Balance::setHorzScale(float scale)
+{
+	mHorzScale = scale;
+}
+
+void Balance::setSampleOffset(int offset)
+{
+	mSampleOffset = offset;
+}
+
 void Balance::setPlaying(bool playing)
 {
 	mPlaying = playing;
@@ -155,12 +165,12 @@ void Balance::drawOscilloscope(float x1, float y1, float x2, float y2)
 	{
 		numSamples = NUM_SAMPLES_QEP;
 		numChannels = 3;
-		int index = mCurrSample - numSamples;
+		int index = mCurrSample - numSamples + mSampleOffset;
 		if (index < 0)
 			index += TOTAL_SAMPLES;
 		for (int i = 0; i < numSamples; ++i)
 		{
-			positions[0][i].x = positions[1][i].x = positions[2][i].x = x1 + width * i / numSamples;
+			positions[0][i].x = positions[1][i].x = positions[2][i].x = x1 + width * i / numSamples * mHorzScale;
 			positions[0][i].y = y1 + 1.0f * height / 4.0f - (mChannels[0][index] != 0 ? height / 5.0f : 0.0f);
 			positions[1][i].y = y1 + 2.0f * height / 4.0f - (mChannels[1][index] != 0 ? height / 5.0f : 0.0f);
 			positions[2][i].y = y1 + 3.0f * height / 4.0f - (mChannels[2][index] != 0 ? height / 5.0f : 0.0f);
@@ -173,12 +183,12 @@ void Balance::drawOscilloscope(float x1, float y1, float x2, float y2)
 		numSamples = NUM_SAMPLES_ANALOG;
 		numChannels = 2;
 		float avgSample[2] = {static_cast<float>(mSampleSum[0] / numSamples), static_cast<float>(mSampleSum[1] / numSamples)};
-		int index = mCurrSample - numSamples;
+		int index = mCurrSample - numSamples + mSampleOffset;
 		if (index < 0)
 			index += TOTAL_SAMPLES;
 		for (int i = 0; i < numSamples; ++i)
 		{
-			positions[0][i].x = positions[1][i].x = x1 + width * i / numSamples;
+			positions[0][i].x = positions[1][i].x = x1 + width * i / numSamples * mHorzScale;
 			positions[0][i].y = y1 + 1.0f * height / 4.0f - (mChannels[0][index] - avgSample[0]) / 2097152.0f * height / 4.0f * mVertScale;
 			positions[1][i].y = y1 + 3.0f * height / 4.0f - (mChannels[1][index] - avgSample[1]) / 2097152.0f * height / 4.0f * mVertScale;
 			if (++index >= TOTAL_SAMPLES)
@@ -186,6 +196,9 @@ void Balance::drawOscilloscope(float x1, float y1, float x2, float y2)
 		}
 	}
 	mOscMutex.unlock();
+
+	// set the clipping rectangle
+	Graphics::getSingleton().setClipRect(x1, y1, x2, y2);
 
 	// draw graphs
 	CL_GraphicContext &gc = Graphics::getSingleton().getWindow().get_gc();
@@ -198,6 +211,9 @@ void Balance::drawOscilloscope(float x1, float y1, float x2, float y2)
 		gc.draw_primitives(cl_line_strip, numSamples, array);
 	}
 	gc.reset_program_object();
+
+	// reset the clipping rectangle
+	Graphics::getSingleton().resetClipRect();
 }
 
 void Balance::onUpdate(int delta)
