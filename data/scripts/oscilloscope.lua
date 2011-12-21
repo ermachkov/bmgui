@@ -7,6 +7,10 @@ local OSC_FIR_1 = 4
 local OSC_RAW_2 = 5
 local OSC_IIR_2 = 6
 local OSC_FIR_2 = 7
+local OSC_FFT = 8
+
+-- Channel names
+local CHANNEL_NAMES = {"QEP", "RAW1", "IIR1", "FIR1", "RAW2", "IIR2", "FIR2", "FFT"}
 
 -- Indicator settings
 local INDICATOR_ITEM_HEIGHT = 24
@@ -14,7 +18,7 @@ local INDICATOR_TIME = 3000
 local INDICATOR_DELAY = 1000
 
 -- Scale tables
-local VERT_SCALE_TABLE = {15000, 15000, 15000, 15000, 15000, 15000, 15000, 15000, 15000, 15000, 15000}
+local VERT_SCALE_TABLE = {100, 200, 400, 800, 1600, 3200, 6400, 12800, 25600, 51200, 102400}
 local HORZ_SCALE_TABLE = {1.0, 2.0, 4.0, 10.0, 20.0, 40.0, 100.0, 200.0, 1000.0, 2000.0, 4000.0}
 
 -- Horizontal scroll constants
@@ -150,6 +154,13 @@ function onOscilloscopeUpdate(delta)
 		end
 	end
 
+	-- draw oscilloscope information
+	if channel1 ~= OSC_QEP and channel2 ~= OSC_QEP then
+		local minSample1, minSample2, maxSample1, maxSample2 = balance:getMinMaxSamples()
+		fontOscilloscope:drawText(50, 50, string.format("Channel1 = %s\nMin = %d\nMax = %d\nDiff = %d", CHANNEL_NAMES[channel1], minSample1, maxSample1, maxSample1 - minSample1), 1.0, 0.0, 0.0)
+		fontOscilloscope:drawText(50, 580, string.format("Channel2 = %s\nMin = %d\nMax = %d\nDiff = %d", CHANNEL_NAMES[channel2], minSample2, maxSample2, maxSample2 - minSample2), 0.0, 1.0, 0.0)
+	end
+
 	-- decrement indicator counters
 	vertScaleTime = math.max(vertScaleTime - delta, 0)
 	horzScaleTime = math.max(horzScaleTime - delta, 0)
@@ -236,6 +247,8 @@ function onOscilloscopeMouseUp(x, y, key)
 					if channel1 == OSC_QEP then
 						channel1, channel2 = OSC_RAW_1, OSC_RAW_1
 					elseif channel1 == OSC_FIR_2 then
+						channel1, channel2 = OSC_FFT, OSC_FFT
+					elseif channel1 == OSC_FFT then
 						channel1, channel2 = OSC_QEP, OSC_QEP
 					else
 						channel1 = channel1 + 1
@@ -246,9 +259,11 @@ function onOscilloscopeMouseUp(x, y, key)
 				if playing then
 					-- decrement channel 1
 					if channel1 == OSC_QEP then
-						channel1, channel2 = OSC_FIR_2, OSC_FIR_2
+						channel1, channel2 = OSC_FFT, OSC_FFT
 					elseif channel1 == OSC_RAW_1 then
 						channel1, channel2 = OSC_QEP, OSC_QEP
+					elseif channel1 == OSC_FFT then
+						channel1, channel2 = OSC_FIR_2, OSC_FIR_2
 					else
 						channel1 = channel1 - 1
 					end
@@ -260,6 +275,8 @@ function onOscilloscopeMouseUp(x, y, key)
 					if channel2 == OSC_QEP then
 						channel1, channel2 = OSC_RAW_1, OSC_RAW_1
 					elseif channel2 == OSC_FIR_2 then
+						channel1, channel2 = OSC_FFT, OSC_FFT
+					elseif channel2 == OSC_FFT then
 						channel1, channel2 = OSC_QEP, OSC_QEP
 					else
 						channel2 = channel2 + 1
@@ -270,9 +287,11 @@ function onOscilloscopeMouseUp(x, y, key)
 				if playing then
 					-- decrement channel 2
 					if channel2 == OSC_QEP then
-						channel1, channel2 = OSC_FIR_2, OSC_FIR_2
+						channel1, channel2 = OSC_FFT, OSC_FFT
 					elseif channel2 == OSC_RAW_1 then
 						channel1, channel2 = OSC_QEP, OSC_QEP
+					elseif channel2 == OSC_FFT then
+						channel1, channel2 = OSC_FIR_2, OSC_FIR_2
 					else
 						channel2 = channel2 - 1
 					end

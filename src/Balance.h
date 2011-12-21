@@ -40,6 +40,9 @@ public:
 	// Plays/pauses oscilloscope signal
 	void setPlaying(bool playing);
 
+	// Returns the minimum/maximum sample values
+	void getMinMaxSamples(int *minSample1 = NULL, int *minSample2 = NULL, int *maxSample1 = NULL, int *maxSample2 = NULL);
+
 	// Returns the balance parameter
 	std::string getParam(const std::string &name) const;
 
@@ -63,6 +66,20 @@ public:
 
 private:
 
+	// Oscilloscope channel modes
+	enum ChannelMode
+	{
+		OSC_NONE,
+		OSC_QEP,
+		OSC_RAW1,
+		OSC_IIR1,
+		OSC_FIR1,
+		OSC_RAW2,
+		OSC_IIR2,
+		OSC_FIR2,
+		OSC_FFT
+	};
+
 	// Name -> value map type
 	typedef std::map<std::string, std::string> ParamMap;
 
@@ -76,6 +93,14 @@ private:
 	static const int NUM_SAMPLES_QEP = 29239;
 	static const int NUM_SAMPLES_ANALOG = 4873;
 	static const int TOTAL_SAMPLES = NUM_SAMPLES_QEP * 30;
+
+	static const int NUM_MIN_MAX_SAMPLES = 2437;
+
+	static const int NUM_FFT_PERIODS = 10;
+	static const int MAX_FFT_SAMPLES = 16384;
+
+	// Calculates FFT
+	void calcFFT(int start, int end);
 
 	// Update event handler
 	void onUpdate(int delta);
@@ -103,6 +128,8 @@ private:
 	int                         mCurrSample;                    // Current sample index
 	bool                        mPlaying;                       // Play/pause flag
 	double                      mSampleSum[2];                  // Sum of all samples
+	int                         mMinSamples[2];                 // Minimum sample values
+	int                         mMaxSamples[2];                 // Maximum sample values
 	float                       mVertScale;                     // Vertical scale
 	float                       mHorzScale;                     // Horizontal scale
 	int                         mSampleOffset;                  // Current sample offset

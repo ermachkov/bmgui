@@ -930,6 +930,7 @@ function onMainMenuUpdate(delta)
 		fontStatsMonth = CFont("fontStatsMonth")
 		fontStatsMode = CFont("fontStatsMode")
 		fontStatsAxis = CFont("fontStatsAxis")
+		fontOscilloscope = CFont("fontOscilloscope")
 
 		-- disable translation for menu entries to work properly
 		enableTranslation(false)

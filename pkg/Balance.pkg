@@ -27,6 +27,9 @@ class Balance
 	// Plays/pauses oscilloscope signal
 	void setPlaying(bool playing);
 
+	// Returns the minimum/maximum sample values
+	void getMinMaxSamples(int *minSample1 = NULL, int *minSample2 = NULL, int *maxSample1 = NULL, int *maxSample2 = NULL);
+
 	// Returns the balance parameter
 	std::string getParam(const std::string &name) const;
 

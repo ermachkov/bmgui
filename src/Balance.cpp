@@ -79,12 +79,13 @@ void Balance::setServerAddr(const std::string &addr)
 
 void Balance::setOscMode(int ch1, int ch2)
 {
-	if (ch1 == 0 || ch2 == 0)
-		mOscMode = 0;
-	else if (ch1 == 1 || ch2 == 1)
-		mOscMode = 0x0101;
-	else
-		mOscMode = ch1 | ch2 << 8;
+	if (ch1 == OSC_NONE || ch2 == OSC_NONE)
+		ch1 = ch2 = OSC_NONE;
+	else if (ch1 == OSC_QEP || ch2 == OSC_QEP)
+		ch1 = ch2 = OSC_QEP;
+	else if (ch1 == OSC_FFT || ch2 == OSC_FFT)
+		ch1 = ch2 = OSC_FFT;
+	mOscMode = ch1 | ch2 << 8;
 }
 
 void Balance::setVertScale(float scale)
@@ -105,6 +106,15 @@ void Balance::setSampleOffset(int offset)
 void Balance::setPlaying(bool playing)
 {
 	mPlaying = playing;
+}
+
+void Balance::getMinMaxSamples(int *minSample1, int *minSample2, int *maxSample1, int *maxSample2)
+{
+	CL_MutexSection mutexSection(&mOscMutex);
+	*minSample1 = mMinSamples[0];
+	*minSample2 = mMinSamples[1];
+	*maxSample1 = mMaxSamples[0];
+	*maxSample2 = mMaxSamples[1];
 }
 
 std::string Balance::getParam(const std::string &name) const
@@ -161,7 +171,7 @@ void Balance::drawOscilloscope(float x1, float y1, float x2, float y2)
 	// copy data to the buffers
 	mOscMutex.lock();
 	int numSamples, numChannels;
-	if (mOscMode == 0x0101)
+	if (mOscMode == (OSC_QEP | OSC_QEP << 8))
 	{
 		numSamples = NUM_SAMPLES_QEP;
 		numChannels = 3;
@@ -216,6 +226,15 @@ void Balance::drawOscilloscope(float x1, float y1, float x2, float y2)
 	Graphics::getSingleton().resetClipRect();
 }
 
+void Balance::calcFFT(int start, int end)
+{
+	// check the number of samples to process
+	int numSamples = end >= start ? end - start : end - start + TOTAL_SAMPLES;
+	if (numSamples > MAX_FFT_SAMPLES)
+		return;
+	CL_Console::write_line(cl_format("Samples: %1", numSamples));
+}
+
 void Balance::onUpdate(int delta)
 {
 	// process the reply queue
@@ -257,6 +276,7 @@ void Balance::run()
 	ShowWindow(GetConsoleWindow(), SW_SHOW);
 #endif
 
+	unsigned short oldIndex = 0xFFFF;
 	while (mStopThread.get() == 0)
 	{
 		try
@@ -284,7 +304,12 @@ void Balance::run()
 			int numRetries = 0;
 			int oscMode = 0;
 			std::string data;
-			unsigned short oldIndex = 0xFFFF;
+			int numMinMaxSamples = 0;
+			int minSamples[2] = {INT_MAX, INT_MAX};
+			int maxSamples[2] = {INT_MIN, INT_MIN};
+			unsigned char qep = 0x00;
+			int startFFTSample = 0;
+			int numFFTPeriods = 0;
 			while (mStopThread.get() == 0 && numRetries <= MAX_RETRIES && !mSocketNameChanged)
 			{
 				unsigned currTime = CL_System::get_time();
@@ -322,7 +347,8 @@ void Balance::run()
 
 						if (oscMode != 0)
 						{
-							request = cl_format("osc %1 %2\r\n", oscMode & 0xFF, oscMode >> 8 & 0xFF);
+							int mode = oscMode != (OSC_FFT | OSC_FFT << 8) ? oscMode : (OSC_IIR1 | OSC_IIR2 << 8);
+							request = cl_format("osc %1 %2\r\n", mode & 0xFF, mode >> 8 & 0xFF);
 							CL_Console::write_line("> " + request.substr(0, request.length() - 2));
 							connection.write(request.c_str(), request.length());
 							CL_System::sleep(250);
@@ -386,7 +412,7 @@ void Balance::run()
 						if (oscMode != 0 && mPlaying)
 						{
 							CL_MutexSection mutexSection(&mOscMutex);
-							if (oscMode == 0x0101)
+							if (oscMode == (OSC_QEP | OSC_QEP << 8))
 							{
 								for (int i = 0; i < (size - 4) * 8; i += 3)
 								{
@@ -401,12 +427,14 @@ void Balance::run()
 							{
 								for (int i = 4; i < size; i += 6)
 								{
+									// subtract the oldest samples from the samples sum
 									int index = mCurrSample - NUM_SAMPLES_ANALOG;
 									if (index < 0)
 										index += TOTAL_SAMPLES;
 									mSampleSum[0] -= mChannels[0][index];
 									mSampleSum[1] -= mChannels[1][index];
 
+									// unpack and sign-extend current sample pair
 									int sample1 = buf[i + 0] | buf[i + 1] << 8 | (buf[i + 2] & 0x3F) << 16;
 									int sample2 = (buf[i + 2] >> 6 & 0x03) | buf[i + 3] << 2 | buf[i + 4] << 10 | (buf[i + 5] & 0x0F) << 18;
 									if ((sample1 & 0x00200000) != 0)
@@ -414,14 +442,46 @@ void Balance::run()
 									if ((sample2 & 0x00200000) != 0)
 										sample2 |= 0xFFC00000;
 
+									// add received samples to the buffer
 									mChannels[0][mCurrSample] = sample1;
 									mChannels[1][mCurrSample] = sample2;
 
+									if (++mCurrSample >= TOTAL_SAMPLES)
+										mCurrSample = 0;
+
+									// add the newest samples to the samples sum
 									mSampleSum[0] += sample1;
 									mSampleSum[1] += sample2;
 
-									if (++mCurrSample >= TOTAL_SAMPLES)
-										mCurrSample = 0;
+									// update min/max sample values
+									if (sample1 < minSamples[0])
+										minSamples[0] = sample1;
+									if (sample2 < minSamples[1])
+										minSamples[1] = sample2;
+									if (sample1 > maxSamples[0])
+										maxSamples[0] = sample1;
+									if (sample2 > maxSamples[1])
+										maxSamples[1] = sample2;
+
+									if (++numMinMaxSamples >= NUM_MIN_MAX_SAMPLES)
+									{
+										numMinMaxSamples = 0;
+										mMinSamples[0] = minSamples[0]; mMinSamples[1] = minSamples[1];
+										mMaxSamples[0] = maxSamples[0]; mMaxSamples[1] = maxSamples[1];
+										minSamples[0] = minSamples[1] = INT_MAX;
+										maxSamples[0] = maxSamples[1] = INT_MIN;
+									}
+
+									// calculate FFT if enabled
+									if (oscMode == (OSC_FFT | OSC_FFT << 8) && (buf[i + 5] & 0x80) != 0 && (qep & 0x80) == 0 && ++numFFTPeriods >= NUM_FFT_PERIODS)
+									{
+										calcFFT(startFFTSample, mCurrSample);
+										startFFTSample = mCurrSample;
+										numFFTPeriods = 0;
+									}
+
+									// save current QEP byte
+									qep = buf[i + 5];
 								}
 							}
 						}

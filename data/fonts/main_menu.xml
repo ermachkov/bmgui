@@ -24,4 +24,7 @@
 	<font name="fontStatsAxis">
 		<freetype file="LiberationSans-Bold.ttf" height="23"/>
 	</font>
+	<font name="fontOscilloscope">
+		<freetype file="LiberationSans-Regular.ttf" height="24"/>
+	</font>
 </resources>
