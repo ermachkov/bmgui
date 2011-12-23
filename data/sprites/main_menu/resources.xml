@@ -438,7 +438,7 @@
 	</sprite>
 	<sprite name="spriteMainMenuTrianglePressed">
 		<image file="texture2.png">
-			<grid pos="571,986" size="24,27"/>
+			<grid pos="986,925" size="24,27"/>
 		</image>
 	</sprite>
 	<sprite name="spriteMainMenuItemNormal">
@@ -447,8 +447,8 @@
 		</image>
 	</sprite>
 	<sprite name="spriteMainMenuTriangleNormal">
-		<image file="texture1.png">
-			<grid pos="852,995" size="24,27"/>
+		<image file="texture2.png">
+			<grid pos="571,986" size="24,27"/>
 		</image>
 	</sprite>
 	<sprite name="spriteMainMenuDownButton">
@@ -537,18 +537,18 @@
 		</image>
 	</sprite>
 	<sprite name="spriteOscPlayIcon">
-		<image file="texture1.png">
-			<grid pos="817,995" size="34,22"/>
+		<image file="texture2.png">
+			<grid pos="951,925" size="34,22"/>
 		</image>
 	</sprite>
 	<sprite name="spriteOscChannelIcon">
-		<image file="texture2.png">
-			<grid pos="1005,954" size="19,40"/>
+		<image file="texture3.png">
+			<grid pos="925,764" size="19,40"/>
 		</image>
 	</sprite>
 	<sprite name="spriteOscVertScrollIcon">
-		<image file="texture3.png">
-			<grid pos="987,499" size="36,39"/>
+		<image file="texture2.png">
+			<grid pos="1005,954" size="19,40"/>
 		</image>
 	</sprite>
 	<sprite name="spriteOscHorzScrollIcon">
@@ -563,7 +563,7 @@
 	</sprite>
 	<sprite name="spriteOscVertScaleIcon">
 		<image file="texture3.png">
-			<grid pos="987,617" size="34,32"/>
+			<grid pos="987,577" size="34,32"/>
 		</image>
 	</sprite>
 	<sprite name="spriteOscCloseButtonBack">
@@ -687,10 +687,10 @@
 			<grid pos="859,445" size="41,47"/>
 		</image>
 		<image file="texture3.png">
-			<grid pos="987,578" size="33,38"/>
+			<grid pos="987,538" size="33,38"/>
 		</image>
 		<image file="texture3.png">
-			<grid pos="987,539" size="33,38"/>
+			<grid pos="987,499" size="33,38"/>
 		</image>
 		<frame nr="0" x="0" y="0"/>
 		<frame nr="1" x="0" y="3"/>
@@ -708,14 +708,14 @@
 		<frame nr="1" x="0" y="-2"/>
 	</sprite>
 	<sprite name="spriteVertScrollDownIcon">
-		<image file="texture3.png">
-			<grid pos="925,893" size="26,42"/>
+		<image file="texture2.png">
+			<grid pos="908,925" size="42,26"/>
 		</image>
-		<image file="texture3.png">
-			<grid pos="925,850" size="26,42"/>
+		<image file="texture2.png">
+			<grid pos="865,925" size="42,26"/>
 		</image>
 		<frame nr="0" x="0" y="0"/>
-		<frame nr="1" x="0" y="-3"/>
+		<frame nr="1" x="0" y="-6"/>
 	</sprite>
 	<sprite name="spriteVertScrollUpButton">
 		<image file="texture7.png">
@@ -728,11 +728,11 @@
 		<frame nr="1" x="0" y="-1"/>
 	</sprite>
 	<sprite name="spriteVertScrollUpIcon">
-		<image file="texture3.png">
-			<grid pos="925,807" size="26,42"/>
+		<image file="texture2.png">
+			<grid pos="822,925" size="42,26"/>
 		</image>
-		<image file="texture3.png">
-			<grid pos="925,764" size="26,42"/>
+		<image file="texture1.png">
+			<grid pos="817,995" size="42,26"/>
 		</image>
 		<frame nr="0" x="0" y="0"/>
 		<frame nr="1" x="0" y="4"/>

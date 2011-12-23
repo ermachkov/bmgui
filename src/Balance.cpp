@@ -473,7 +473,7 @@ void Balance::run()
 									}
 
 									// calculate FFT if enabled
-									if (oscMode == (OSC_FFT | OSC_FFT << 8) && (buf[i + 5] & 0x80) != 0 && (qep & 0x80) == 0 && ++numFFTPeriods >= NUM_FFT_PERIODS)
+									if (oscMode == (OSC_FFT | OSC_FFT << 8) && (buf[i + 5] & 0x80) != 0 && (qep & 0x80) == 0 && ++numFFTPeriods >= 1/*NUM_FFT_PERIODS*/)
 									{
 										calcFFT(startFFTSample, mCurrSample);
 										startFFTSample = mCurrSample;

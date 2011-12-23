@@ -794,7 +794,7 @@ local function initMenus()
 				header = tr("{factory_settings_header}"),
 				text = tr("{factory_settings_text}"),
 				password = true,
-				onClick = function() balance:setParam("loaddef"); hideMainMenu() end
+				onClick = function() balance:setParam("loadref"); hideMainMenu() end
 			},
 			{
 				icon = spriteQuitIcon,
