@@ -313,7 +313,13 @@ void Balance::run()
 			while (mStopThread.get() == 0 && numRetries <= MAX_RETRIES && !mSocketNameChanged)
 			{
 				unsigned currTime = CL_System::get_time();
-				int delta = cl_clamp(static_cast<int>(currTime - lastTime), 0, 1000);
+				int delta = static_cast<int>(currTime - lastTime);
+				if (delta < 0 || delta > 1000)
+				{
+					lastTime = currTime;
+					continue;
+				}
+
 				if (delta >= POLL_INTERVAL)
 				{
 					lastTime = currTime;
