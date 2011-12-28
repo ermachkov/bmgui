@@ -1,5 +1,7 @@
 startScreenActive = false
 local pressedButton, pressedText
+local currButton, currText
+local oldPedal = 1
 
 -- Draws the text
 local function drawLabel(sprite, text, button)
@@ -10,12 +12,25 @@ local function drawLabel(sprite, text, button)
 	end
 end
 
+-- Processes the pressed button
+local function processButton(button)
+	if button == spriteStartWorkButton then
+		hideStartScreen()
+	elseif button == spriteBalanceCalibrationButton then
+		balance:setParam("keycal0")
+		hideStartScreen()
+	elseif button == spriteTouchscreenCalibrationButton then
+		os.execute(profile:getString("cal_command", "balance_xinput_calibrator"))
+	end
+end
+
 -- Shows the start screen
 function showStartScreen()
 	if not startScreenActive then
 		startScreenActive = true
 		spriteStartWorkButton.frame, spriteBalanceCalibrationButton.frame, spriteTouchscreenCalibrationButton.frame = 0, 0, 0
 		pressedButton, pressedText = nil, nil
+		currButton, currText = nil, nil
 	end
 end
 
@@ -39,10 +54,26 @@ function onStartScreenUpdate(delta)
 		return
 	end
 
-	-- handle currently pressed button
+	-- select the current button with wheel
+	spriteStartWorkButton.frame, spriteBalanceCalibrationButton.frame, spriteTouchscreenCalibrationButton.frame = 0, 0, 0
+	local angle = balance:getIntParam("wheelangle")
+	if angle < NUM_ANGLES / 3 then
+		currButton, currText = spriteStartWorkButton, spriteStartWorkText
+	elseif angle < 2 * NUM_ANGLES / 3 then
+		currButton, currText = spriteBalanceCalibrationButton, spriteBalanceCalibrationText
+	else
+		currButton, currText = spriteTouchscreenCalibrationButton, spriteTouchscreenCalibrationText
+	end
+
+	-- handle the pressed button
 	if pressedButton then
 		local x, y = mouse:getPosition()
 		pressedButton.frame = isPointInside(x, y, pressedButton.x, pressedButton.y, pressedButton.x + pressedButton:getWidth(), pressedText.y + pressedText:getHeight()) and 1 or 0
+	end
+
+	-- handle the current button
+	if currButton then
+		currButton.frame = 1
 	end
 
 	-- background
@@ -71,6 +102,13 @@ function onStartScreenUpdate(delta)
 	if profile:getInt("input_dev") == 1 then
 		spriteMouseStatusIcon:draw()
 	end
+
+	-- handle the pedal
+	local newPedal = math.floor(balance:getIntParam("spiinput") / 2 ^ 15) % 2
+	if newPedal ~= 0 and oldPedal == 0 then
+		processButton(currButton)
+	end
+	oldPedal = newPedal
 end
 
 function onStartScreenMouseDown(x, y, key)
@@ -106,14 +144,7 @@ function onStartScreenMouseUp(x, y, key)
 	-- release the pressed button if any
 	if pressedButton then
 		if isPointInside(x, y, pressedButton.x, pressedButton.y, pressedButton.x + pressedButton:getWidth(), pressedText.y + pressedText:getHeight()) then
-			if pressedButton == spriteStartWorkButton then
-				hideStartScreen()
-			elseif pressedButton == spriteBalanceCalibrationButton then
-				balance:setParam("keycal0")
-				hideStartScreen()
-			elseif pressedButton == spriteTouchscreenCalibrationButton then
-				os.execute(profile:getString("cal_command", "balance_xinput_calibrator"))
-			end
+			processButton(pressedButton)
 		end
 		pressedButton.frame = 0
 		pressedButton, pressedText = nil, nil

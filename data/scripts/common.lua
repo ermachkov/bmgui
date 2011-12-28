@@ -110,13 +110,55 @@ protocolValid = true
 
 lang = LANG_EN
 local translationEnabled = true
-local translations = {TRANSLATION_EN, TRANSLATION_RU}
+local translations = {TRANSLATION_EN, TRANSLATION_RU, TRANSLATION_CN}
 local translation = translations[lang + 1]
 
 -- Sets the current language
 function setLanguage(language)
+	-- set the translation table
 	lang = language
 	translation = translationEnabled and translations[lang + 1] or {}
+
+	-- select between normal/Chinese fonts
+	if lang == LANG_EN or lang == LANG_RU then
+		fontSizes = fontSizes_all
+		fontWeights = fontWeights_all
+		fontWheel = fontWheel_all
+		fontMessageHeader = fontMessageHeader_all
+		fontMessageText = fontMessageText_all
+		fontMessageBox = fontMessageBox_all
+		fontKeyboardDisplay = fontKeyboardDisplay_all
+		fontSpeedometer = fontSpeedometer_all
+
+		fontMainMenu = fontMainMenu_all
+		fontMainMenuItemHeader = fontMainMenuItemHeader_all
+		fontMainMenuItemText = fontMainMenuItemText_all
+		fontMainMenuItemValue = fontMainMenuItemValue_all
+		fontStatsHeader = fontStatsHeader_all
+		fontStatsMonth = fontStatsMonth_all
+		fontStatsMode = fontStatsMode_all
+		fontStatsAxis = fontStatsAxis_all
+		fontOscilloscope = fontOscilloscope_all
+	else
+		fontSizes = fontSizes_cn
+		fontWeights = fontWeights_cn
+		fontWheel = fontWheel_cn
+		fontMessageHeader = fontMessageHeader_cn
+		fontMessageText = fontMessageText_cn
+		fontMessageBox = fontMessageBox_cn
+		fontKeyboardDisplay = fontKeyboardDisplay_cn
+		fontSpeedometer = fontSpeedometer_cn
+
+		fontMainMenu = fontMainMenu_cn
+		fontMainMenuItemHeader = fontMainMenuItemHeader_cn
+		fontMainMenuItemText = fontMainMenuItemText_cn
+		fontMainMenuItemValue = fontMainMenuItemValue_cn
+		fontStatsHeader = fontStatsHeader_cn
+		fontStatsMonth = fontStatsMonth_cn
+		fontStatsMode = fontStatsMode_cn
+		fontStatsAxis = fontStatsAxis_cn
+		fontOscilloscope = fontOscilloscope_cn
+	end
 end
 
 -- Enables/disables the translation

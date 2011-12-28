@@ -1,30 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-	<font name="fontMainMenu">
+	<font name="fontMainMenu_all">
 		<freetype file="LiberationSans-Bold.ttf" height="30"/>
 	</font>
-	<font name="fontMainMenuItemHeader">
+	<font name="fontMainMenuItemHeader_all">
 		<freetype file="LiberationSans-Bold.ttf" height="40"/>
 	</font>
-	<font name="fontMainMenuItemText">
+	<font name="fontMainMenuItemText_all">
 		<freetype file="LiberationSans-Bold.ttf" height="22"/>
 	</font>
-	<font name="fontMainMenuItemValue">
+	<font name="fontMainMenuItemValue_all">
 		<freetype file="LiberationSans-Bold.ttf" height="50"/>
 	</font>
-	<font name="fontStatsHeader">
+	<font name="fontStatsHeader_all">
 		<freetype file="LiberationSans-Bold.ttf" height="35"/>
 	</font>
-	<font name="fontStatsMonth">
+	<font name="fontStatsMonth_all">
 		<freetype file="LiberationSans-Bold.ttf" height="40"/>
 	</font>
-	<font name="fontStatsMode">
+	<font name="fontStatsMode_all">
 		<freetype file="LiberationSans-Bold.ttf" height="32"/>
 	</font>
-	<font name="fontStatsAxis">
+	<font name="fontStatsAxis_all">
 		<freetype file="LiberationSans-Bold.ttf" height="23"/>
 	</font>
-	<font name="fontOscilloscope">
+	<font name="fontOscilloscope_all">
 		<freetype file="LiberationSans-Regular.ttf" height="24"/>
+	</font>
+
+	<font name="fontMainMenu_cn">
+		<freetype file="wqy-microhei.ttc" height="30"/>
+	</font>
+	<font name="fontMainMenuItemHeader_cn">
+		<freetype file="wqy-microhei.ttc" height="40"/>
+	</font>
+	<font name="fontMainMenuItemText_cn">
+		<freetype file="wqy-microhei.ttc" height="22"/>
+	</font>
+	<font name="fontMainMenuItemValue_cn">
+		<freetype file="wqy-microhei.ttc" height="50"/>
+	</font>
+	<font name="fontStatsHeader_cn">
+		<freetype file="wqy-microhei.ttc" height="35"/>
+	</font>
+	<font name="fontStatsMonth_cn">
+		<freetype file="wqy-microhei.ttc" height="40"/>
+	</font>
+	<font name="fontStatsMode_cn">
+		<freetype file="wqy-microhei.ttc" height="32"/>
+	</font>
+	<font name="fontStatsAxis_cn">
+		<freetype file="wqy-microhei.ttc" height="23"/>
+	</font>
+	<font name="fontOscilloscope_cn">
+		<freetype file="wqy-microhei.ttc" height="24"/>
 	</font>
 </resources>

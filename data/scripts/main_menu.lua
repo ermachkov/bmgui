@@ -921,16 +921,30 @@ function onMainMenuUpdate(delta)
 		include("sprites/main_menu/sprites.lua")
 		main_menu_createSprites()
 
-		-- create fonts
-		fontMainMenu = CFont("fontMainMenu")
-		fontMainMenuItemHeader = CFont("fontMainMenuItemHeader")
-		fontMainMenuItemText = CFont("fontMainMenuItemText")
-		fontMainMenuItemValue = CFont("fontMainMenuItemValue")
-		fontStatsHeader = CFont("fontStatsHeader")
-		fontStatsMonth = CFont("fontStatsMonth")
-		fontStatsMode = CFont("fontStatsMode")
-		fontStatsAxis = CFont("fontStatsAxis")
-		fontOscilloscope = CFont("fontOscilloscope")
+		-- load normal fonts
+		fontMainMenu_all = CFont("fontMainMenu_all")
+		fontMainMenuItemHeader_all = CFont("fontMainMenuItemHeader_all")
+		fontMainMenuItemText_all = CFont("fontMainMenuItemText_all")
+		fontMainMenuItemValue_all = CFont("fontMainMenuItemValue_all")
+		fontStatsHeader_all = CFont("fontStatsHeader_all")
+		fontStatsMonth_all = CFont("fontStatsMonth_all")
+		fontStatsMode_all = CFont("fontStatsMode_all")
+		fontStatsAxis_all = CFont("fontStatsAxis_all")
+		fontOscilloscope_all = CFont("fontOscilloscope_all")
+
+		-- load Chinese fonts
+		fontMainMenu_cn = CFont("fontMainMenu_cn")
+		fontMainMenuItemHeader_cn = CFont("fontMainMenuItemHeader_cn")
+		fontMainMenuItemText_cn = CFont("fontMainMenuItemText_cn")
+		fontMainMenuItemValue_cn = CFont("fontMainMenuItemValue_cn")
+		fontStatsHeader_cn = CFont("fontStatsHeader_cn")
+		fontStatsMonth_cn = CFont("fontStatsMonth_cn")
+		fontStatsMode_cn = CFont("fontStatsMode_cn")
+		fontStatsAxis_cn = CFont("fontStatsAxis_cn")
+		fontOscilloscope_cn = CFont("fontOscilloscope_cn")
+
+		-- set the current language to apply loaded fonts
+		setLanguage(profile:getInt("language", 0))
 
 		-- disable translation for menu entries to work properly
 		enableTranslation(false)

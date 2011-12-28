@@ -1,27 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-	<font name="fontSizes">
+	<font name="fontSizes_all">
 		<freetype file="LiberationSans-Bold.ttf" height="54"/>
 	</font>
-	<font name="fontWeights">
+	<font name="fontWeights_all">
 		<freetype file="LiberationSans-Bold.ttf" height="72"/>
 	</font>
-	<font name="fontWheel">
+	<font name="fontWheel_all">
 		<freetype file="LiberationSans-Bold.ttf" height="70"/>
 	</font>
-	<font name="fontMessageHeader">
+	<font name="fontMessageHeader_all">
 		<freetype file="LiberationSans-Bold.ttf" height="40"/>
 	</font>
-	<font name="fontMessageText">
+	<font name="fontMessageText_all">
 		<freetype file="LiberationSans-Bold.ttf" height="28"/>
 	</font>
-	<font name="fontMessageBox">
+	<font name="fontMessageBox_all">
 		<freetype file="LiberationSans-Bold.ttf" height="48"/>
 	</font>
-	<font name="fontKeyboardDisplay">
+	<font name="fontKeyboardDisplay_all">
 		<freetype file="DS-DIGIB.TTF" height="85"/>
 	</font>
-	<font name="fontSpeedometer">
+	<font name="fontSpeedometer_all">
+		<freetype file="DS-DIGIB.TTF" height="33"/>
+	</font>
+
+	<font name="fontSizes_cn">
+		<freetype file="wqy-microhei.ttc" height="54"/>
+	</font>
+	<font name="fontWeights_cn">
+		<freetype file="wqy-microhei.ttc" height="72"/>
+	</font>
+	<font name="fontWheel_cn">
+		<freetype file="wqy-microhei.ttc" height="70"/>
+	</font>
+	<font name="fontMessageHeader_cn">
+		<freetype file="wqy-microhei.ttc" height="40"/>
+	</font>
+	<font name="fontMessageText_cn">
+		<freetype file="wqy-microhei.ttc" height="28"/>
+	</font>
+	<font name="fontMessageBox_cn">
+		<freetype file="wqy-microhei.ttc" height="48"/>
+	</font>
+	<font name="fontKeyboardDisplay_cn">
+		<freetype file="DS-DIGIB.TTF" height="85"/>
+	</font>
+	<font name="fontSpeedometer_cn">
 		<freetype file="DS-DIGIB.TTF" height="33"/>
 	</font>
 </resources>

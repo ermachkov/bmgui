@@ -227,16 +227,29 @@ function onMainScreenInit()
 	spriteMenuButton.frame, spriteHelpButton.frame = 2, 2
 	spriteMenuButtonText.frame, spriteHelpButtonText.frame = lang * 3 + 2, lang * 3 + 2
 
-	-- load fonts
+	-- load normal fonts
 	resourceManager:loadAllResources("fonts/main_screen.xml")
-	fontSizes = CFont("fontSizes")
-	fontWeights = CFont("fontWeights")
-	fontWheel = CFont("fontWheel")
-	fontMessageHeader = CFont("fontMessageHeader")
-	fontMessageText = CFont("fontMessageText")
-	fontMessageBox = CFont("fontMessageBox")
-	fontKeyboardDisplay = CFont("fontKeyboardDisplay")
-	fontSpeedometer = CFont("fontSpeedometer")
+	fontSizes_all = CFont("fontSizes_all")
+	fontWeights_all = CFont("fontWeights_all")
+	fontWheel_all = CFont("fontWheel_all")
+	fontMessageHeader_all = CFont("fontMessageHeader_all")
+	fontMessageText_all = CFont("fontMessageText_all")
+	fontMessageBox_all = CFont("fontMessageBox_all")
+	fontKeyboardDisplay_all = CFont("fontKeyboardDisplay_all")
+	fontSpeedometer_all = CFont("fontSpeedometer_all")
+
+	-- load Chinese fonts
+	fontSizes_cn = CFont("fontSizes_cn")
+	fontWeights_cn = CFont("fontWeights_cn")
+	fontWheel_cn = CFont("fontWheel_cn")
+	fontMessageHeader_cn = CFont("fontMessageHeader_cn")
+	fontMessageText_cn = CFont("fontMessageText_cn")
+	fontMessageBox_cn = CFont("fontMessageBox_cn")
+	fontKeyboardDisplay_cn = CFont("fontKeyboardDisplay_cn")
+	fontSpeedometer_cn = CFont("fontSpeedometer_cn")
+
+	-- set the current language to apply loaded fonts
+	setLanguage(profile:getInt("language", 0))
 
 	-- load sounds
 	resourceManager:loadAllResources("sounds/sounds.xml")
