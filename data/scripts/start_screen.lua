@@ -1,7 +1,7 @@
 startScreenActive = false
 local pressedButton, pressedText
 local currButton, currText
-local oldPedal = 1
+local startResistance
 
 -- Draws the text
 local function drawLabel(sprite, text, button)
@@ -40,6 +40,7 @@ function hideStartScreen()
 end
 
 function onStartScreenInit()
+	startResistance = balance:getIntParam("r1")
 end
 
 function onStartScreenUpdate(delta)
@@ -56,10 +57,10 @@ function onStartScreenUpdate(delta)
 
 	-- select the current button with wheel
 	spriteStartWorkButton.frame, spriteBalanceCalibrationButton.frame, spriteTouchscreenCalibrationButton.frame = 0, 0, 0
-	local angle = balance:getIntParam("wheelangle")
-	if angle < NUM_ANGLES / 3 then
+	local angle = balance:getIntParam("wheelangle") % 240
+	if angle < 80 then
 		currButton, currText = spriteStartWorkButton, spriteStartWorkText
-	elseif angle < 2 * NUM_ANGLES / 3 then
+	elseif angle < 160 then
 		currButton, currText = spriteBalanceCalibrationButton, spriteBalanceCalibrationText
 	else
 		currButton, currText = spriteTouchscreenCalibrationButton, spriteTouchscreenCalibrationText
@@ -103,12 +104,11 @@ function onStartScreenUpdate(delta)
 		spriteMouseStatusIcon:draw()
 	end
 
-	-- handle the pedal
-	local newPedal = math.floor(balance:getIntParam("spiinput") / 2 ^ 15) % 2
-	if newPedal ~= 0 and oldPedal == 0 then
+	-- handle the ruler angle
+	local resistance = balance:getIntParam("r1")
+	if resistance > startResistance + 256 then
 		processButton(currButton)
 	end
-	oldPedal = newPedal
 end
 
 function onStartScreenMouseDown(x, y, key)
