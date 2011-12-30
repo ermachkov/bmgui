@@ -1,7 +1,7 @@
 startScreenActive = false
 local pressedButton, pressedText
 local currButton, currText
-local startResistance
+local startResistance = -1
 
 -- Draws the text
 local function drawLabel(sprite, text, button)
@@ -40,7 +40,6 @@ function hideStartScreen()
 end
 
 function onStartScreenInit()
-	startResistance = balance:getIntParam("r1")
 end
 
 function onStartScreenUpdate(delta)
@@ -106,6 +105,9 @@ function onStartScreenUpdate(delta)
 
 	-- handle the ruler angle
 	local resistance = balance:getIntParam("r1")
+	if startResistance == -1 then
+		startResistance = resistance
+	end
 	if resistance > startResistance + 256 then
 		processButton(currButton)
 	end
