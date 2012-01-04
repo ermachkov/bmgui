@@ -188,6 +188,17 @@ void Balance::drawOscilloscope(float x1, float y1, float x2, float y2)
 				index = 0;
 		}
 	}
+	else if (mOscMode == (OSC_FFT | OSC_FFT << 8))
+	{
+		numSamples = FFT_BUF_SIZE;
+		numChannels = 2;
+		for (int i = 0; i < numSamples; ++i)
+		{
+			positions[0][i].x = positions[1][i].x = x1 + width * i / numSamples;
+			positions[0][i].y = y1 + height / 2.0f - rand() % 100;
+			positions[1][i].y = y1 + height / 1.0f - rand() % 100;
+		}
+	}
 	else
 	{
 		numSamples = NUM_SAMPLES_ANALOG;
@@ -226,13 +237,30 @@ void Balance::drawOscilloscope(float x1, float y1, float x2, float y2)
 	Graphics::getSingleton().resetClipRect();
 }
 
-void Balance::calcFFT(int start, int end)
+void Balance::calcFFT(int channel, int start, int end)
 {
 	// check the number of samples to process
-	int numSamples = end >= start ? end - start : end - start + TOTAL_SAMPLES;
-	if (numSamples > MAX_FFT_SAMPLES)
+	int N = end >= start ? end - start : end - start + TOTAL_SAMPLES;
+	if (N > MAX_FFT_SAMPLES)
 		return;
-	CL_Console::write_line(cl_format("Samples: %1", numSamples));
+	CL_Console::write_line(cl_format("Samples: %1", N));
+
+	// calculate FFT transform
+	static const float PI = 3.1415926535897932f;
+	for (int k = 0; k < FFT_BUF_SIZE; ++k)
+	{
+		Complex sum(0.0f, 0.0f);
+		int index = start;
+		for (int n = 0; n < N; ++n)
+		{
+			Complex xn = static_cast<float>(mChannels[channel][index]);
+			Complex value(0.0f, -2.0f * PI * k * n / N);
+			sum += xn * exp(value);
+			if (++index >= TOTAL_SAMPLES)
+				index = 0;
+		}
+		mFFTBuf[channel][index] = sum;
+	}
 }
 
 void Balance::onUpdate(int delta)
@@ -342,6 +370,7 @@ void Balance::run()
 
 						mOscMutex.lock();
 						memset(mChannels, 0, sizeof(mChannels));
+						memset(mFFTBuf, 0, sizeof(mFFTBuf));
 						mCurrSample = 0;
 						mSampleSum[0] = mSampleSum[1] = 0.0;
 						mOscMutex.unlock();
@@ -479,9 +508,10 @@ void Balance::run()
 									}
 
 									// calculate FFT if enabled
-									if (oscMode == (OSC_FFT | OSC_FFT << 8) && (buf[i + 5] & 0x80) != 0 && (qep & 0x80) == 0 && ++numFFTPeriods >= 1/*NUM_FFT_PERIODS*/)
+									if (oscMode == (OSC_FFT | OSC_FFT << 8) && (buf[i + 5] & 0x80) != 0 && (qep & 0x80) == 0 && ++numFFTPeriods >= NUM_FFT_PERIODS)
 									{
-										calcFFT(startFFTSample, mCurrSample);
+										calcFFT(0, startFFTSample, mCurrSample);
+										calcFFT(1, startFFTSample, mCurrSample);
 										startFFTSample = mCurrSample;
 										numFFTPeriods = 0;
 									}

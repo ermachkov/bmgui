@@ -83,6 +83,9 @@ private:
 	// Name -> value map type
 	typedef std::map<std::string, std::string> ParamMap;
 
+	// Complex number typedef
+	typedef std::complex<float> Complex;
+
 	static const int MAX_INPUT_PARAMS = 97;         // Maximum number of input parameters
 	static const int MAX_PARAMS = 125;              // Total number of parameters
 	static const std::string PARAMS[MAX_PARAMS];    // Parameters list
@@ -97,10 +100,12 @@ private:
 	static const int NUM_MIN_MAX_SAMPLES = 2437;
 
 	static const int NUM_FFT_PERIODS = 10;
+	static const int MAX_FFT_HARMONIC = 21;
+	static const int FFT_BUF_SIZE = NUM_FFT_PERIODS * MAX_FFT_HARMONIC;
 	static const int MAX_FFT_SAMPLES = 16384;
 
 	// Calculates FFT
-	void calcFFT(int start, int end);
+	void calcFFT(int channel, int start, int end);
 
 	// Update event handler
 	void onUpdate(int delta);
@@ -133,6 +138,7 @@ private:
 	float                       mVertScale;                     // Vertical scale
 	float                       mHorzScale;                     // Horizontal scale
 	int                         mSampleOffset;                  // Current sample offset
+	Complex                     mFFTBuf[2][FFT_BUF_SIZE];       // FFT buffer
 };
 
 #endif

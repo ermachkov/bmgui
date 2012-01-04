@@ -4,6 +4,7 @@
 // Standard headers
 #include <algorithm>
 #include <sstream>
+#include <complex>
 
 // ClanLib headers
 #include <ClanLib/application.h>
