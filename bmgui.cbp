@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="bmgui" />
+		<Option makefile_is_custom="1" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="debug">
+				<Option output="bmgui" prefix_auto="0" extension_auto="0" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="release">
+				<Option output="bmgui" prefix_auto="0" extension_auto="0" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="src/Application.cpp" />
+		<Unit filename="src/Application.h" />
+		<Unit filename="src/Balance.cpp" />
+		<Unit filename="src/Balance.h" />
+		<Unit filename="src/Database.cpp" />
+		<Unit filename="src/Database.h" />
+		<Unit filename="src/Exception.h" />
+		<Unit filename="src/Font.cpp" />
+		<Unit filename="src/Font.h" />
+		<Unit filename="src/FontResource.cpp" />
+		<Unit filename="src/FontResource.h" />
+		<Unit filename="src/GameAssert.h" />
+		<Unit filename="src/Graphics.cpp" />
+		<Unit filename="src/Graphics.h" />
+		<Unit filename="src/Keyboard.cpp" />
+		<Unit filename="src/Keyboard.h" />
+		<Unit filename="src/LuaBindings.cpp" />
+		<Unit filename="src/LuaModule.cpp" />
+		<Unit filename="src/LuaModule.h" />
+		<Unit filename="src/LuaScript.cpp" />
+		<Unit filename="src/LuaScript.h" />
+		<Unit filename="src/Mouse.cpp" />
+		<Unit filename="src/Mouse.h" />
+		<Unit filename="src/Precompiled.cpp" />
+		<Unit filename="src/Precompiled.h" />
+		<Unit filename="src/Profile.cpp" />
+		<Unit filename="src/Profile.h" />
+		<Unit filename="src/Program.cpp" />
+		<Unit filename="src/Program.h" />
+		<Unit filename="src/Resource.h" />
+		<Unit filename="src/ResourceManager.cpp" />
+		<Unit filename="src/ResourceManager.h" />
+		<Unit filename="src/ResourceQueue.cpp" />
+		<Unit filename="src/ResourceQueue.h" />
+		<Unit filename="src/Singleton.h" />
+		<Unit filename="src/Sound.cpp" />
+		<Unit filename="src/Sound.h" />
+		<Unit filename="src/SoundResource.cpp" />
+		<Unit filename="src/SoundResource.h" />
+		<Unit filename="src/Sprite.cpp" />
+		<Unit filename="src/Sprite.h" />
+		<Unit filename="src/SpriteResource.cpp" />
+		<Unit filename="src/SpriteResource.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
