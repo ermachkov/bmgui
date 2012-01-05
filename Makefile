@@ -1,7 +1,7 @@
 CXX = g++
 PREFIX = /usr
 PACKAGES = clanApp-2.3 clanCore-2.3 clanDatabase-2.3 clanDisplay-2.3 clanGL-2.3 clanNetwork-2.3 clanSound-2.3 clanSqlite-2.3 clanVorbis-2.3 lua
-CXXFLAGS = -DGAME_DATA_DIR=\"$(PREFIX)/share/bmgui\" $(shell pkg-config --cflags $(PACKAGES)) -Wall -O2 -s
+CXXFLAGS = -DGAME_DATA_DIR=\"$(PREFIX)/share/bmgui\" $(shell pkg-config --cflags $(PACKAGES)) -Wall
 LIBS = $(shell pkg-config --libs $(PACKAGES)) -ltolua++-5.1
 BIN = bmgui
 
@@ -28,7 +28,11 @@ OBJ = \
 	src/Sprite.o \
 	src/SpriteResource.o
 
-all : $(BIN)
+release : CXXFLAGS += -O2 -s
+release : $(BIN)
+
+debug : CXXFLAGS += -g -O0
+debug : $(BIN)
 
 $(BIN) : $(PCH) $(OBJ)
 	$(CXX) $(CXXFLAGS) $(OBJ) -o $(BIN) $(LIBS)
@@ -62,5 +66,5 @@ uninstall:
 	rm -f /etc/bminfo
 	rm -f $(PREFIX)/bin/bmgui_xinput_calibrator
 
-clean:
+clean cleandebug cleanrelease:
 	rm -f $(PCH) $(OBJ) $(BIN)

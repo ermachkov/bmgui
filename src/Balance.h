@@ -83,9 +83,6 @@ private:
 	// Name -> value map type
 	typedef std::map<std::string, std::string> ParamMap;
 
-	// Complex number typedef
-	typedef std::complex<float> Complex;
-
 	static const int MAX_INPUT_PARAMS = 97;         // Maximum number of input parameters
 	static const int MAX_PARAMS = 125;              // Total number of parameters
 	static const std::string PARAMS[MAX_PARAMS];    // Parameters list
@@ -138,7 +135,7 @@ private:
 	float                       mVertScale;                     // Vertical scale
 	float                       mHorzScale;                     // Horizontal scale
 	int                         mSampleOffset;                  // Current sample offset
-	Complex                     mFFTBuf[2][FFT_BUF_SIZE];       // FFT buffer
+	std::complex<float>         mFFTBuf[2][FFT_BUF_SIZE];       // FFT buffer
 };
 
 #endif

@@ -249,12 +249,12 @@ void Balance::calcFFT(int channel, int start, int end)
 	static const float PI = 3.1415926535897932f;
 	for (int k = 0; k < FFT_BUF_SIZE; ++k)
 	{
-		Complex sum(0.0f, 0.0f);
+		std::complex<float> sum(0.0f, 0.0f);
 		int index = start;
 		for (int n = 0; n < N; ++n)
 		{
-			Complex xn = static_cast<float>(mChannels[channel][index]);
-			Complex value(0.0f, -2.0f * PI * k * n / N);
+			std::complex<float> xn = static_cast<float>(mChannels[channel][index]);
+			std::complex<float> value(0.0f, -2.0f * PI * k * n / N);
 			sum += xn * exp(value);
 			if (++index >= TOTAL_SAMPLES)
 				index = 0;
