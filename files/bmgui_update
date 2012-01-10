@@ -1,3 +1,4 @@
 #!/bin/bash
+sudo yum clean all
 sudo yum install bmgui -y
 sleep 3
