@@ -97,7 +97,7 @@ private:
 	static const int NUM_MIN_MAX_SAMPLES = 2437;
 
 	static const int NUM_FFT_PERIODS = 10;
-	static const int MAX_FFT_HARMONIC = 21;
+	static const int MAX_FFT_HARMONIC = 15;
 	static const int FFT_BUF_SIZE = NUM_FFT_PERIODS * MAX_FFT_HARMONIC;
 	static const int MAX_FFT_SAMPLES = 16384;
 

@@ -192,11 +192,12 @@ void Balance::drawOscilloscope(float x1, float y1, float x2, float y2)
 	{
 		numSamples = FFT_BUF_SIZE;
 		numChannels = 2;
+		float scale[2] = {3.0f / 8.0f * height / abs(mFFTBuf[0][NUM_FFT_PERIODS]), 3.0f / 8.0f * height / abs(mFFTBuf[1][NUM_FFT_PERIODS])};
 		for (int i = 0; i < numSamples; ++i)
 		{
 			positions[0][i].x = positions[1][i].x = x1 + width * i / numSamples;
-			positions[0][i].y = y1 + height / 2.0f - rand() % 100;
-			positions[1][i].y = y1 + height / 1.0f - rand() % 100;
+			positions[0][i].y = y1 + height / 2.0f - abs(mFFTBuf[0][i]) * scale[0];
+			positions[1][i].y = y1 + height / 1.0f - abs(mFFTBuf[1][i]) * scale[1];
 		}
 	}
 	else
@@ -253,13 +254,13 @@ void Balance::calcFFT(int channel, int start, int end)
 		int index = start;
 		for (int n = 0; n < N; ++n)
 		{
-			std::complex<float> xn = static_cast<float>(mChannels[channel][index]);
-			std::complex<float> value(0.0f, -2.0f * PI * k * n / N);
-			sum += xn * exp(value);
+			float xn = static_cast<float>(mChannels[channel][index]);
+			float x = -2.0f * PI * k * n / N;
+			sum += xn * std::complex<float>(cos(x), sin(x));
 			if (++index >= TOTAL_SAMPLES)
 				index = 0;
 		}
-		mFFTBuf[channel][index] = sum;
+		mFFTBuf[channel][k] = sum;
 	}
 }
 
