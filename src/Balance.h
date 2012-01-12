@@ -80,6 +80,9 @@ private:
 		OSC_FFT
 	};
 
+	// Pi number
+	static const float PI;
+
 	// Name -> value map type
 	typedef std::map<std::string, std::string> ParamMap;
 

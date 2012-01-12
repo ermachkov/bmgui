@@ -5,6 +5,7 @@
 #include "Profile.h"
 
 template<> Balance *Singleton<Balance>::mSingleton = NULL;
+const float Balance::PI = 3.1415926535897932f;
 
 const std::string Balance::PARAMS[MAX_PARAMS] =
 {
@@ -167,6 +168,7 @@ void Balance::drawOscilloscope(float x1, float y1, float x2, float y2)
 	float width = x2 - x1, height = y2 - y1;
 	static CL_Vec2f positions[3][NUM_SAMPLES_QEP];
 	static CL_Colorf colors[3] = {CL_Colorf(1.0f, 0.0f, 0.0f), CL_Colorf(0.0f, 1.0f, 0.0f), CL_Colorf(0.0f, 0.0f, 1.0f)};
+	float phase[2] = {0.0f, 0.0f};
 
 	// copy data to the buffers
 	mOscMutex.lock();
@@ -193,6 +195,8 @@ void Balance::drawOscilloscope(float x1, float y1, float x2, float y2)
 		numSamples = FFT_BUF_SIZE;
 		numChannels = 2;
 		float scale[2] = {3.0f / 8.0f * height / abs(mFFTBuf[0][NUM_FFT_PERIODS]), 3.0f / 8.0f * height / abs(mFFTBuf[1][NUM_FFT_PERIODS])};
+		phase[0] = y1 + 1.0f * height / 4.0f - arg(mFFTBuf[0][NUM_FFT_PERIODS]) / PI * height / 4.0f;
+		phase[1] = y1 + 3.0f * height / 4.0f - arg(mFFTBuf[1][NUM_FFT_PERIODS]) / PI * height / 4.0f;
 		for (int i = 0; i < numSamples; ++i)
 		{
 			positions[0][i].x = positions[1][i].x = x1 + width * i / numSamples;
@@ -222,8 +226,15 @@ void Balance::drawOscilloscope(float x1, float y1, float x2, float y2)
 	// set the clipping rectangle
 	Graphics::getSingleton().setClipRect(x1, y1, x2, y2);
 
-	// draw graphs
+	// draw phases
 	CL_GraphicContext &gc = Graphics::getSingleton().getWindow().get_gc();
+	if (mOscMode == (OSC_FFT | OSC_FFT << 8))
+	{
+		CL_Draw::line(gc, x1, phase[0], x2, phase[0], CL_Colorf(0.5f, 0.0f, 0.0f));
+		CL_Draw::line(gc, x1, phase[1], x2, phase[1], CL_Colorf(0.0f, 0.5f, 0.0f));
+	}
+
+	// draw graphs
 	CL_PrimitivesArray array(gc);
 	gc.set_program_object(cl_program_color_only);
 	for (int i = 0; i < numChannels; ++i)
@@ -244,10 +255,8 @@ void Balance::calcFFT(int channel, int start, int end)
 	int N = end >= start ? end - start : end - start + TOTAL_SAMPLES;
 	if (N > MAX_FFT_SAMPLES)
 		return;
-	CL_Console::write_line(cl_format("Samples: %1", N));
 
 	// calculate FFT transform
-	static const float PI = 3.1415926535897932f;
 	for (int k = 0; k < FFT_BUF_SIZE; ++k)
 	{
 		std::complex<float> sum(0.0f, 0.0f);
