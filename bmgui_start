@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#Already run?
+if [ `ps -A u| grep bmgui | grep -v grep| grep -v bmgui_start -c` -gt 0 ]; then
+  echo "bmgui already run";
+  exit 1
+fi
+
 export MOUSE="1"
 
 lsusb -v > /tmp/lsusb 2> /dev/null
