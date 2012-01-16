@@ -43,6 +43,9 @@ public:
 	// Returns the minimum/maximum sample values
 	void getMinMaxSamples(int *minSample1 = NULL, int *minSample2 = NULL, int *maxSample1 = NULL, int *maxSample2 = NULL);
 
+	// Returns current amplitude/phase
+	void getAmplitudePhase(float *amplitude1 = NULL, float *phase1 = NULL, float *amplitude2 = NULL, float *phase2 = NULL);
+
 	// Returns the balance parameter
 	std::string getParam(const std::string &name) const;
 
@@ -139,6 +142,7 @@ private:
 	float                       mHorzScale;                     // Horizontal scale
 	int                         mSampleOffset;                  // Current sample offset
 	std::complex<float>         mFFTBuf[2][FFT_BUF_SIZE];       // FFT buffer
+	std::complex<float>         mMainHarmonic[2];               // Main harmonic value
 };
 
 #endif

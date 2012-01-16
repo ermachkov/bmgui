@@ -1,6 +1,6 @@
 /*
 ** Lua binding: LuaBindings
-** Generated automatically by tolua++-1.0.92 on 12/20/11 17:58:27.
+** Generated automatically by tolua++-1.0.92 on Mon Jan 16 15:36:06 2012.
 */
 
 #ifndef __cplusplus
@@ -668,6 +668,49 @@ static int tolua_LuaBindings_Balance_getMinMaxSamples00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'getMinMaxSamples'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getAmplitudePhase of class  Balance */
+#ifndef TOLUA_DISABLE_tolua_LuaBindings_Balance_getAmplitudePhase00
+static int tolua_LuaBindings_Balance_getAmplitudePhase00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Balance",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,1,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,1,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,1,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Balance* self = (Balance*)  tolua_tousertype(tolua_S,1,0);
+  float amplitude1 = ((float)  tolua_tonumber(tolua_S,2,NULL));
+  float phase1 = ((float)  tolua_tonumber(tolua_S,3,NULL));
+  float amplitude2 = ((float)  tolua_tonumber(tolua_S,4,NULL));
+  float phase2 = ((float)  tolua_tonumber(tolua_S,5,NULL));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getAmplitudePhase'", NULL);
+#endif
+  {
+   self->getAmplitudePhase(&amplitude1,&phase1,&amplitude2,&phase2);
+   tolua_pushnumber(tolua_S,(lua_Number)amplitude1);
+   tolua_pushnumber(tolua_S,(lua_Number)phase1);
+   tolua_pushnumber(tolua_S,(lua_Number)amplitude2);
+   tolua_pushnumber(tolua_S,(lua_Number)phase2);
+  }
+ }
+ return 4;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getAmplitudePhase'.",&tolua_err);
  return 0;
 #endif
 }
@@ -3754,6 +3797,7 @@ TOLUA_API int tolua_LuaBindings_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setSampleOffset",tolua_LuaBindings_Balance_setSampleOffset00);
    tolua_function(tolua_S,"setPlaying",tolua_LuaBindings_Balance_setPlaying00);
    tolua_function(tolua_S,"getMinMaxSamples",tolua_LuaBindings_Balance_getMinMaxSamples00);
+   tolua_function(tolua_S,"getAmplitudePhase",tolua_LuaBindings_Balance_getAmplitudePhase00);
    tolua_function(tolua_S,"getParam",tolua_LuaBindings_Balance_getParam00);
    tolua_function(tolua_S,"getIntParam",tolua_LuaBindings_Balance_getIntParam00);
    tolua_function(tolua_S,"getFloatParam",tolua_LuaBindings_Balance_getFloatParam00);

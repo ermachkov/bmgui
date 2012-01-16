@@ -4,5 +4,4 @@ LUA_BINDINGS="../src/LuaBindings.inc"
 
 rm -f $LUA_BINDINGS
 
-tolua++5.1 -o $LUA_BINDINGS LuaBindings.pkg
-
+tolua++ -o $LUA_BINDINGS LuaBindings.pkg

@@ -155,7 +155,11 @@ function onOscilloscopeUpdate(delta)
 	end
 
 	-- draw oscilloscope information
-	if channel1 ~= OSC_QEP and channel2 ~= OSC_QEP then
+	if channel1 == OSC_FFT or channel2 == OSC_FFT then
+		local amplitude1, phase1, amplitude2, phase2 = balance:getAmplitudePhase()
+		fontOscilloscope:drawText(50, 50, string.format("Channel1 = %s\nAmplitude = %d\nPhase = %.2f", CHANNEL_NAMES[channel1], amplitude1, phase1), 1.0, 0.0, 0.0)
+		fontOscilloscope:drawText(50, 580, string.format("Channel2 = %s\nAmplitude = %d\nPhase = %.2f", CHANNEL_NAMES[channel2], amplitude2, phase2), 0.0, 1.0, 0.0)
+	elseif channel1 ~= OSC_QEP and channel2 ~= OSC_QEP then
 		local minSample1, minSample2, maxSample1, maxSample2 = balance:getMinMaxSamples()
 		fontOscilloscope:drawText(50, 50, string.format("Channel1 = %s\nMin = %d\nMax = %d\nDiff = %d", CHANNEL_NAMES[channel1], minSample1, maxSample1, maxSample1 - minSample1), 1.0, 0.0, 0.0)
 		fontOscilloscope:drawText(50, 580, string.format("Channel2 = %s\nMin = %d\nMax = %d\nDiff = %d", CHANNEL_NAMES[channel2], minSample2, maxSample2, maxSample2 - minSample2), 0.0, 1.0, 0.0)
