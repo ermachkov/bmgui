@@ -1,0 +1,20 @@
+<clres:resources xmlns:clres="http://clanlib.org/xmlns/resources-1.0">
+	<!-- Default command line parameters -->
+	<clres:option clres:name="gateway" value="127.0.0.1"/>
+	<clres:option clres:name="local_addr" value="127.0.0.1"/>
+	<clres:option clres:name="netmask" value="255.255.255.0"/>
+	<clres:option clres:name="dns" value="127.0.0.1"/>
+	<clres:option clres:name="input_dev" value="1"/>
+	<clres:option clres:name="server_status" value="true"/>
+	<clres:option clres:name="available_update_version" value=""/>
+
+	<!-- Default configuration parameters -->
+	<clres:option clres:name="server_addr" value="192.168.0.1"/>
+	<clres:option clres:name="remote_control" value="true"/>
+	<clres:option clres:name="ignored_update_version" value=""/>
+	<clres:option clres:name="cal_command" value="bmgui_xinput_calibrator"/>
+	<clres:option clres:name="language" value="1"/>
+	<clres:option clres:name="fullscreen" value="true"/>
+	<clres:option clres:name="width" value="1024"/>
+	<clres:option clres:name="height" value="768"/>
+</clres:resources>
