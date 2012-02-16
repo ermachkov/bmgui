@@ -50,8 +50,9 @@ install:
 	cp -rf data/* $(PREFIX)/share/bmgui
 	install files/bmgui_update $(PREFIX)/bin
 	cp -f files/bmgui.png $(PREFIX)/share/pixmaps
-	cp -f files/bmgui.desktop /home/bm/Desktop
 	cp -f files/bminfo /etc
+	cp -f files/bmgui.xml /etc
+	cp -f files/bmgui.desktop /home/bm/Desktop
 	chown bm:bm /home/bm/Desktop/bmgui.desktop
 	install files/bmgui_xinput_calibrator $(PREFIX)/bin/bmgui_xinput_calibrator
 	chmod +x $(PREFIX)/bin/bmgui_xinput_calibrator

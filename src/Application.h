@@ -59,6 +59,15 @@ public:
 	// Quits the application
 	void quit();
 
+	// Yes, i know this looks like a shit, but...
+	std::string mGateway;
+	std::string mLocalAddr;
+	std::string mNetmask;
+	std::string mDNS;
+	std::string mInputDev;
+	std::string mServerStatus;
+	std::string mAvailableUpdateVersion;
+
 private:
 
 	CL_SetupCore                    mSetupCore;

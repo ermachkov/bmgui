@@ -31,7 +31,14 @@ Application::Application(const std::vector<CL_String> &args, lua_State *luaState
 		argv.push_back(const_cast<char *>(it->c_str()));
 
 	CL_CommandLine commandLine;
-	commandLine.add_option('d', "datadir", "PATH", "Path to the data directory");
+	commandLine.add_option('g', "gateway", "ADDR", "Default gateway address");
+	commandLine.add_option('a', "local_addr", "ADDR", "Local address");
+	commandLine.add_option('m', "netmask", "ADDR", "Subnet mask");
+	commandLine.add_option('d', "dns", "ADDR", "DNS server address");
+	commandLine.add_option('i', "input_dev", "TYPE", "Input device type");
+	commandLine.add_option('s', "server_status", "STATUS", "Server status");
+	commandLine.add_option('u', "available_update_version", "VERSION", "Available update version");
+	commandLine.add_option('D', "datadir", "PATH", "Path to the data directory");
 	commandLine.parse_args(argv.size(), &argv[0]);
 
 #if defined(WIN32) || defined(__APPLE__)
@@ -43,14 +50,60 @@ Application::Application(const std::vector<CL_String> &args, lua_State *luaState
 	{
 		switch (commandLine.get_key())
 		{
+		case 'g':
+			mGateway = commandLine.get_argument();
+			break;
+		case 'a':
+			mLocalAddr = commandLine.get_argument();
+			break;
+		case 'm':
+			mNetmask = commandLine.get_argument();
+			break;
 		case 'd':
+			mDNS = commandLine.get_argument();
+			break;
+		case 'i':
+			mInputDev = commandLine.get_argument();
+			break;
+		case 's':
+			mServerStatus = commandLine.get_argument();
+			break;
+		case 'u':
+			mAvailableUpdateVersion = commandLine.get_argument();
+			break;
+		case 'D':
 			mDataDirectory = CL_PathHelp::add_trailing_slash(commandLine.get_argument());
 			break;
 		}
 	}
 
+	/*CL_Console::write_line(cl_format("mGateway = %1", mGateway));
+	CL_Console::write_line(cl_format("mLocalAddr = %1", mLocalAddr));
+	CL_Console::write_line(cl_format("mNetmask = %1", mNetmask));
+	CL_Console::write_line(cl_format("mDNS = %1", mDNS));
+	CL_Console::write_line(cl_format("mInputDev = %1", mInputDev));
+	CL_Console::write_line(cl_format("mServerStatus = %1", mServerStatus));
+	CL_Console::write_line(cl_format("mAvailableUpdateVersion = %1", mAvailableUpdateVersion));
+	CL_Console::write_line(cl_format("mDataDirectory = %1", mDataDirectory));*/
+
 	// load the system profile
 	Profile profile("");
+
+	CL_Console::write_line(cl_format("gateway = %1", profile.getString("gateway")));
+	CL_Console::write_line(cl_format("local_addr = %1", profile.getString("local_addr")));
+	CL_Console::write_line(cl_format("netmask = %1", profile.getString("netmask")));
+	CL_Console::write_line(cl_format("dns = %1", profile.getString("dns")));
+	CL_Console::write_line(cl_format("input_dev = %1", profile.getInt("input_dev")));
+	CL_Console::write_line(cl_format("server_status = %1", profile.getBool("server_status")));
+	CL_Console::write_line(cl_format("available_update_version = %1", profile.getString("available_update_version")));
+	CL_Console::write_line(cl_format("server_addr = %1", profile.getString("server_addr")));
+	CL_Console::write_line(cl_format("remote_control = %1", profile.getBool("remote_control")));
+	CL_Console::write_line(cl_format("ignored_update_version = %1", profile.getString("ignored_update_version")));
+	CL_Console::write_line(cl_format("cal_command = %1", profile.getString("cal_command")));
+	CL_Console::write_line(cl_format("language = %1", profile.getInt("language")));
+	CL_Console::write_line(cl_format("fullscreen = %1", profile.getBool("fullscreen")));
+	CL_Console::write_line(cl_format("width = %1", profile.getInt("width")));
+	CL_Console::write_line(cl_format("height = %1", profile.getInt("height")));
 
 	// initialize all game subsystems
 	mBalance = CL_SharedPtr<Balance>(new Balance(profile));
@@ -62,9 +115,6 @@ Application::Application(const std::vector<CL_String> &args, lua_State *luaState
 	mMouse = CL_SharedPtr<Mouse>(new Mouse());
 	mSoundOutput = CL_SoundOutput(44100);
 	mLuaScript = CL_SharedPtr<LuaScript>(new LuaScript("main.lua", luaState));
-
-	// save the system profile
-	profile.save();
 }
 
 CL_Signal_v0 &Application::getSigInit()

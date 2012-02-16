@@ -31,18 +31,7 @@ Balance::Balance(Profile &profile)
 		mParams.insert(std::make_pair(PARAMS[i], "0"));
 	mParams["result"] = "1"; // HACK: needed to be nonzero after startup
 
-	mSocketName = CL_SocketName(profile.getString("server_addr", "192.168.0.1"), "23");
-	profile.setInt("language", profile.getInt("language", 0));
-	profile.setString("server_addr", mSocketName.get_address());
-	profile.setString("local_addr", profile.getString("local_addr", "127.0.0.1"));
-	profile.setString("netmask", profile.getString("netmask", "255.255.255.0"));
-	profile.setString("gateway", profile.getString("gateway", "127.0.0.1"));
-	profile.setString("dns", profile.getString("dns", "127.0.0.1"));
-	profile.setBool("remote_control", profile.getBool("remote_control", true));
-	profile.setInt("input_dev", profile.getInt("input_dev", 1));
-	profile.setString("cal_command", profile.getString("cal_command", "bmgui_xinput_calibrator"));
-	profile.setString("available_update_version", profile.getString("available_update_version", ""));
-	profile.setString("ignored_update_version", profile.getString("ignored_update_version", ""));
+	mSocketName = CL_SocketName(profile.getString("server_addr"), "23");
 
 	mSlotUpdate = Application::getSingleton().getSigUpdate().connect(this, &Balance::onUpdate);
 
