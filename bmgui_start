@@ -49,12 +49,12 @@ fi
 
 sync
 
-bmgui --gateway=\""$DEFAULT_GW"\" --local_addr=\""$IP_ADDRESS"\" --netmask=\""$NETMASK"\" --dns=\""$DNS"\" --input_dev=\""$MOUSE"\" --server_status=\""$SERVER_ON\"" --available_update_version=\""$LASTVER"\"
+bmgui --gateway="$DEFAULT_GW" --local_addr="$IP_ADDRESS" --netmask="$NETMASK" --dns="$DNS" --input_dev="$MOUSE" --server_status="$SERVER_ON" --available_update_version="$LASTVER"
 
 RET=$?
 
 if [ $RET -eq 13 ]; then
   roxterm -e bmgui_update&
   wait $!
-  bmgui --gateway=\""$DEFAULT_GW"\" --local_addr=\""$IP_ADDRESS"\" --netmask=\""$NETMASK"\" --dns=\""$DNS"\" --input_dev=\""$MOUSE"\" --server_status=\""$SERVER_ON\""
+  bmgui --gateway="$DEFAULT_GW" --local_addr="$IP_ADDRESS" --netmask="$NETMASK" --dns="$DNS" --input_dev="$MOUSE" --server_status="$SERVER_ON" --available_update_version="$LASTVER"
 fi
