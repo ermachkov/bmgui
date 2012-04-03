@@ -152,12 +152,13 @@ function onMessageMouseUp(x, y, key)
 	if pressedButton then
 		if pressedButton:isPointInside(x, y) then
 			-- call event handler and hide message box
-			if message.handler1 and (pressedButton == spriteMessageOkButton or pressedButton == spriteMessageYesButton) then
-				message.handler1()
-			elseif message.handler2 and pressedButton == spriteMessageNoButton then
-				message.handler2()
-			end
+			local handler1, handler2 = message.handler1, message.handler2
 			hideMessage()
+			if handler1 and (pressedButton == spriteMessageOkButton or pressedButton == spriteMessageYesButton) then
+				handler1()
+			elseif handler2 and pressedButton == spriteMessageNoButton then
+				handler2()
+			end
 		else
 			pressedButton.frame, pressedButtonText.frame = 0, lang * 2
 			pressedButton, pressedButtonText = nil, nil

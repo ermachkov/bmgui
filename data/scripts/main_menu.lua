@@ -38,7 +38,11 @@ end
 
 -- Formats the voltage
 local function showVoltage(item)
-	return (item.param ~= "va1" and "+" or "-") .. string.format("%.2f", balance:getFloatParam(item.param) / 100.0) .. tr("V")
+	if balance:isConnected() then
+		return (item.param ~= "va1" and "+" or "-") .. string.format("%.2f", balance:getFloatParam(item.param) / 100.0) .. tr("V")
+	else
+		return "---"
+	end
 end
 
 -- Formats the profile value
@@ -786,6 +790,7 @@ local function initMenus()
 				icon = spriteSaveSettingsIcon,
 				header = tr("{save_settings_header}"),
 				text = tr("{save_settings_text}"),
+				confirm = tr("{save_settings_confirm}"),
 				password = true,
 				onClick = function() balance:setParam("saveref"); hideMainMenu() end
 			},
@@ -793,6 +798,7 @@ local function initMenus()
 				icon = spriteFactorySettingsIcon,
 				header = tr("{factory_settings_header}"),
 				text = tr("{factory_settings_text}"),
+				confirm = tr("{factory_settings_confirm}"),
 				password = true,
 				onClick = function() balance:setParam("loadref"); hideMainMenu() end
 			},
@@ -1174,14 +1180,26 @@ function onMainMenuMouseUp(x, y, key)
 				end
 			end
 
+			-- check for confirmation string
+			if item.confirm and not alreadyConfirmed then
+				showMessage(tr(item.confirm), MESSAGE_YES_NO, MESSAGE_WARNING, function() alreadyConfirmed = true; onMainMenuMouseUp(x, y, key) end, function() alreadyConfirmed = false end)
+				return true
+			end
+
+			-- clear the confirmation flag
+			alreadyConfirmed = false
+
 			-- check for password
 			if item.password and not password then
 				local left = (SCREEN_WIDTH - (spriteRightFasteners.x + spriteRightFasteners:getWidth())) / 2
 				local top = SCREEN_HEIGHT - (spriteBottomFasteners.y + spriteBottomFasteners:getHeight())
 				showKeyboard(left, top, left, SCREEN_HEIGHT, "passwd", TYPE_PASSWORD, spriteBottomFasteners, selItem,
-					function(value) if checkPassword(value) then onMainMenuMouseUp(x, y, key) end end)
+					function(value) if checkPassword(value) then alreadyConfirmed = true; onMainMenuMouseUp(x, y, key) end end)
 				return true
 			end
+
+			-- clear the confirmation flag
+			alreadyConfirmed = false
 
 			-- execute the click handler
 			if item.onClick then

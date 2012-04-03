@@ -171,6 +171,9 @@ function onUpdate(delta)
 	-- track balance errors
 	if isMainMenuLoaded() then
 		local newBalanceErrors0, newBalanceErrors1, newBalanceErrors2 = balance:getFloatParam("errors0"), balance:getFloatParam("errors1"), balance:getFloatParam("errors2")
+		if not balance:isConnected() then
+			newBalanceErrors0 = newBalanceErrors0 + (2 ^ 25)
+		end
 		numErrors = 0
 		processErrors(newBalanceErrors0, balanceErrors0, 1)
 		processErrors(newBalanceErrors1, balanceErrors1, 33)
