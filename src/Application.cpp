@@ -16,7 +16,7 @@
 template<> Application *Singleton<Application>::mSingleton = NULL;
 
 Application::Application(const std::vector<CL_String> &args, lua_State *luaState)
-: mCompanyName(""), mApplicationName("bmgui"), mApplicationVersion(""), mQuit(false)
+: mUpdated(false), mCompanyName(""), mApplicationName("bmgui"), mApplicationVersion(""), mQuit(false)
 {
 	GAME_ASSERT(!args.empty());
 
@@ -27,7 +27,7 @@ Application::Application(const std::vector<CL_String> &args, lua_State *luaState
 
 	// parse the command line arguments
 	std::vector<char *> argv;
-	for (std::vector<CL_String>::const_iterator it = args.begin(); it != args.end(); ++it) 
+	for (std::vector<CL_String>::const_iterator it = args.begin(); it != args.end(); ++it)
 		argv.push_back(const_cast<char *>(it->c_str()));
 
 	CL_CommandLine commandLine;
@@ -38,6 +38,7 @@ Application::Application(const std::vector<CL_String> &args, lua_State *luaState
 	commandLine.add_option('i', "input_dev", "TYPE", "Input device type");
 	commandLine.add_option('s', "server_status", "STATUS", "Server status");
 	commandLine.add_option('u', "available_update_version", "VERSION", "Available update version");
+	commandLine.add_option('U', "updated", "BOOL", "SOftware update flag");
 	commandLine.add_option('D', "datadir", "PATH", "Path to the data directory");
 	commandLine.parse_args(argv.size(), &argv[0]);
 
@@ -70,6 +71,9 @@ Application::Application(const std::vector<CL_String> &args, lua_State *luaState
 			break;
 		case 'u':
 			mAvailableUpdateVersion = commandLine.get_argument();
+			break;
+		case 'U':
+			mUpdated = CL_StringHelp::text_to_bool(commandLine.get_argument());
 			break;
 		case 'D':
 			mDataDirectory = CL_PathHelp::add_trailing_slash(commandLine.get_argument());
@@ -140,6 +144,11 @@ std::string Application::getConfigDirectory() const
 std::string Application::getDataDirectory() const
 {
 	return mDataDirectory;
+}
+
+bool Application::isUpdated() const
+{
+	return mUpdated;
 }
 
 std::string Application::getCompanyName() const

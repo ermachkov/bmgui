@@ -297,6 +297,7 @@ void Balance::onUpdate(int delta)
 				mProtocolValid = true;
 				for (ParamMap::const_iterator it = params.begin(); it != params.end(); ++it)
 					mParams[it->first] = it->second;
+				mConnected.set(1);
 			}
 			else
 			{
@@ -334,7 +335,6 @@ void Balance::run()
 			CL_Console::write_line("Connecting...");
 			mConnected.set(0);
 			CL_TCPConnection connection(mSocketName);
-			mConnected.set(1);
 			CL_Console::write_line("*** OK ***");
 
 			CL_SocketName serverSocketName(mSocketName.get_address(), "16666");

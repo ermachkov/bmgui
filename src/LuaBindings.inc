@@ -1,6 +1,6 @@
 /*
 ** Lua binding: LuaBindings
-** Generated automatically by tolua++-1.0.92 on Mon Jan 16 15:36:06 2012.
+** Generated automatically by tolua++-1.0.92 on Fri Apr  6 15:18:32 2012.
 */
 
 #ifndef __cplusplus
@@ -103,6 +103,38 @@ static int tolua_LuaBindings_Application_getDataDirectory00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'getDataDirectory'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: isUpdated of class  Application */
+#ifndef TOLUA_DISABLE_tolua_LuaBindings_Application_isUpdated00
+static int tolua_LuaBindings_Application_isUpdated00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const Application",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const Application* self = (const Application*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isUpdated'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->isUpdated();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'isUpdated'.",&tolua_err);
  return 0;
 #endif
 }
@@ -3777,6 +3809,7 @@ TOLUA_API int tolua_LuaBindings_open (lua_State* tolua_S)
   tolua_cclass(tolua_S,"Application","Application","",NULL);
   tolua_beginmodule(tolua_S,"Application");
    tolua_function(tolua_S,"getDataDirectory",tolua_LuaBindings_Application_getDataDirectory00);
+   tolua_function(tolua_S,"isUpdated",tolua_LuaBindings_Application_isUpdated00);
    tolua_function(tolua_S,"getCompanyName",tolua_LuaBindings_Application_getCompanyName00);
    tolua_function(tolua_S,"setCompanyName",tolua_LuaBindings_Application_setCompanyName00);
    tolua_function(tolua_S,"getApplicationName",tolua_LuaBindings_Application_getApplicationName00);

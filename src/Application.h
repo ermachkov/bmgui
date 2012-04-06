@@ -35,6 +35,9 @@ public:
 	// Returns path to the data directory
 	std::string getDataDirectory() const;
 
+	// Returns true if the application was updated
+	bool isUpdated() const;
+
 	// Returns the company name
 	std::string getCompanyName() const;
 
@@ -82,6 +85,7 @@ private:
 	CL_Signal_v0                    mSigQuit;
 
 	std::string                     mDataDirectory;
+	bool                            mUpdated;
 	std::string                     mCompanyName;
 	std::string                     mApplicationName;
 	std::string                     mApplicationVersion;

@@ -458,13 +458,13 @@ local function initMenus()
 					format = showVoltage,
 					param = "v2"
 				},
-				{
+				--[[{
 					icon = spritePlus3_3VIcon,
 					header = tr("{v3_header}"),
 					text = tr("{v3_text}"),
 					format = showVoltage,
 					param = "v3"
-				},
+				},]]
 				{
 					icon = spritePlus3_3VIcon,
 					header = tr("{v4_header}"),

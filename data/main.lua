@@ -115,6 +115,11 @@ function onInit()
 	-- show the start screen
 	showStartScreen()
 
+	-- show update message
+	if application:isUpdated() then
+		showMessage(tr("{successful_update_text}"), MESSAGE_OK, MESSAGE_WARNING)
+	end
+
 	-- show warning if touchscreen not found
 	if profile:getInt("input_dev") == 0 then
 		showMessage(tr("{no_touchscreen_text}"), MESSAGE_OK, MESSAGE_NO_TOUCHSCREEN)

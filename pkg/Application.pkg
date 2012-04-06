@@ -6,6 +6,9 @@ class Application
 	// Returns path to the data directory
 	std::string getDataDirectory() const;
 
+	// Returns true if the application was updated
+	bool isUpdated() const;
+
 	// Returns the company name
 	std::string getCompanyName() const;
 
