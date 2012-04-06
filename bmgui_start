@@ -54,7 +54,13 @@ bmgui --gateway="$DEFAULT_GW" --local_addr="$IP_ADDRESS" --netmask="$NETMASK" --
 RET=$?
 
 if [ $RET -eq 13 ]; then
+  VER1=`cat /etc/bminfo`
   roxterm -e bmgui_update&
   wait $!
-  bmgui --gateway="$DEFAULT_GW" --local_addr="$IP_ADDRESS" --netmask="$NETMASK" --dns="$DNS" --input_dev="$MOUSE" --server_status="$SERVER_ON" --available_update_version="$LASTVER"
+  VER2=`cat /etc/bminfo`
+  if [ "$VER1" = "$VER2" ]; then
+    bmgui --gateway="$DEFAULT_GW" --local_addr="$IP_ADDRESS" --netmask="$NETMASK" --dns="$DNS" --input_dev="$MOUSE" --server_status="$SERVER_ON" --available_update_version="$LASTVER" --updated=0
+  else
+    bmgui --gateway="$DEFAULT_GW" --local_addr="$IP_ADDRESS" --netmask="$NETMASK" --dns="$DNS" --input_dev="$MOUSE" --server_status="$SERVER_ON" --available_update_version="$LASTVER" --updated=1
+  fi
 fi
