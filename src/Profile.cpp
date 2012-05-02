@@ -61,7 +61,7 @@ Profile::Profile(const std::string &name)
 	if (getString("ignored_update_version").empty())
 		setString("ignored_update_version", resources.get_string_resource("ignored_update_version", ""));
 	if (getString("cal_command").empty())
-		setString("cal_command", resources.get_string_resource("cal_command", "bmgui_xinput_calibrator"));
+		setString("cal_command", resources.get_string_resource("cal_command", "sudo bmgui_xinput_calibrator"));
 	if (getString("language").empty())
 		setInt("language", resources.get_integer_resource("language", 1));
 	if (getString("fullscreen").empty())
