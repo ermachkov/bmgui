@@ -1,10 +1,49 @@
-#!/bin/sh
-rm /tmp/xinput_calibrator > /dev/null 2> /dev/null
-rm /tmp/autostart > /dev/null 2> /dev/null
-xinput_calibrator > /tmp/xinput_calibrator
-XINPUT=`cat /tmp/xinput_calibrator | grep "xinput s"`
-TOUCHCAL=`expr "$XINPUT" : '.*\(xinput.*\)'`
-grep -v set-int-prop /etc/xdg/lxsession/LXDE/autostart > /tmp/autostart
-echo "@"$TOUCHCAL >> /tmp/autostart
-sudo mv /tmp/autostart /etc/xdg/lxsession/LXDE/autostart
-rm /tmp/xinput_calibrator
+#!/usr/bin/php
+<?php
+
+$output = `xinput_calibrator`;
+$output = explode("\n",$output);
+
+$xinput = array();
+
+for($i=0;$i<count($output);$i++)
+{
+  $output[$i] = trim($output[$i]);
+  if(preg_match("/^xinput/u",$output[$i]))
+  {
+    $xinput[] = $output[$i];
+  }
+}
+
+$data = '';
+$file = fopen("/etc/xdg/lxsession/LXDE/autostart","r");
+while(!feof($file))
+{
+  $data .= fread($file,1024); 
+}
+fclose($file);
+
+$newdata = array();
+$data = explode("\n",$data);
+for($i=0;$i<count($data);$i++)
+{
+  if(preg_match("/^@./u",$data[$i]))
+  {
+    if(preg_match("/@xinput/u",$data[$i])) continue;
+    $newdata[] = $data[$i];
+  }
+}
+
+for($i=0;$i<count($xinput);$i++)
+{
+  $newdata[] = "@".$xinput[$i];
+}
+
+$newdata = implode("\n",$newdata);
+$file = fopen("/etc/xdg/lxsession/LXDE/autostart","w");
+fwrite($file,$newdata."\n");
+fclose($file);
+flush();
+
+?>
+
