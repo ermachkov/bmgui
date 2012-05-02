@@ -16,7 +16,11 @@ for($i=0;$i<count($output);$i++)
 }
 
 $data = '';
-$file = fopen("/etc/xdg/lxsession/LXDE/autostart","r");
+if ( ! $file = fopen("/etc/xdg/lxsession/LXDE/autostart","r") )
+{
+ exit(1);
+}
+
 while(!feof($file))
 {
   $data .= fread($file,1024); 
@@ -40,10 +44,13 @@ for($i=0;$i<count($xinput);$i++)
 }
 
 $newdata = implode("\n",$newdata);
-$file = fopen("/etc/xdg/lxsession/LXDE/autostart","w");
-fwrite($file,$newdata."\n");
-fclose($file);
-flush();
+if ( $file = fopen("/etc/xdg/lxsession/LXDE/autostart","w") )
+{
+  fwrite($file,$newdata."\n");
+  fclose($file);
+  flush();
+}
+system('sync');
 
 ?>
 
