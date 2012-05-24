@@ -22,6 +22,8 @@ sprites =
 	["spriteStopButton", ["stop_button_normal", "stop_button_pressed"]],
 	["spriteStopButtonText", ["stop_button_text_en_normal", "stop_button_text_en_pressed", "stop_button_text_ru_normal", "stop_button_text_ru_pressed"]],
 
+	["spriteShutdownButton", ["shutdown_button_normal", "shutdown_button_pressed"]],
+
 	["spriteWidthStickBack", ["width_stick_back"]],
 	["spriteWidthStickButton", ["width_stick_button_normal", "width_stick_button_pressed"]],
 	["spriteWidthIcon", ["width_icon_normal", "width_icon_pressed"]],

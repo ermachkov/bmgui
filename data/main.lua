@@ -309,6 +309,6 @@ end
 -- start the game engine if running under external Lua interpreter
 if not Application then
 	local dataDir = arg[0]:match("^.*[\\/]") or "./"
-	GAME_COMMAND_LINE = "-d \"" .. dataDir .. "\""
+	GAME_COMMAND_LINE = "-D \"" .. dataDir .. "\""
 	require("bmgui")
 end

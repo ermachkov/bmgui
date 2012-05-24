@@ -115,6 +115,7 @@ function main_screen_createSprites()
 	spriteDiamButton = Sprite("spriteDiamButton", 187, 705)
 	spriteDiamIconRed = Sprite("spriteDiamIconRed", 320, 692)
 	spriteDiamButtonRed = Sprite("spriteDiamButtonRed", 187, 705)
+	spriteShutdownButton = Sprite("spriteShutdownButton", 1193, 0)
 	spriteDiskButton = Sprite("spriteDiskButton", 384, 860)
 	spriteDiskButtonText = Sprite("spriteDiskButtonText", 506, 909)
 	spriteDiskIcon = Sprite("spriteDiskIcon", 406, 885)
@@ -135,13 +136,13 @@ function main_screen_createSprites()
 	spriteUser2Text = Sprite("spriteUser2Text", 1006, 717)
 	spriteUser1 = Sprite("spriteUser1", 867, 689)
 	spriteUser1Text = Sprite("spriteUser1Text", 1008, 718)
+	spriteUpdatePopupBack = Sprite("spriteUpdatePopupBack", 714, 0)
+	spriteUpdatePopupIcon = Sprite("spriteUpdatePopupIcon", 754, 23)
 	spriteErrorPopupBack = Sprite("spriteErrorPopupBack", 545, 0)
 	spriteErrorPopupIcon = Sprite("spriteErrorPopupIcon", 559, 25)
 	spriteErrorPopupText = Sprite("spriteErrorPopupText", 663, 79)
 	spriteAutoAluPopupBack = Sprite("spriteAutoAluPopupBack", 377, 0)
 	spriteAutoAluPopupIcon = Sprite("spriteAutoAluPopupIcon", 413, 23)
-	spriteUpdatePopupBack = Sprite("spriteUpdatePopupBack", 714, 0)
-	spriteUpdatePopupIcon = Sprite("spriteUpdatePopupIcon", 754, 23)
 	spriteMessageBack = Sprite("spriteMessageBack", 283, 303)
 	spriteMessageText = Sprite("spriteMessageText", 466, 331)
 	spriteMessageOkButton = Sprite("spriteMessageOkButton", 562, 486)
@@ -316,6 +317,7 @@ function main_screen_deleteSprites()
 	spriteDiamButton = nil
 	spriteDiamIconRed = nil
 	spriteDiamButtonRed = nil
+	spriteShutdownButton = nil
 	spriteDiskButton = nil
 	spriteDiskButtonText = nil
 	spriteDiskIcon = nil
@@ -336,13 +338,13 @@ function main_screen_deleteSprites()
 	spriteUser2Text = nil
 	spriteUser1 = nil
 	spriteUser1Text = nil
+	spriteUpdatePopupBack = nil
+	spriteUpdatePopupIcon = nil
 	spriteErrorPopupBack = nil
 	spriteErrorPopupIcon = nil
 	spriteErrorPopupText = nil
 	spriteAutoAluPopupBack = nil
 	spriteAutoAluPopupIcon = nil
-	spriteUpdatePopupBack = nil
-	spriteUpdatePopupIcon = nil
 	spriteMessageBack = nil
 	spriteMessageText = nil
 	spriteMessageOkButton = nil

@@ -99,8 +99,8 @@ function main_menu_createSprites()
 	spriteOscDisplay0 = Sprite("spriteOscDisplay0", 31, 33)
 	spriteOscStartIcon = Sprite("spriteOscStartIcon", 931, 850)
 	spriteOscPlayIcon = Sprite("spriteOscPlayIcon", 771, 856)
+	spriteOscVertScrollIcon = Sprite("spriteOscVertScrollIcon", 617, 844)
 	spriteOscChannelIcon = Sprite("spriteOscChannelIcon", 458, 846)
-	spriteOscVertScrollIcon = Sprite("spriteOscVertScrollIcon", 617, 846)
 	spriteOscHorzScrollIcon = Sprite("spriteOscHorzScrollIcon", 446, 860)
 	spriteOscHorzScaleIcon = Sprite("spriteOscHorzScaleIcon", 276, 852)
 	spriteOscVertScaleIcon = Sprite("spriteOscVertScaleIcon", 134, 853)
@@ -117,9 +117,9 @@ function main_menu_createSprites()
 	spritePlayUpButton = Sprite("spritePlayUpButton", 725, 760)
 	spritePlayUpIcon = Sprite("spritePlayUpIcon", 769, 779)
 	spriteVertScrollDownButton = Sprite("spriteVertScrollDownButton", 565, 874)
-	spriteVertScrollDownIcon = Sprite("spriteVertScrollDownIcon", 604, 924)
+	spriteVertScrollDownIcon = Sprite("spriteVertScrollDownIcon", 614, 914)
 	spriteVertScrollUpButton = Sprite("spriteVertScrollUpButton", 565, 760)
-	spriteVertScrollUpIcon = Sprite("spriteVertScrollUpIcon", 606, 784)
+	spriteVertScrollUpIcon = Sprite("spriteVertScrollUpIcon", 614, 776)
 	spriteHorzScrollDownButton = Sprite("spriteHorzScrollDownButton", 407, 874)
 	spriteHorzScrollDownIcon = Sprite("spriteHorzScrollDownIcon", 443, 920)
 	spriteHorzScrollUpButton = Sprite("spriteHorzScrollUpButton", 407, 760)
@@ -266,8 +266,8 @@ function main_menu_deleteSprites()
 	spriteOscDisplay0 = nil
 	spriteOscStartIcon = nil
 	spriteOscPlayIcon = nil
-	spriteOscChannelIcon = nil
 	spriteOscVertScrollIcon = nil
+	spriteOscChannelIcon = nil
 	spriteOscHorzScrollIcon = nil
 	spriteOscHorzScaleIcon = nil
 	spriteOscVertScaleIcon = nil

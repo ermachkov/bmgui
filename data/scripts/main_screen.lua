@@ -499,6 +499,9 @@ function onMainScreenUpdate(delta)
 	spriteStopButton:draw()
 	spriteStopButtonText:draw()
 
+	-- shutdown button
+	spriteShutdownButton:draw()
+
 	-- width/stick size
 	local red = math.floor(balanceErrors0 / 64) % 2 ~= 0 and blinkTime < 500
 	spriteWidthStickBack:draw()
@@ -646,6 +649,12 @@ function onMainScreenMouseDown(x, y, key)
 		pressedButton, pressedButtonText = spriteHelpButton, spriteHelpButtonText
 		pressedButton.frame, pressedButtonText.frame = 1, lang * 3 + 1
 		showAboutMessage = true
+		soundKey:play()
+	elseif spriteShutdownButton:isPointInside(x, y) then
+		-- show shutdown confirmation dialog
+		pressedButton, pressedButtonText = nil, nil
+		spriteShutdownButton.frame = 1
+		showMessage(tr("{shutdown_confirm}"), MESSAGE_YES_NO, MESSAGE_WARNING, function() os.execute("shutdown -h now"); spriteShutdownButton.frame = 0 end, function() spriteShutdownButton.frame = 0 end)
 		soundKey:play()
 	elseif spriteWidthIcon:isPointInside(x, y) or spriteWidthStickButton:isPointInside(x, y) then
 		local mode = balance:getIntParam("mode")
