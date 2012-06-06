@@ -803,6 +803,30 @@ local function initMenus()
 				onClick = function() balance:setParam("loadref"); hideMainMenu() end
 			},
 			{
+				icon = spriteMuxIcon,
+				selItem = 1,
+				header = tr("{mux_header}"),
+				text = tr("{mux_text}"),
+				{
+					icon = spriteMuxIcon,
+					header = tr("{mux_0_header}"),
+					text = tr("{mux_0_text}"),
+					onClick = function(item) item.parent.selItem = 1 end
+				},
+				{
+					icon = spriteMuxIcon,
+					header = tr("{mux_1_header}"),
+					text = tr("{mux_1_text}"),
+					onClick = function(item) item.parent.selItem = 2 end
+				},
+				{
+					icon = spriteMuxIcon,
+					header = tr("{mux_2_header}"),
+					text = tr("{mux_2_text}"),
+					onClick = function(item) item.parent.selItem = 3 end
+				}
+			},
+			{
 				icon = spriteQuitIcon,
 				header = tr("{quit_header}"),
 				text = tr("{quit_text}"),
