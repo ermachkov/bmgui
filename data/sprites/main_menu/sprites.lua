@@ -15,6 +15,7 @@ function main_menu_createSprites()
 	spriteChineseIcon = Sprite("spriteChineseIcon", 0, 0)
 	spriteRussianIcon = Sprite("spriteRussianIcon", 0, 0)
 	spriteEnglishIcon = Sprite("spriteEnglishIcon", 0, 0)
+	spriteMuxIcon = Sprite("spriteMuxIcon", 0, 0)
 	spriteWheelDistanceIcon = Sprite("spriteWheelDistanceIcon", 0, 0)
 	spriteRulerRadiusIcon = Sprite("spriteRulerRadiusIcon", 0, 0)
 	spriteRulerVertIcon = Sprite("spriteRulerVertIcon", 0, 0)
@@ -182,6 +183,7 @@ function main_menu_deleteSprites()
 	spriteChineseIcon = nil
 	spriteRussianIcon = nil
 	spriteEnglishIcon = nil
+	spriteMuxIcon = nil
 	spriteWheelDistanceIcon = nil
 	spriteRulerRadiusIcon = nil
 	spriteRulerVertIcon = nil

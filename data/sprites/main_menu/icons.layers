@@ -64,6 +64,8 @@ sprites =
 	["spriteRulerRadiusIcon", ["ruler_radius_icon"]],
 	["spriteWheelDistanceIcon", ["wheel_distance_icon"]],
 
+	["spriteMuxIcon", ["mux_icon"]],
+
 	["spriteEnglishIcon", ["english_icon"]],
 	["spriteRussianIcon", ["russian_icon"]],
 	["spriteChineseIcon", ["chinese_icon"]],
