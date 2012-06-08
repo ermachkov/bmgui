@@ -804,26 +804,33 @@ local function initMenus()
 			},
 			{
 				icon = spriteMuxIcon,
-				selItem = 1,
 				header = tr("{mux_header}"),
 				text = tr("{mux_text}"),
+				onUpdate = function(item) item.selItem = balance:getIntParam("muxval") + 1 end,
 				{
 					icon = spriteMuxIcon,
 					header = tr("{mux_0_header}"),
 					text = tr("{mux_0_text}"),
-					onClick = function(item) item.parent.selItem = 1 end
+					onUpdate = function(item) item.parent.onUpdate(item.parent) end,
+					onClick = function() balance:setIntParam("muxval", 0) end
 				},
 				{
 					icon = spriteMuxIcon,
 					header = tr("{mux_1_header}"),
 					text = tr("{mux_1_text}"),
-					onClick = function(item) item.parent.selItem = 2 end
+					onClick = function() balance:setIntParam("muxval", 1) end
 				},
 				{
 					icon = spriteMuxIcon,
 					header = tr("{mux_2_header}"),
 					text = tr("{mux_2_text}"),
-					onClick = function(item) item.parent.selItem = 3 end
+					onClick = function() balance:setIntParam("muxval", 2) end
+				},
+				{
+					icon = spriteMuxIcon,
+					header = tr("{mux_3_header}"),
+					text = tr("{mux_3_text}"),
+					onClick = function() balance:setIntParam("muxval", 3) end
 				}
 			},
 			{
