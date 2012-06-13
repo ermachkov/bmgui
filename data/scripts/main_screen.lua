@@ -654,7 +654,7 @@ function onMainScreenMouseDown(x, y, key)
 		-- show shutdown confirmation dialog
 		pressedButton, pressedButtonText = nil, nil
 		spriteShutdownButton.frame = 1
-		showMessage(tr("{shutdown_confirm}"), MESSAGE_YES_NO, MESSAGE_WARNING, function() os.execute("sudo poweroff"); spriteShutdownButton.frame = 0 end, function() spriteShutdownButton.frame = 0 end)
+		showMessage(tr("{shutdown_confirm}"), MESSAGE_YES_NO, MESSAGE_WARNING, function() os.execute("sudo shutdown -H now"); spriteShutdownButton.frame = 0 end, function() spriteShutdownButton.frame = 0 end)
 		soundKey:play()
 	elseif spriteWidthIcon:isPointInside(x, y) or spriteWidthStickButton:isPointInside(x, y) then
 		local mode = balance:getIntParam("mode")
