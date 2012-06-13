@@ -1,0 +1,44 @@
+#!/bin/bash
+
+echo "1. GPT Rewrite"
+echo "2. Restore Image"
+echo "3. Exit to clonzilla menu"
+read comm
+
+if [ $comm -eq 1 ] ; then
+  vgchange -a n vg_bm
+  mdadm --manage -S /dev/md127
+  /home/partimag/gdisk.exp
+  exit 0
+else
+  if [ $comm -eq 3 ] ; then
+    exit 0
+  fi
+fi
+
+vgchange -a n vg_bm
+mdadm --manage -S /dev/md127
+
+lvremove vg_bm
+vgremove vg_bm
+
+mdadm --create /dev/md0 --metadata=0.90 --level=1 --raid-devices=2 /dev/sda2 /dev/sda3
+mdadm --examine --scan > /etc/mdadm/mdadm.conf
+mdadm --manage -S /dev/md0
+mdadm --assemble -U uuid /dev/md0 --uuid "48e6f261:63620c5b:f181bb94:a63053d0"
+
+vgcreate vg_bm /dev/md0
+lvcreate -l100%FREE vg_bm -n root
+vgchange -a y vg_bm
+cat /home/partimag/BALANCE_GOLD_MAY2012/raid_vg_bm-root.img.gz | gunzip -c | partclone.ext4 -C -d -r -s - -o /dev/vg_bm/root
+dd if=/home/partimag/BALANCE_GOLD_MAY2012/raid_vg_bm-sda1.img of=/dev/sda1
+e2fsck -f /dev/mapper/vg_bm-root
+resize2fs /dev/mapper/vg_bm-root
+mkdir /mnt/sys
+mount /dev/mapper/vg_bm-root /mnt/sys
+mount -o bind /dev /mnt/sys/dev
+mount -t proc none /mnt/sys/proc
+chroot /mnt/sys /bin/bash -c "/sbin/grub2-install /dev/sda"
+umount /mnt/sys/proc
+umount /mnt/sys/dev
+umount /mnt/sys
