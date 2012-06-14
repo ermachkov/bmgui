@@ -2,7 +2,7 @@
 
 echo "1. GPT Rewrite"
 echo "2. Restore Image"
-echo "3. Exit to clonzilla menu"
+echo "3. Exit to clonezilla menu"
 read comm
 
 if [ $comm -eq 1 ] ; then
