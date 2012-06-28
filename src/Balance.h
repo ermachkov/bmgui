@@ -67,6 +67,12 @@ public:
 	// Draws the oscilloscope signal
 	void drawOscilloscope(float x1, float y1, float x2, float y2);
 
+	// Starts SSH client
+	void startSSH();
+
+	// Stops SSH client
+	void stopSSH();
+
 private:
 
 	// Oscilloscope channel modes
@@ -116,6 +122,12 @@ private:
 	// Balance thread function
 	virtual void run();
 
+	// SSH execution thread function
+	void SSHThreadFunc();
+
+	// SSH polling thread function
+	void SSHPollThreadFunc();
+
 	CL_SocketName               mSocketName;        // Current balance address
 	CL_Thread                   mThread;            // Balance thread
 	CL_InterlockedVariable      mStopThread;        // Balance thread stop flag
@@ -143,6 +155,11 @@ private:
 	int                         mSampleOffset;                  // Current sample offset
 	std::complex<float>         mFFTBuf[2][FFT_BUF_SIZE];       // FFT buffer
 	std::complex<float>         mMainHarmonic[2];               // Main harmonic value
+
+	CL_Thread                   mSSHThread;                     // SSH execution thread
+	CL_Thread                   mSSHPollThread;                 // SSH polling thread
+	bool                        mSSHStarted;                    // SSH threads start flag
+	bool                        mSSHConnected;                  // SSH connect flag
 };
 
 #endif
