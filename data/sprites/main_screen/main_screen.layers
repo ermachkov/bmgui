@@ -79,5 +79,8 @@ sprites =
 	["spriteErrorPopupText", ["error_popup_text"]],
 
 	["spriteUpdatePopupBack", ["update_popup_back"]],
-	["spriteUpdatePopupIcon", ["update_popup_icon"]]
+	["spriteUpdatePopupIcon", ["update_popup_icon"]],
+
+	["spriteRemoteSupportPopupBack", ["remote_support_popup_back"]],
+	["spriteRemoteSupportPopupIcon", ["remote_support_popup_inactive_icon", "remote_support_popup_active_icon"]]
 ]

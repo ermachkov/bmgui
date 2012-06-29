@@ -79,6 +79,7 @@ sprites =
 	["spriteDNSIcon", ["dns_icon"]],
 	["spriteRemoteControlEnabledIcon", ["remote_control_enabled_icon"]],
 	["spriteRemoteControlDisabledIcon", ["remote_control_disabled_icon"]],
+	["spriteRemoteSupportIcon", ["remote_support_icon"]],
 
 	["spriteSoftwareUpdateIcon", ["software_update_icon"]],
 	["spriteSaveSettingsIcon", ["save_settings_icon"]],

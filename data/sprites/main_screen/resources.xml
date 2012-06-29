@@ -864,7 +864,7 @@
 	</sprite>
 	<sprite name="spriteOfsButton">
 		<image file="texture11.png">
-			<grid pos="0,898" size="135,76"/>
+			<grid pos="169,898" size="135,76"/>
 		</image>
 		<image file="texture9.png">
 			<grid pos="775,208" size="135,76"/>
@@ -912,17 +912,17 @@
 			<grid pos="434,0" size="85,99"/>
 		</image>
 		<image file="texture11.png">
-			<grid pos="880,334" size="85,99"/>
+			<grid pos="911,334" size="85,99"/>
 		</image>
 		<frame nr="0" x="0" y="0"/>
 		<frame nr="1" x="0" y="0"/>
 	</sprite>
 	<sprite name="spriteWidthIcon">
 		<image file="texture11.png">
-			<grid pos="794,334" size="85,99"/>
+			<grid pos="825,334" size="85,99"/>
 		</image>
 		<image file="texture11.png">
-			<grid pos="708,334" size="85,99"/>
+			<grid pos="739,334" size="85,99"/>
 		</image>
 		<frame nr="0" x="0" y="0"/>
 		<frame nr="1" x="0" y="0"/>
@@ -934,7 +934,7 @@
 	</sprite>
 	<sprite name="spriteStickIconRed">
 		<image file="texture11.png">
-			<grid pos="622,334" size="85,99"/>
+			<grid pos="930,898" size="85,99"/>
 		</image>
 	</sprite>
 	<sprite name="spriteWidthIconRed">
@@ -1029,7 +1029,7 @@
 			<grid pos="934,708" size="82,81"/>
 		</image>
 		<image file="texture12.png">
-			<grid pos="340,614" size="80,80"/>
+			<grid pos="412,614" size="80,80"/>
 		</image>
 		<image file="texture12.png">
 			<grid pos="851,708" size="82,82"/>
@@ -1115,6 +1115,9 @@
 	</sprite>
 	<sprite name="spriteLayoutIcon">
 		<image file="texture12.png">
+			<grid pos="491,531" size="76,75"/>
+		</image>
+		<image file="texture12.png">
 			<grid pos="414,531" size="76,75"/>
 		</image>
 		<image file="texture12.png">
@@ -1124,28 +1127,25 @@
 			<grid pos="260,531" size="76,75"/>
 		</image>
 		<image file="texture12.png">
-			<grid pos="883,614" size="76,75"/>
-		</image>
-		<image file="texture12.png">
-			<grid pos="806,614" size="76,75"/>
+			<grid pos="878,614" size="76,75"/>
 		</image>
 		<image file="texture10.png">
 			<grid pos="0,951" size="76,72"/>
 		</image>
 		<image file="texture12.png">
-			<grid pos="729,614" size="76,75"/>
+			<grid pos="801,614" size="76,75"/>
 		</image>
 		<image file="texture12.png">
-			<grid pos="652,614" size="76,75"/>
+			<grid pos="724,614" size="76,75"/>
 		</image>
 		<image file="texture12.png">
-			<grid pos="575,614" size="76,75"/>
+			<grid pos="647,614" size="76,75"/>
 		</image>
 		<image file="texture12.png">
-			<grid pos="498,614" size="76,75"/>
+			<grid pos="570,614" size="76,75"/>
 		</image>
 		<image file="texture12.png">
-			<grid pos="421,614" size="76,75"/>
+			<grid pos="493,614" size="76,75"/>
 		</image>
 		<frame nr="0" x="0" y="0"/>
 		<frame nr="1" x="0" y="0"/>
@@ -1217,13 +1217,13 @@
 	</sprite>
 	<sprite name="spriteHelpButton">
 		<image file="texture11.png">
-			<grid pos="886,898" size="124,74"/>
+			<grid pos="885,796" size="124,74"/>
 		</image>
 		<image file="texture11.png">
-			<grid pos="761,898" size="124,74"/>
+			<grid pos="885,721" size="124,74"/>
 		</image>
 		<image file="texture11.png">
-			<grid pos="636,898" size="124,74"/>
+			<grid pos="805,898" size="124,74"/>
 		</image>
 		<frame nr="0" x="0" y="0"/>
 		<frame nr="1" x="0" y="0"/>
@@ -1257,13 +1257,13 @@
 	</sprite>
 	<sprite name="spriteMenuButton">
 		<image file="texture11.png">
-			<grid pos="511,898" size="124,74"/>
+			<grid pos="680,898" size="124,74"/>
 		</image>
 		<image file="texture11.png">
-			<grid pos="386,898" size="124,74"/>
+			<grid pos="555,898" size="124,74"/>
 		</image>
 		<image file="texture11.png">
-			<grid pos="261,898" size="124,74"/>
+			<grid pos="430,898" size="124,74"/>
 		</image>
 		<frame nr="0" x="0" y="0"/>
 		<frame nr="1" x="0" y="0"/>
@@ -1307,10 +1307,10 @@
 	</sprite>
 	<sprite name="spriteUser2">
 		<image file="texture11.png">
-			<grid pos="505,334" size="116,116"/>
+			<grid pos="622,334" size="116,116"/>
 		</image>
 		<image file="texture11.png">
-			<grid pos="388,334" size="116,116"/>
+			<grid pos="505,334" size="116,116"/>
 		</image>
 		<frame nr="0" x="0" y="0"/>
 		<frame nr="1" x="0" y="0"/>
@@ -1322,10 +1322,10 @@
 	</sprite>
 	<sprite name="spriteUser1">
 		<image file="texture11.png">
-			<grid pos="271,334" size="116,116"/>
+			<grid pos="388,334" size="116,116"/>
 		</image>
 		<image file="texture11.png">
-			<grid pos="885,721" size="116,116"/>
+			<grid pos="271,334" size="116,116"/>
 		</image>
 		<frame nr="0" x="0" y="0"/>
 		<frame nr="1" x="0" y="0"/>
@@ -1336,8 +1336,8 @@
 		</image>
 	</sprite>
 	<sprite name="spriteUpdatePopupBack">
-		<image file="texture10.png">
-			<grid pos="777,177" size="168,124"/>
+		<image file="texture11.png">
+			<grid pos="0,898" size="168,124"/>
 		</image>
 	</sprite>
 	<sprite name="spriteUpdatePopupIcon">
@@ -1347,7 +1347,7 @@
 	</sprite>
 	<sprite name="spriteErrorPopupBack">
 		<image file="texture10.png">
-			<grid pos="777,494" size="168,124"/>
+			<grid pos="777,177" size="168,124"/>
 		</image>
 	</sprite>
 	<sprite name="spriteErrorPopupIcon">
@@ -1361,14 +1361,29 @@
 		</image>
 	</sprite>
 	<sprite name="spriteAutoAluPopupBack">
-		<image file="texture4.png">
-			<grid pos="854,739" size="168,124"/>
+		<image file="texture10.png">
+			<grid pos="777,494" size="168,124"/>
 		</image>
 	</sprite>
 	<sprite name="spriteAutoAluPopupIcon">
 		<image file="texture8.png">
 			<grid pos="907,554" size="95,91"/>
 		</image>
+	</sprite>
+	<sprite name="spriteRemoteSupportPopupBack">
+		<image file="texture4.png">
+			<grid pos="854,739" size="168,124"/>
+		</image>
+	</sprite>
+	<sprite name="spriteRemoteSupportPopupIcon">
+		<image file="texture10.png">
+			<grid pos="954,87" size="69,80"/>
+		</image>
+		<image file="texture12.png">
+			<grid pos="340,614" size="71,80"/>
+		</image>
+		<frame nr="0" x="0" y="0"/>
+		<frame nr="1" x="0" y="0"/>
 	</sprite>
 	<sprite name="spriteMessageBack">
 		<image file="texture6.png">
@@ -1469,7 +1484,7 @@
 			<grid pos="866,159" size="149,131"/>
 		</image>
 		<image file="texture11.png">
-			<grid pos="136,898" size="124,124"/>
+			<grid pos="305,898" size="124,124"/>
 		</image>
 		<image file="texture2.png">
 			<grid pos="866,471" size="141,103"/>
