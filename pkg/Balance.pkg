@@ -54,6 +54,18 @@ class Balance
 	// Draws the oscilloscope signal
 	void drawOscilloscope(float x1, float y1, float x2, float y2);
 
+	// Starts SSH client
+	void startSSH();
+
+	// Stops SSH client
+	void stopSSH();
+
+	// Checks if SSH client is started
+	bool isSSHStarted() const;
+
+	// Checks if SSH client is connected
+	bool isSSHConnected() const;
+
 	// Returns a reference to the global class instance
 	static Balance &getSingleton();
 };

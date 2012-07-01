@@ -1,6 +1,6 @@
 /*
 ** Lua binding: LuaBindings
-** Generated automatically by tolua++-1.0.92 on Fri Apr  6 15:18:32 2012.
+** Generated automatically by tolua++-1.0.92 on Sun Jul  1 23:09:06 2012.
 */
 
 #ifndef __cplusplus
@@ -1025,6 +1025,132 @@ static int tolua_LuaBindings_Balance_drawOscilloscope00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'drawOscilloscope'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: startSSH of class  Balance */
+#ifndef TOLUA_DISABLE_tolua_LuaBindings_Balance_startSSH00
+static int tolua_LuaBindings_Balance_startSSH00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Balance",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Balance* self = (Balance*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'startSSH'", NULL);
+#endif
+  {
+   self->startSSH();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'startSSH'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: stopSSH of class  Balance */
+#ifndef TOLUA_DISABLE_tolua_LuaBindings_Balance_stopSSH00
+static int tolua_LuaBindings_Balance_stopSSH00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Balance",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Balance* self = (Balance*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'stopSSH'", NULL);
+#endif
+  {
+   self->stopSSH();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'stopSSH'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: isSSHStarted of class  Balance */
+#ifndef TOLUA_DISABLE_tolua_LuaBindings_Balance_isSSHStarted00
+static int tolua_LuaBindings_Balance_isSSHStarted00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const Balance",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const Balance* self = (const Balance*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isSSHStarted'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->isSSHStarted();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'isSSHStarted'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: isSSHConnected of class  Balance */
+#ifndef TOLUA_DISABLE_tolua_LuaBindings_Balance_isSSHConnected00
+static int tolua_LuaBindings_Balance_isSSHConnected00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const Balance",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const Balance* self = (const Balance*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isSSHConnected'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->isSSHConnected();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'isSSHConnected'.",&tolua_err);
  return 0;
 #endif
 }
@@ -3839,6 +3965,10 @@ TOLUA_API int tolua_LuaBindings_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setIntParam",tolua_LuaBindings_Balance_setIntParam00);
    tolua_function(tolua_S,"setFloatParam",tolua_LuaBindings_Balance_setFloatParam00);
    tolua_function(tolua_S,"drawOscilloscope",tolua_LuaBindings_Balance_drawOscilloscope00);
+   tolua_function(tolua_S,"startSSH",tolua_LuaBindings_Balance_startSSH00);
+   tolua_function(tolua_S,"stopSSH",tolua_LuaBindings_Balance_stopSSH00);
+   tolua_function(tolua_S,"isSSHStarted",tolua_LuaBindings_Balance_isSSHStarted00);
+   tolua_function(tolua_S,"isSSHConnected",tolua_LuaBindings_Balance_isSSHConnected00);
    tolua_function(tolua_S,"getSingleton",tolua_LuaBindings_Balance_getSingleton00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"Database","Database","",NULL);

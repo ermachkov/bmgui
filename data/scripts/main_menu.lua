@@ -777,6 +777,12 @@ local function initMenus()
 						text = tr("{remote_control_enabled_text}"),
 						onClick = function(item) item.parent.selItem = 2; item.parent.icon = spriteRemoteControlEnabledIcon; profile:setBool("remote_control", true); profile:save() end
 					}
+				},
+				{
+					icon = spriteRemoteSupportIcon,
+					header = tr("{remote_support_header}"),
+					text = tr("{remote_support_text}"),
+					onClick = function() balance:startSSH(); hideMainMenu()  end
 				}
 			},
 			{

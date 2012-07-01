@@ -73,6 +73,12 @@ public:
 	// Stops SSH client
 	void stopSSH();
 
+	// Checks if SSH client is started
+	bool isSSHStarted() const;
+
+	// Checks if SSH client is connected
+	bool isSSHConnected() const;
+
 private:
 
 	// Oscilloscope channel modes
@@ -123,10 +129,10 @@ private:
 	virtual void run();
 
 	// SSH execution thread function
-	void SSHThreadFunc();
+	void SSHRunThreadFunc();
 
-	// SSH polling thread function
-	void SSHPollThreadFunc();
+	// SSH ping thread function
+	void SSHPingThreadFunc();
 
 	CL_SocketName               mSocketName;        // Current balance address
 	CL_Thread                   mThread;            // Balance thread
@@ -156,10 +162,11 @@ private:
 	std::complex<float>         mFFTBuf[2][FFT_BUF_SIZE];       // FFT buffer
 	std::complex<float>         mMainHarmonic[2];               // Main harmonic value
 
-	CL_Thread                   mSSHThread;                     // SSH execution thread
-	CL_Thread                   mSSHPollThread;                 // SSH polling thread
+	CL_Thread                   mSSHRunThread;                  // SSH execution thread
+	CL_Thread                   mSSHPingThread;                 // SSH ping thread
 	bool                        mSSHStarted;                    // SSH threads start flag
-	bool                        mSSHConnected;                  // SSH connect flag
+	bool                        mSSHRunning;                    // True if SSH client is currently running
+	bool                        mSSHPinging;                    // True if SSH port is currently opened
 };
 
 #endif

@@ -12,7 +12,7 @@ local mainMenuLoaded = false
 local blinkTime = 0
 local pressedButton
 local pressedButtonText
-local autoAluPopup, errorPopup, updatePopup
+local autoAluPopup, errorPopup, updatePopup, remoteSupportPopup
 local popups
 local showAboutMessage = false
 local aboutMessage = ""
@@ -264,7 +264,8 @@ function onMainScreenInit()
 	autoAluPopup = {back = spriteAutoAluPopupBack, icon = spriteAutoAluPopupIcon, active = false, time = 0}
 	errorPopup = {back = spriteErrorPopupBack, icon = spriteErrorPopupIcon, label = spriteErrorPopupText, active = false, time = 0, text = "13"}
 	updatePopup = {back = spriteUpdatePopupBack, icon = spriteUpdatePopupIcon, active = false, time = 0}
-	popups = {autoAluPopup, errorPopup, updatePopup}
+	remoteSupportPopup = {back = spriteRemoteSupportPopupBack, icon = spriteRemoteSupportPopupIcon, active = false, time = 0} 
+	popups = {autoAluPopup, errorPopup, updatePopup, remoteSupportPopup}
 
 	-- read "About" message from the file
 	local file = io.open("/etc/bminfo")
@@ -553,6 +554,8 @@ function onMainScreenUpdate(delta)
 	errorPopup.active = numErrors ~= 0
 	errorPopup.text = tostring(numErrors)
 	updatePopup.active = profile:getString("available_update_version") > profile:getString("ignored_update_version")
+	remoteSupportPopup.active = balance:isSSHStarted()
+	remoteSupportPopup.icon.frame = balance:isSSHConnected() and 1 or 0
 
 	-- popups
 	for i, popup in ipairs(popups) do
@@ -703,8 +706,11 @@ function onMainScreenMouseUp(x, y, key)
 		showErrorJournal()
 	end
 
-	-- execute update command on update popup click
-	if updatePopup.active and updatePopup.back:isPointInside(x, y) then
+	-- check remote support or update popup
+	if remoteSupportPopup.active and remoteSupportPopup.back:isPointInside(x, y) then
+		showMessage(tr("{remote_support_stop_confirm}"), MESSAGE_YES_NO, MESSAGE_WARNING,
+			function() balance:stopSSH() end)
+	elseif updatePopup.active and updatePopup.back:isPointInside(x, y) then
 		showMessage(tr("{update_message_text}"), MESSAGE_YES_NO, MESSAGE_WARNING, askForUpdatePassword,
 			function() local str = profile:getString("available_update_version"); profile:setString("ignored_update_version", str); profile:save() end)
 	end

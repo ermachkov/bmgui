@@ -26,7 +26,7 @@ const std::string Balance::PARAMS[MAX_PARAMS] =
 
 Balance::Balance(Profile &profile)
 : mProtocolValid(true), mSocketNameChanged(false), mOscMode(0), mCurrSample(0), mPlaying(true), mVertScale(1.0f), mHorzScale(1.0f), mSampleOffset(0),
-  mSSHStarted(false), mSSHConnected(false)
+  mSSHStarted(false), mSSHRunning(false), mSSHPinging(false)
 {
 	for (int i = 0; i < MAX_PARAMS; ++i)
 		mParams.insert(std::make_pair(PARAMS[i], "0"));
@@ -37,8 +37,6 @@ Balance::Balance(Profile &profile)
 	mSlotUpdate = Application::getSingleton().getSigUpdate().connect(this, &Balance::onUpdate);
 
 	mThread.start(this);
-
-	startSSH();
 }
 
 Balance::~Balance()
@@ -261,9 +259,11 @@ void Balance::startSSH()
 	if (!mSSHStarted)
 	{
 		mSSHStarted = true;
-		mSSHConnected = false;
-		mSSHThread.start(this, &Balance::SSHThreadFunc);
-		mSSHPollThread.start(this, &Balance::SSHPollThreadFunc);
+		mSSHRunning = false;
+		mSSHPinging = false;
+
+		mSSHRunThread.start(this, &Balance::SSHRunThreadFunc);
+		mSSHPingThread.start(this, &Balance::SSHPingThreadFunc);
 	}
 }
 
@@ -271,13 +271,25 @@ void Balance::stopSSH()
 {
 	if (mSSHStarted)
 	{
-		mSSHThread.kill();
-		mSSHThread = CL_Thread();
-		mSSHPollThread.kill();
-		mSSHPollThread = CL_Thread();
+		mSSHRunThread.kill();
+		mSSHRunThread = CL_Thread();
+		mSSHPingThread.kill();
+		mSSHPingThread = CL_Thread();
+
 		mSSHStarted = false;
-		mSSHConnected = false;
+		mSSHRunning = false;
+		mSSHPinging = false;
 	}
+}
+
+bool Balance::isSSHStarted() const
+{
+	return mSSHStarted;
+}
+
+bool Balance::isSSHConnected() const
+{
+	return mSSHRunning && mSSHPinging;
 }
 
 void Balance::calcFFT(int channel, int start, int end)
@@ -586,21 +598,23 @@ void Balance::run()
 	}
 }
 
-void Balance::SSHThreadFunc()
+void Balance::SSHRunThreadFunc()
 {
 	// ssh -R 50000:127.0.0.1:22 bm@sibek.ru -p 2222 -N
-	// connect to SSH server
-	system("ssh -R 50000:127.0.0.1:22 bm@sibek.ru -p 2222 -N");
+	for (;;)
+	{
+		// connect to SSH server
+		mSSHRunning = true;
+		system("ssh -R 50000:127.0.0.1:22 bm@sibek.ru -p 2222 -N");
+		mSSHRunning = false;
 
-	// terminate SSH client
-	CL_Console::write_line("*** SSH Stopped ***");
-	mSSHPollThread.kill();
-	mSSHPollThread = CL_Thread();
-	mSSHStarted = false;
-	mSSHConnected = false;
+		// make a delay
+		CL_Console::write_line("SSH Terminated");
+		CL_System::sleep(5000);
+	}
 }
 
-void Balance::SSHPollThreadFunc()
+void Balance::SSHPingThreadFunc()
 {
 	// ssh bm@sibek.ru -p 2222 "netstat -an"
 	for (;;)
@@ -612,7 +626,7 @@ void Balance::SSHPollThreadFunc()
 		FILE *stream = popen("ssh bm@sibek.ru -p 2222 \"netstat -an\"", "r");
 		if (stream == NULL)
 		{
-			mSSHConnected = false;
+			mSSHPinging = false;
 			continue;
 		}
 
@@ -625,7 +639,7 @@ void Balance::SSHPollThreadFunc()
 		pclose(stream);
 
 		// parse the output and determine current SSH status
-		mSSHConnected = str.find("127.0.0.1.50000") != std::string::npos;
-		CL_Console::write_line(mSSHConnected ? "SSH Status: Connected" : "SSH Status: NOT Connected");
+		mSSHPinging = str.find("127.0.0.1.50000") != std::string::npos;
+		CL_Console::write_line(mSSHPinging ? "SSH Port: Opened" : "SSH Port: NOT Opened");
 	}
 }
