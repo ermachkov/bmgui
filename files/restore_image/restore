@@ -25,8 +25,7 @@ vgremove vg_bm
 mdadm --create /dev/md0 --metadata=0.90 --level=1 --raid-devices=2 /dev/sda2 /dev/sda3
 mdadm --examine --scan > /etc/mdadm/mdadm.conf
 mdadm --manage -S /dev/md0
-mdadm --assemble -U uuid /dev/md0 --uuid "9b794db7:bda89835:bfe78010:bc810f04"
-# old uuid 48e6f261:63620c5b:f181bb94:a63053d0
+mdadm --assemble -U uuid /dev/md0 --uuid "48e6f261:63620c5b:f181bb94:a63053d0"
 
 vgcreate vg_bm /dev/md0
 lvcreate -l100%FREE vg_bm -n root
