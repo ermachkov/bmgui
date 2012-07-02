@@ -261,7 +261,7 @@ TRANSLATION_RU =
     ["{netmask_text}"] = "Сетевая маска",
     ["{gateway_text}"] = "Адрес шлюза по умолчанию",
     ["{dns_text}"] = "Адрес доменного сервера",
-    ["{remote_control_text}"] = "Разрешает/запрещает удалённое управление\nбалансировкой. Будет активизировано при\nследующем включении.",
+    ["{remote_control_text}"] = "Разрешает/запрещает удалённое управление\nбалансировкой",
 
     ["{remote_control_disabled_header}"] = "Запрещено",
     ["{remote_control_enabled_header}"] = "Разрешено",
@@ -269,7 +269,7 @@ TRANSLATION_RU =
     ["{remote_control_enabled_text}"] = "Удалённое управление балансировкой\nразрешено",
 
     ["{remote_support_header}"] = "Удалённый помощник",
-    ["{remote_support_text}"] = "Описалово удаленного помощника",
+    ["{remote_support_text}"] = "Запускает сеанс удалённой технической\nподдержки",
     ["{remote_support_stop_confirm}"] = "Завершить работу удалённого\nпомощника?",
 
     ["Enter password"] = "Введите пароль",

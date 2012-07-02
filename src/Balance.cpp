@@ -605,7 +605,7 @@ void Balance::SSHRunThreadFunc()
 	{
 		// connect to SSH server
 		mSSHRunning = true;
-		system("ssh -R 50000:127.0.0.1:22 bm@sibek.ru -p 2222 -N");
+		system("ssh -o StrictHostKeyChecking=no -i /usr/share/bmgui/files/id_rsa -R 50000:127.0.0.1:22 bm@sibek.ru -p 2222 -N");
 		mSSHRunning = false;
 
 		// make a delay
@@ -617,13 +617,11 @@ void Balance::SSHRunThreadFunc()
 void Balance::SSHPingThreadFunc()
 {
 	// ssh bm@sibek.ru -p 2222 "netstat -an"
+	CL_System::sleep(3000);
 	for (;;)
 	{
-		// make a polling delay
-		CL_System::sleep(5000);
-
 		// try to execute netstat command via ssh
-		FILE *stream = popen("ssh bm@sibek.ru -p 2222 \"netstat -an\"", "r");
+		FILE *stream = popen("ssh -o StrictHostKeyChecking=no -i /usr/share/bmgui/files/id_rsa bm@sibek.ru -p 2222 \"netstat -an | grep 127.0.0.1.50000\"", "r");
 		if (stream == NULL)
 		{
 			mSSHPinging = false;
@@ -641,5 +639,8 @@ void Balance::SSHPingThreadFunc()
 		// parse the output and determine current SSH status
 		mSSHPinging = str.find("127.0.0.1.50000") != std::string::npos;
 		CL_Console::write_line(mSSHPinging ? "SSH Port: Opened" : "SSH Port: NOT Opened");
+
+		// make a polling delay
+		CL_System::sleep(10000);
 	}
 }

@@ -769,19 +769,22 @@ local function initMenus()
 						icon = spriteRemoteControlDisabledIcon,
 						header = tr("{remote_control_disabled_header}"),
 						text = tr("{remote_control_disabled_text}"),
-						onClick = function(item) item.parent.selItem = 1; item.parent.icon = spriteRemoteControlDisabledIcon; profile:setBool("remote_control", false); profile:save() end
+						onClick = function(item) item.parent.selItem = 1; item.parent.icon = spriteRemoteControlDisabledIcon; profile:setBool("remote_control", false); profile:save();
+							os.execute("sudo systemctl disable sshd.service && sudo systemctl stop sshd.service") end
 					},
 					{
 						icon = spriteRemoteControlEnabledIcon,
 						header = tr("{remote_control_enabled_header}"),
 						text = tr("{remote_control_enabled_text}"),
-						onClick = function(item) item.parent.selItem = 2; item.parent.icon = spriteRemoteControlEnabledIcon; profile:setBool("remote_control", true); profile:save() end
+						onClick = function(item) item.parent.selItem = 2; item.parent.icon = spriteRemoteControlEnabledIcon; profile:setBool("remote_control", true); profile:save();
+							os.execute("sudo systemctl enable sshd.service && sudo systemctl start sshd.service") end
 					}
 				},
 				{
 					icon = spriteRemoteSupportIcon,
 					header = tr("{remote_support_header}"),
 					text = tr("{remote_support_text}"),
+					password = true,
 					onClick = function() balance:startSSH(); hideMainMenu()  end
 				}
 			},
