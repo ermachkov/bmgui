@@ -22,6 +22,7 @@ mdadm --manage -S /dev/md127
 lvremove vg_bm
 vgremove vg_bm
 
+mdadm --zero /dev/sda
 mdadm --create /dev/md0 --metadata=0.90 --level=1 --raid-devices=2 /dev/sda2 /dev/sda3
 mdadm --examine --scan > /etc/mdadm/mdadm.conf
 mdadm --manage -S /dev/md0
