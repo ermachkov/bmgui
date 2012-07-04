@@ -50,6 +50,7 @@ install:
 	cp -rf data/* $(PREFIX)/share/bmgui
 	install files/bmgui_update $(PREFIX)/bin
 	cp -f files/bmgui.png $(PREFIX)/share/pixmaps
+	cp -rf files/man $(PREFIX)/share
 	cp -f files/bminfo /etc
 	cp -f files/bmgui.xml /etc
 	cp -f files/bmgui.desktop /home/bm/Desktop
@@ -63,6 +64,7 @@ uninstall:
 	rm -f $(PREFIX)/bin/bmgui_start
 	rm -rf $(PREFIX)/share/bmgui
 	rm -f $(PREFIX)/share/pixmaps/bmgui.png
+	rm -f $(PREFIX)/share/man/ru/man1/bmgui.1.gz
 	rm -f /home/bm/Desktop/bmgui.desktop
 	rm -f /etc/bminfo
 	rm -f $(PREFIX)/bin/bmgui_xinput_calibrator
