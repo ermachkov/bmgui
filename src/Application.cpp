@@ -31,15 +31,20 @@ Application::Application(const std::vector<CL_String> &args, lua_State *luaState
 		argv.push_back(const_cast<char *>(it->c_str()));
 
 	CL_CommandLine commandLine;
+	commandLine.set_help_indent(40);
+	commandLine.add_doc("Graphical interface for Sibek balance machines");
+	commandLine.add_usage("[OPTION...]\n");
+
 	commandLine.add_option('g', "gateway", "ADDR", "Default gateway address");
 	commandLine.add_option('a', "local_addr", "ADDR", "Local address");
 	commandLine.add_option('m', "netmask", "ADDR", "Subnet mask");
 	commandLine.add_option('d', "dns", "ADDR", "DNS server address");
 	commandLine.add_option('i', "input_dev", "TYPE", "Input device type");
-	commandLine.add_option('s', "server_status", "STATUS", "Server status");
+	commandLine.add_option('s', "server_status", "FLAG", "Server status");
 	commandLine.add_option('u', "available_update_version", "VERSION", "Available update version");
-	commandLine.add_option('U', "updated", "BOOL", "SOftware update flag");
+	commandLine.add_option('U', "updated", "FLAG", "Software update flag");
 	commandLine.add_option('D', "datadir", "PATH", "Path to the data directory");
+	commandLine.add_option('h', "help", "", "Show this help");
 	commandLine.parse_args(argv.size(), &argv[0]);
 
 #if defined(WIN32) || defined(__APPLE__)
@@ -51,6 +56,10 @@ Application::Application(const std::vector<CL_String> &args, lua_State *luaState
 	{
 		switch (commandLine.get_key())
 		{
+		case 'h':
+			commandLine.print_help();
+			quit();
+			return;
 		case 'g':
 			mGateway = commandLine.get_argument();
 			break;
