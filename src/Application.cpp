@@ -56,10 +56,6 @@ Application::Application(const std::vector<CL_String> &args, lua_State *luaState
 	{
 		switch (commandLine.get_key())
 		{
-		case 'h':
-			commandLine.print_help();
-			quit();
-			return;
 		case 'g':
 			mGateway = commandLine.get_argument();
 			break;
@@ -87,6 +83,10 @@ Application::Application(const std::vector<CL_String> &args, lua_State *luaState
 		case 'D':
 			mDataDirectory = CL_PathHelp::add_trailing_slash(commandLine.get_argument());
 			break;
+		case 'h':
+			commandLine.print_help();
+			quit();
+			return;
 		}
 	}
 

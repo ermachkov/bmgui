@@ -50,7 +50,7 @@ install:
 	cp -rf data/* $(PREFIX)/share/bmgui
 	install files/bmgui_update $(PREFIX)/bin
 	cp -f files/bmgui.png $(PREFIX)/share/pixmaps
-	cp -rf files/man $(PREFIX)/share
+	gzip -c man/ru/man1/bmgui.1 > $(PREFIX)/share/man/ru/man1/bmgui.1.gz
 	cp -f files/bminfo /etc
 	cp -f files/bmgui.xml /etc
 	cp -f files/bmgui.desktop /home/bm/Desktop
