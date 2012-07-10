@@ -43,7 +43,7 @@ mount -t proc none /mnt/sys/proc
 chroot /mnt/sys /bin/bash -c "/sbin/grub2-install /dev/sda"
 
 IFCFG=`ifconfig eth0`
-MAC=`expr "$IFCFG" : '.*HWaddr \(.*\)\n*\s*inet ' | tr -d ' '`
+MAC=`expr "$IFCFG" : '.*HWaddr \(.*\)\n*\s*BROADCAST ' | tr -d ' '`
 echo "SUBSYSTEM==\"net\", ACTION==\"add\", DRIVERS==\"?*\", ATTR{address}==\"$MAC\", ATTR{dev_id}==\"0x0\", ATTR{type}==\"1\", KERNEL==\"eth*\", NAME=\"eth0\"" > /mnt/sys/etc/udev/rules.d/70-persistent-net.rules
 
 umount /mnt/sys/proc
