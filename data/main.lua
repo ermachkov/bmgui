@@ -52,6 +52,7 @@ function onInit()
 	include("scripts/wizard.lua")
 	include("scripts/stats.lua")
 	include("scripts/oscilloscope.lua")
+	include("scripts/sound.lua")
 
 	-- load the system profile
 	profile = Profile("")
@@ -106,6 +107,9 @@ function onInit()
 	onStatsInit()
 	onMessageInit()
 	onOscilloscopeInit()
+	onSoundInit()
+
+	playSound(soundLeftTable[10], soundRightTable[75], soundLeftTable[20], soundRightTable[90])
 
 	-- show/hide mouse
 	if profile:getInt("input_dev") == 2 then
@@ -235,6 +239,7 @@ function onUpdate(delta)
 	onWizardUpdate(delta)
 	onStatsUpdate(delta)
 	onMessageUpdate(delta)
+	onSoundUpdate(delta)
 
 	-- show current FPS
 	--fontSizes:drawText(30, 30, string.format("FPS = %.2f", graphics:getFPS()), 0, 0, 0)
