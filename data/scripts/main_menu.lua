@@ -714,6 +714,30 @@ local function initMenus()
 				}
 			},
 			{
+				icon = soundLevelIcons[profile:getInt("sound_level") + 1],
+				selItem = profile:getInt("sound_level") + 1,
+				header = tr("{sound_level_header}"),
+				text = tr("{sound_level_text}"),
+				{
+					icon = soundLevelIcons[1],
+					header = tr("{sound_level_0_header}"),
+					text = tr("{sound_level_0_text}"),
+					onClick = function(item) item.parent.selItem = 1; item.parent.icon = soundLevelIcons[1]; profile:setInt("sound_level", 0); profile:save() end
+				},
+				{
+					icon = soundLevelIcons[2],
+					header = tr("{sound_level_1_header}"),
+					text = tr("{sound_level_1_text}"),
+					onClick = function(item) item.parent.selItem = 2; item.parent.icon = soundLevelIcons[2]; profile:setInt("sound_level", 1); profile:save() end
+				},
+				{
+					icon = soundLevelIcons[3],
+					header = tr("{sound_level_2_header}"),
+					text = tr("{sound_level_2_text}"),
+					onClick = function(item) item.parent.selItem = 3; item.parent.icon = soundLevelIcons[3]; profile:setInt("sound_level", 2); profile:save() end
+				}
+			},
+			{
 				icon = spriteThemeIcon,
 				header = tr("{theme_header}"),
 				text = tr("{theme_text}")
@@ -1005,6 +1029,7 @@ function onMainMenuUpdate(delta)
 		autoAluIcons = {spriteAutoAlu0Icon, spriteAutoAlu1Icon}
 		trueModeIcons = {spriteTrueMode0Icon, spriteTrueMode1Icon}
 		languageIcons = {spriteEnglishIcon, spriteRussianIcon, spriteChineseIcon}
+		soundLevelIcons = {spriteEnglishIcon, spriteRussianIcon, spriteChineseIcon}
 		menuButtons = {spriteMainMenuBackButton, spriteMainMenuCloseButton, spriteMainMenuUpButton, spriteMainMenuDownButton}
 
 		-- determine the clip rectangle
