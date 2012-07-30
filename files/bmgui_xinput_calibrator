@@ -1,6 +1,29 @@
 #!/usr/bin/php
 <?php
 
+function get_swap()
+{ 
+  if ( ! $file = fopen("/home/bm/.bmgui/bmgui.xml","r") )
+  {
+    return false;
+  }
+  $data = "";
+  while(!feof($file))
+  {
+    $data .= fread($file,1024);
+  }
+  fclose($file);
+  $data = explode("\n",$data);
+  for($i=0;$i<count($data);$i++)
+  {
+      if( preg_match("/swapaxes.*value=\"(.*)\"/u",$data[$i],$matches) )
+      {
+        return str_replace("&quot;","\"",$matches[1]);
+      }
+  }
+  return false;
+}
+
 $output = `xinput_calibrator`;
 $output = explode("\n",$output);
 
@@ -9,9 +32,39 @@ $xinput = array();
 for($i=0;$i<count($output);$i++)
 {
   $output[$i] = trim($output[$i]);
-  if(preg_match("/^xinput/u",$output[$i]))
+  if(preg_match("/^xinput.*Calibration/u",$output[$i]))
   {
     $xinput[] = $output[$i];
+  }
+  if(preg_match("/^xinput.*Swap/u",$output[$i]))
+  {
+    $xinput[] = $output[$i];
+    if ( ! $file = fopen("/home/bm/.bmgui/bmgui.xml","r") )
+    {
+      exit(1);
+    }
+    $data = "";
+    while(!feof($file))
+    {
+      $data .= fread($file,1024);
+    }
+    fclose($file);
+    $newdata = array();
+    $data = explode("\n",$data);
+    $swapaxes = str_replace("\"","&quot;",$output[$i]);
+    for($j=0;$j<count($data);$j++)
+    {
+      if(preg_match("/swapaxes/u",$data[$j])) continue;
+      if($j == (count($data) - 1) ) $newdata[] = "        <clres:option clres:name=\"swapaxes\" value=\"".$swapaxes."\"/>";
+      $newdata[] = $data[$j];
+    }
+    $newdata = implode("\n",$newdata);
+    system("DISPLAY=\":0\" ".$output[$i]);
+    $file = fopen("/home/bm/.bmgui/bmgui.xml","w");
+    fwrite($file,$newdata);
+    fclose($file);
+    system(`bmgui_xinput_calibrator`);
+    exit(0);
   }
 }
 
@@ -38,12 +91,16 @@ for($i=0;$i<count($data);$i++)
   }
 }
 
+$swap = get_swap();
+if($swap) $newdata[] = "@".$swap;
+
 for($i=0;$i<count($xinput);$i++)
 {
   $newdata[] = "@".$xinput[$i];
 }
 
 $newdata = implode("\n",$newdata);
+
 if ( $file = fopen("/etc/xdg/lxsession/LXDE/autostart","w") )
 {
   fwrite($file,$newdata."\n");
@@ -53,4 +110,3 @@ if ( $file = fopen("/etc/xdg/lxsession/LXDE/autostart","w") )
 system('sync');
 
 ?>
-
