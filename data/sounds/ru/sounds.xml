@@ -48,4 +48,7 @@
 	<sample name="soundRight90" file="right_90.wav" stream="yes"/>
 	<sample name="soundRight95" file="right_95.wav" stream="yes"/>
 	<sample name="soundRight100" file="right_100.wav" stream="yes"/>
+
+	<sample name="soundRoundOn" file="round_on.wav" stream="yes"/>
+	<sample name="soundRoundOff" file="round_off.wav" stream="yes"/>
 </resources>

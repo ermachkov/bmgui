@@ -29,12 +29,16 @@ function onSoundInit()
 	for i = 5, 100, 5 do
 		soundRightTable[i] = Sound("soundRight" .. tostring(i))
 	end
+	
+	-- other sounds
+	soundRoundOn = Sound("soundRoundOn")
+	soundRoundOff = Sound("soundRoundOff")
 end
 
 function playSound(level, ...)
 	-- exit if another sound is already playing or sound level is not sufficient
 	if isPlaying or level > profile:getInt("sound_level") then
-		return
+		return false
 	end
 
 	-- add all sounds to queue
@@ -52,6 +56,13 @@ function playSound(level, ...)
 
 	-- start the first sound
 	soundQueue[currSound]:play()
+	return true
+end
+
+function playSoundOrBeep(level, sound, ...)
+	if not playSound(level, ...) then
+		sound:play()
+	end
 end
 
 function onSoundUpdate(delta)

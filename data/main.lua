@@ -109,8 +109,6 @@ function onInit()
 	onOscilloscopeInit()
 	onSoundInit()
 
-	playSound(SOUND_NORMAL, soundLeftTable[10], soundRightTable[20])
-
 	-- show/hide mouse
 	if profile:getInt("input_dev") == 2 then
 		mouse:hideCursor()
@@ -193,6 +191,7 @@ function onUpdate(delta)
 	-- track balance results
 	local newBalanceResult = balance:getIntParam("result")
 	if newBalanceResult ~= 0 and balanceResult == 0 then
+		-- write balance results to database
 		local mode = balance:getIntParam("mode")
 		local layout = unpackLayout(balance:getIntParam("layout"), mode)
 		local query = string.format("INSERT INTO Balance VALUES(datetime('now', 'localtime'), %s, %d, %d, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %d)",
@@ -201,6 +200,25 @@ function onUpdate(delta)
 			balance:getParam("weight1"), balance:getParam("angle1"), balance:getParam("weight2"), balance:getParam("angle2"), newBalanceResult)
 		database:execQuery(query)
 		database:closeQuery()
+
+		-- say about balance result
+		local weight1, weight2, weight3 = balance:getIntParam("rndweight0"), balance:getIntParam("rndweight1"), balance:getIntParam("rndweight2")
+		if weight1 ~= 0 or weight2 ~= 0 then
+			-- say about balance weights
+			local sounds = {}
+			if soundLeftTable[weight1] then
+				sounds[#sounds + 1] = soundLeftTable[weight1]
+			end
+			if soundRightTable[weight2] then
+				sounds[#sounds + 1] = soundRightTable[weight2]
+			end
+			if soundRightTable[weight3] then
+				sounds[#sounds + 1] = soundRightTable[weight3]
+			end
+			playSound(SOUND_IMPORTANT, unpack(sounds))
+		else
+			-- say about balance completion
+		end
 	end
 	balanceResult = newBalanceResult
 
