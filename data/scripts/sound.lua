@@ -29,10 +29,14 @@ function onSoundInit()
 	for i = 5, 100, 5 do
 		soundRightTable[i] = Sound("soundRight" .. tostring(i))
 	end
-	
+
 	-- other sounds
 	soundRoundOn = Sound("soundRoundOn")
 	soundRoundOff = Sound("soundRoundOff")
+	soundSizesNotEntered = Sound("soundSizesNotEntered")
+	soundWidthNotEntered = Sound("soundWidthNotEntered")
+	soundDiamNotEntered = Sound("soundDiamNotEntered")
+	soundOfsNotEntered = Sound("soundOfsNotEntered")
 end
 
 function playSound(level, ...)

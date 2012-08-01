@@ -601,7 +601,7 @@ function onMainScreenMouseDown(x, y, key)
 		pressedButton, pressedButtonText = spriteStopButton, spriteStopButtonText
 		pressedButton.frame, pressedButtonText.frame = 1, lang * 2 + 1
 		balance:setParam("stop")
-		if balanceState == STATE_IDLE then
+		if balanceState == STATE_IDLE and (balance:getIntParam("rndweight0") ~= 0 or balance:getIntParam("rndweight1") ~= 0 or balance:getIntParam("rndweight2") ~= 0) then
 			playSoundOrBeep(SOUND_NORMAL, soundStopKey, soundRoundOn)
 		else
 			soundStopKey:play()
@@ -687,7 +687,7 @@ function onMainScreenMouseUp(x, y, key)
 			balance:setParam("start")
 		elseif pressedButton == spriteUser1 then
 			spriteUser2.frame = 0
-		elseif pressedButton == spriteStopButton and balanceState == STATE_IDLE then
+		elseif pressedButton == spriteStopButton and balanceState == STATE_IDLE and (balance:getIntParam("rndweight0") ~= 0 or balance:getIntParam("rndweight1") ~= 0 or balance:getIntParam("rndweight2") ~= 0) then
 			playSound(SOUND_NORMAL, soundRoundOff)
 		end
 

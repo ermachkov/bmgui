@@ -51,4 +51,8 @@
 
 	<sample name="soundRoundOn" file="round_on.wav" stream="yes"/>
 	<sample name="soundRoundOff" file="round_off.wav" stream="yes"/>
+	<sample name="soundSizesNotEntered" file="sizes_not_entered.wav" stream="yes"/>
+	<sample name="soundWidthNotEntered" file="width_not_entered.wav" stream="yes"/>
+	<sample name="soundDiamNotEntered" file="diam_not_entered.wav" stream="yes"/>
+	<sample name="soundOfsNotEntered" file="ofs_not_entered.wav" stream="yes"/>
 </resources>
