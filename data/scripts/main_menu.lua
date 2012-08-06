@@ -705,13 +705,13 @@ local function initMenus()
 					header = tr("{russian_header}"),
 					text = tr("{russian_text}"),
 					onClick = function(item) setLanguage(LANG_RU); item.parent.selItem = lang + 1; item.parent.icon = spriteRussianIcon; updateSpritesLanguage(); profile:setInt("language", 1); profile:save() end
-				},
-				{
+				}
+				--[[{
 					icon = spriteChineseIcon,
 					header = tr("{chinese_header}"),
 					text = tr("{chinese_text}"),
 					onClick = function(item) setLanguage(LANG_CN); item.parent.selItem = lang + 1; item.parent.icon = spriteChineseIcon; updateSpritesLanguage(); profile:setInt("language", 2); profile:save() end
-				}
+				}]]
 			},
 			{
 				icon = soundLevelIcons[profile:getInt("sound_level") + 1],
@@ -1089,11 +1089,23 @@ function onMainMenuUpdate(delta)
 					end
 
 					-- enter the menu
+					local oldSelMainItem = selMainItem
 					selMenu = item
 					selMenu.scrollPos = 0
 					selMainItem = i
 					spriteMainMenu.frame = i
 					disableCapacitance()
+
+					-- say about menu item
+					if selMainItem ~= oldSelMainItem then
+						if selMainItem == 1 then
+							playSound(SOUND_NORMAL, soundUser1)
+						elseif selMainItem == 2 then
+							playSound(SOUND_NORMAL, soundUser2)
+						elseif selMainItem == 5 then
+							playSound(SOUND_NORMAL, soundOptions)
+						end
+					end
 					break
 				end
 			end

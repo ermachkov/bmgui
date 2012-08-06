@@ -172,16 +172,27 @@ function onUpdate(delta)
 		soundRulerSuccess:play()
 	end
 
+	-- say about balance states
+	if (newBalanceState == STATE_BALANCE or (newBalanceState >= STATE_BALANCE_CAL0 and newBalanceState <= STATE_BALANCE_CAL3)) and not oscilloscopeActive then
+		if (newBalanceSubstate >= BALANCE_START and newBalanceSubstate <= BALANCE_STABLE_SPEED) and (balanceState == STATE_IDLE or (balanceState == newBalanceState and balanceSubstate == BALANCE_WAIT_COVER)) then
+			playSound(SOUND_NORMAL, soundAccel)
+		elseif newBalanceSubstate == BALANCE_MEASURE and balanceSubstate ~= BALANCE_MEASURE then
+			playSound(SOUND_NORMAL, soundMeasure)
+		end
+	end
+
 	-- save new balance state
 	balanceState, balanceSubstate = newBalanceState, newBalanceSubstate
 
 	-- track balance errors
 	if isMainMenuLoaded() then
+		-- retrieve new errors
 		local newBalanceErrors0, newBalanceErrors1, newBalanceErrors2 = balance:getFloatParam("errors0"), balance:getFloatParam("errors1"), balance:getFloatParam("errors2")
 		if not balance:isConnected() then
 			newBalanceErrors0 = newBalanceErrors0 + (2 ^ 25)
 		end
 
+		-- say about input errors
 		local widthNotEntered = math.floor(newBalanceErrors0 / 64) % 2 ~= 0 and math.floor(balanceErrors0 / 64) % 2 == 0
 		local diamNotEntered = math.floor(newBalanceErrors0 / 16) % 2 ~= 0 and math.floor(balanceErrors0 / 16) % 2 == 0
 		local ofsNotEntered = math.floor(newBalanceErrors0 / 32) % 2 ~= 0 and math.floor(balanceErrors0 / 32) % 2 == 0
@@ -195,6 +206,7 @@ function onUpdate(delta)
 			playSound(SOUND_IMPORTANT, soundSizesNotEntered)
 		end
 
+		-- process and save new errors
 		numErrors = 0
 		processErrors(newBalanceErrors0, balanceErrors0, 1)
 		processErrors(newBalanceErrors1, balanceErrors1, 33)
@@ -204,7 +216,7 @@ function onUpdate(delta)
 
 	-- track balance results
 	local newBalanceResult = balance:getIntParam("result")
-	if newBalanceResult ~= 0 and balanceResult == 0 then
+	if newBalanceResult ~= RESULT_IDLE and balanceResult == RESULT_IDLE then
 		-- write balance results to database
 		local mode = balance:getIntParam("mode")
 		local layout = unpackLayout(balance:getIntParam("layout"), mode)
@@ -216,27 +228,34 @@ function onUpdate(delta)
 		database:closeQuery()
 
 		-- say about balance result
-		local weight1, weight2, weight3 = balance:getIntParam("rndweight0"), balance:getIntParam("rndweight1"), balance:getIntParam("rndweight2")
-		if weight1 ~= 0 or weight2 ~= 0 or weight3 ~= 0 then
-			-- adjust right weights
-			if weight2 == 0 then
-				weight2, weight3 = weight3, 0
-			end
+		if newBalanceResult == RESULT_SUCCESS then
+			local weight1, weight2, weight3 = balance:getIntParam("rndweight0"), balance:getIntParam("rndweight1"), balance:getIntParam("rndweight2")
+			if weight1 ~= 0 or weight2 ~= 0 or weight3 ~= 0 then
+				-- adjust right weights
+				if weight2 == 0 then
+					weight2, weight3 = weight3, 0
+				end
 
-			-- say about balance weights
-			local sounds = {}
-			if soundLeftTable[weight1] then
-				sounds[#sounds + 1] = soundLeftTable[weight1]
+				-- say about balance weights
+				local sounds = {}
+				if soundLeftTable[weight1] then
+					sounds[#sounds + 1] = soundLeftTable[weight1]
+				end
+				if soundRightTable[weight2] then
+					sounds[#sounds + 1] = soundRightTable[weight2]
+				end
+				if soundRightTable[weight3] then
+					sounds[#sounds + 1] = soundRightTable[weight3]
+				end
+				playSound(SOUND_NORMAL, unpack(sounds))
+			else
+				-- say about balance completion
+				playSound(SOUND_NORMAL, soundWheelIsBalanced)
 			end
-			if soundRightTable[weight2] then
-				sounds[#sounds + 1] = soundRightTable[weight2]
-			end
-			if soundRightTable[weight3] then
-				sounds[#sounds + 1] = soundRightTable[weight3]
-			end
-			playSound(SOUND_NORMAL, unpack(sounds))
 		else
-			-- say about balance completion
+			-- say about emergency stop
+			stopSound()
+			playSound(SOUND_NORMAL, soundEmergencyStop)
 		end
 	end
 	balanceResult = newBalanceResult
