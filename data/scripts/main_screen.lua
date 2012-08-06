@@ -601,7 +601,11 @@ function onMainScreenMouseDown(x, y, key)
 		pressedButton, pressedButtonText = spriteStopButton, spriteStopButtonText
 		pressedButton.frame, pressedButtonText.frame = 1, lang * 2 + 1
 		balance:setParam("stop")
-		soundStopKey:play()
+		if balanceState == STATE_IDLE and (balance:getIntParam("rndweight0") ~= 0 or balance:getIntParam("rndweight1") ~= 0 or balance:getIntParam("rndweight2") ~= 0) then
+			playSoundOrBeep(SOUND_NORMAL, soundStopKey, soundRoundOn)
+		else
+			soundStopKey:play()
+		end
 	elseif spriteLeftWeight:isPointInside(x, y) and balance:getIntParam("rndweight0") ~= 0 then
 		-- send "rotate 0" command
 		pressedButton, pressedButtonText = spriteLeftWeight, nil
@@ -683,6 +687,8 @@ function onMainScreenMouseUp(x, y, key)
 			balance:setParam("start")
 		elseif pressedButton == spriteUser1 then
 			spriteUser2.frame = 0
+		elseif pressedButton == spriteStopButton and balanceState == STATE_IDLE and (balance:getIntParam("rndweight0") ~= 0 or balance:getIntParam("rndweight1") ~= 0 or balance:getIntParam("rndweight2") ~= 0) then
+			playSound(SOUND_NORMAL, soundRoundOff)
 		end
 
 		pressedButton.frame = 0
