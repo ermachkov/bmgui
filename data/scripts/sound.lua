@@ -37,6 +37,25 @@ function onSoundInit()
 	soundWidthNotEntered = Sound("soundWidthNotEntered")
 	soundDiamNotEntered = Sound("soundDiamNotEntered")
 	soundOfsNotEntered = Sound("soundOfsNotEntered")
+	soundAccel = Sound("soundAccel")
+	soundMeasure = Sound("soundMeasure")
+	soundDecel = Sound("soundDecel")
+	soundEmergencyStop = Sound("soundEmergencyStop")
+	soundWheelIsBalanced = Sound("soundWheelIsBalanced")
+	soundUser1Selected = Sound("soundUser1Selected")
+	soundUser2Selected = Sound("soundUser2Selected")
+	soundMenu = Sound("soundMenu")
+	soundUser1 = Sound("soundUser1")
+	soundUser2 = Sound("soundUser2")
+	soundOptions = Sound("soundOptions")
+	soundAluDiskSelected = Sound("soundAluDiskSelected")
+	soundSteelDiskSelected = Sound("soundSteelDiskSelected")
+	soundTruckDiskSelected = Sound("soundTruckDiskSelected")
+	soundNumSpikesSelected = Sound("soundNumSpikesSelected")
+	soundStaticBalance = Sound("soundStaticBalance")
+	soundDynamicBalance = Sound("soundDynamicBalance")
+	soundSafeShutdown = Sound("soundSafeShutdown")
+	soundShutdown = Sound("soundShutdown")
 end
 
 function playSound(level, ...)
@@ -63,6 +82,13 @@ function playSound(level, ...)
 	return true
 end
 
+function stopSound()
+	if isPlaying then
+		soundQueue[currSound]:stop()
+		isPlaying = false
+	end
+end
+
 function playSoundOrBeep(level, sound, ...)
 	if not playSound(level, ...) then
 		sound:play()
@@ -79,6 +105,12 @@ function onSoundUpdate(delta)
 				soundQueue[currSound]:play()
 			else
 				isPlaying = false
+
+				-- HACK: shutdown after playing the special sound
+				if soundQueue[1] == soundShutdown then
+					--os.exit(0)
+					os.execute("sudo shutdown -H now");
+				end
 			end
 		end
 	end
