@@ -181,20 +181,6 @@ function onUpdate(delta)
 		if not balance:isConnected() then
 			newBalanceErrors0 = newBalanceErrors0 + (2 ^ 25)
 		end
-
-		local widthNotEntered = math.floor(newBalanceErrors0 / 64) % 2 ~= 0 and math.floor(balanceErrors0 / 64) % 2 == 0
-		local diamNotEntered = math.floor(newBalanceErrors0 / 16) % 2 ~= 0 and math.floor(balanceErrors0 / 16) % 2 == 0
-		local ofsNotEntered = math.floor(newBalanceErrors0 / 32) % 2 ~= 0 and math.floor(balanceErrors0 / 32) % 2 == 0
-		if widthNotEntered and not diamNotEntered and not ofsNotEntered then
-			playSound(SOUND_IMPORTANT, soundWidthNotEntered)
-		elseif diamNotEntered and not widthNotEntered and not ofsNotEntered then
-			playSound(SOUND_IMPORTANT, soundDiamNotEntered)
-		elseif ofsNotEntered and not widthNotEntered and not diamNotEntered then
-			playSound(SOUND_IMPORTANT, soundOfsNotEntered)
-		elseif widthNotEntered or diamNotEntered or ofsNotEntered then
-			playSound(SOUND_IMPORTANT, soundSizesNotEntered)
-		end
-
 		numErrors = 0
 		processErrors(newBalanceErrors0, balanceErrors0, 1)
 		processErrors(newBalanceErrors1, balanceErrors1, 33)
@@ -217,12 +203,7 @@ function onUpdate(delta)
 
 		-- say about balance result
 		local weight1, weight2, weight3 = balance:getIntParam("rndweight0"), balance:getIntParam("rndweight1"), balance:getIntParam("rndweight2")
-		if weight1 ~= 0 or weight2 ~= 0 or weight3 ~= 0 then
-			-- adjust right weights
-			if weight2 == 0 then
-				weight2, weight3 = weight3, 0
-			end
-
+		if weight1 ~= 0 or weight2 ~= 0 then
 			-- say about balance weights
 			local sounds = {}
 			if soundLeftTable[weight1] then
@@ -234,7 +215,7 @@ function onUpdate(delta)
 			if soundRightTable[weight3] then
 				sounds[#sounds + 1] = soundRightTable[weight3]
 			end
-			playSound(SOUND_NORMAL, unpack(sounds))
+			playSound(SOUND_IMPORTANT, unpack(sounds))
 		else
 			-- say about balance completion
 		end
