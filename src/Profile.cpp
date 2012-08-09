@@ -70,8 +70,6 @@ Profile::Profile(const std::string &name)
 		setInt("width", resources.get_integer_resource("width", 1024));
 	if (getString("height").empty())
 		setInt("height", resources.get_integer_resource("height", 768));
-	if (getString("sound_level").empty())
-		setInt("sound_level", resources.get_integer_resource("sound_level", 1));
 
 	// save the user profile if needed
 	if (!exists)

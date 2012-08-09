@@ -109,7 +109,7 @@ function onInit()
 	onOscilloscopeInit()
 	onSoundInit()
 
-	playSound(SOUND_NORMAL, soundLeftTable[10], soundRightTable[20])
+	playSound(soundLeftTable[10], soundRightTable[75], soundLeftTable[20], soundRightTable[90])
 
 	-- show/hide mouse
 	if profile:getInt("input_dev") == 2 then

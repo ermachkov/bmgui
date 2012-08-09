@@ -1,7 +1,3 @@
--- Sound severity levels
-SOUND_IMPORTANT = 1
-SOUND_NORMAL = 2
-
 local soundQueue = {}
 local isPlaying = false
 local currSound
@@ -31,9 +27,9 @@ function onSoundInit()
 	end
 end
 
-function playSound(level, ...)
-	-- exit if another sound is already playing or sound level is not sufficient
-	if isPlaying or level > profile:getInt("sound_level") then
+function playSound(...)
+	-- exit if another sound is already playing
+	if isPlaying then
 		return
 	end
 

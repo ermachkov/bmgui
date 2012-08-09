@@ -17,5 +17,4 @@
 	<clres:option clres:name="fullscreen" value="true"/>
 	<clres:option clres:name="width" value="1024"/>
 	<clres:option clres:name="height" value="768"/>
-	<clres:option clres:name="sound_level" value="1"/>
 </clres:resources>

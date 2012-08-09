@@ -117,7 +117,6 @@ Application::Application(const std::vector<CL_String> &args, lua_State *luaState
 	CL_Console::write_line(cl_format("fullscreen = %1", profile.getBool("fullscreen")));
 	CL_Console::write_line(cl_format("width = %1", profile.getInt("width")));
 	CL_Console::write_line(cl_format("height = %1", profile.getInt("height")));
-	CL_Console::write_line(cl_format("sound_level = %1", profile.getInt("sound_level")));
 
 	// initialize all game subsystems
 	mBalance = CL_SharedPtr<Balance>(new Balance(profile));
