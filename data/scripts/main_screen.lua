@@ -251,6 +251,15 @@ function onMainScreenInit()
 	-- set the current language to apply loaded fonts
 	setLanguage(profile:getInt("language", 0))
 
+	-- load sounds
+	resourceManager:loadAllResources("sounds/sounds.xml")
+	soundKey = Sound("soundKey")
+	soundStartKey = Sound("soundStartKey")
+	soundStopKey = Sound("soundStopKey")
+	soundBalanceSuccess = Sound("soundBalanceSuccess")
+	soundRuler = Sound("soundRuler")
+	soundRulerSuccess = Sound("soundRulerSuccess")
+
 	-- init popups
 	autoAluPopup = {back = spriteAutoAluPopupBack, icon = spriteAutoAluPopupIcon, active = false, time = 0}
 	errorPopup = {back = spriteErrorPopupBack, icon = spriteErrorPopupIcon, label = spriteErrorPopupText, active = false, time = 0, text = "13"}
