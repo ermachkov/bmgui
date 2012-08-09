@@ -628,9 +628,8 @@ function onMainScreenMouseDown(x, y, key)
 		-- send "user n" command
 		pressedButton, pressedButtonText = spriteUser1, nil
 		pressedButton.frame = 1
-		local newUser = 1 - balance:getIntParam("user")
-		balance:setIntParam("user", newUser)
-		playSoundOrBeep(SOUND_NORMAL, soundKey, newUser == 0 and soundUser1Selected or soundUser2Selected)
+		balance:setIntParam("user", 1 - balance:getIntParam("user"))
+		soundKey:play()
 	elseif spriteLayoutButton:isPointInside(x, y) then
 		-- enter the layout menu
 		showLayoutMenu()
@@ -642,7 +641,7 @@ function onMainScreenMouseDown(x, y, key)
 	elseif mainMenuLoaded and spriteMenuButton:isPointInside(x, y) then
 		-- enter the main menu
 		showMainMenu()
-		playSoundOrBeep(SOUND_NORMAL, soundKey, soundMenu)
+		soundKey:play()
 	elseif mainMenuLoaded and spriteHelpButton:isPointInside(x, y) then
 		-- show about dialog
 		pressedButton, pressedButtonText = spriteHelpButton, spriteHelpButtonText
@@ -653,8 +652,8 @@ function onMainScreenMouseDown(x, y, key)
 		-- show shutdown confirmation dialog
 		pressedButton, pressedButtonText = nil, nil
 		spriteShutdownButton.frame = 1
-		showMessage(tr("{shutdown_confirm}"), MESSAGE_YES_NO, MESSAGE_WARNING, function() playSound(SOUND_IMPORTANT, soundShutdown); spriteShutdownButton.frame = 0 end, function() spriteShutdownButton.frame = 0 end)
-		playSoundOrBeep(SOUND_IMPORTANT, soundKey, soundSafeShutdown)
+		showMessage(tr("{shutdown_confirm}"), MESSAGE_YES_NO, MESSAGE_WARNING, function() os.execute("sudo shutdown -H now"); spriteShutdownButton.frame = 0 end, function() spriteShutdownButton.frame = 0 end)
+		soundKey:play()
 	elseif spriteWidthIcon:isPointInside(x, y) or spriteWidthStickButton:isPointInside(x, y) then
 		local mode = balance:getIntParam("mode")
 		local layout = unpackLayout(balance:getIntParam("layout"), mode)

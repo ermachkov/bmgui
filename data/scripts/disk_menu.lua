@@ -216,18 +216,10 @@ function onDiskMenuMouseUp(x, y, key)
 		balance:setIntParam("split", selDie.split)
 		if selDie.split ~= 0 then
 			balance:setIntParam("numsp", selDie.numSpikes)
-			playSound(SOUND_NORMAL, soundNumSpikesSelected)
-		else
-			playSound(SOUND_NORMAL, soundAluDiskSelected)
 		end
 	elseif (selMode == MODE_STEEL or selMode == MODE_TRUCK or selMode == MODE_ABS) and menuDies[selMode + 1]:isPointInside(x, y) then
 		hideDiskMenu()
 		balance:setIntParam("mode", selMode)
-		if selMode == MODE_STEEL then
-			playSound(SOUND_NORMAL, soundSteelDiskSelected)
-		elseif selMode == MODE_TRUCK then
-			playSound(SOUND_NORMAL, soundTruckDiskSelected)
-		end
 	end
 
 	return true

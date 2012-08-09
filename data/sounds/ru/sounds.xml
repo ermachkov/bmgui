@@ -55,23 +55,4 @@
 	<sample name="soundWidthNotEntered" file="width_not_entered.wav" stream="yes"/>
 	<sample name="soundDiamNotEntered" file="diam_not_entered.wav" stream="yes"/>
 	<sample name="soundOfsNotEntered" file="ofs_not_entered.wav" stream="yes"/>
-	<sample name="soundAccel" file="accel.wav" stream="yes"/>
-	<sample name="soundMeasure" file="measure.wav" stream="yes"/>
-	<sample name="soundDecel" file="decel.wav" stream="yes"/>
-	<sample name="soundEmergencyStop" file="emergency_stop.wav" stream="yes"/>
-	<sample name="soundWheelIsBalanced" file="wheel_is_balanced.wav" stream="yes"/>
-	<sample name="soundUser1Selected" file="user_1_selected.wav" stream="yes"/>
-	<sample name="soundUser2Selected" file="user_2_selected.wav" stream="yes"/>
-	<sample name="soundMenu" file="menu.wav" stream="yes"/>
-	<sample name="soundUser1" file="user_1.wav" stream="yes"/>
-	<sample name="soundUser2" file="user_2.wav" stream="yes"/>
-	<sample name="soundOptions" file="options.wav" stream="yes"/>
-	<sample name="soundAluDiskSelected" file="alu_disk_selected.wav" stream="yes"/>
-	<sample name="soundSteelDiskSelected" file="steel_disk_selected.wav" stream="yes"/>
-	<sample name="soundTruckDiskSelected" file="truck_disk_selected.wav" stream="yes"/>
-	<sample name="soundNumSpikesSelected" file="num_spikes_selected.wav" stream="yes"/>
-	<sample name="soundStaticBalance" file="static_balance.wav" stream="yes"/>
-	<sample name="soundDynamicBalance" file="dynamic_balance.wav" stream="yes"/>
-	<sample name="soundSafeShutdown" file="safe_shutdown.wav" stream="yes"/>
-	<sample name="soundShutdown" file="shutdown.wav" stream="yes"/>
 </resources>
