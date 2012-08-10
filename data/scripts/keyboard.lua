@@ -293,7 +293,16 @@ function onKeyboardMouseDown(x, y, key)
 			if key:isPointInside(x, y) then
 				pressedKey, pressedKeyText = key, keyTexts[i]
 				pressedKey.frame, pressedKeyText.frame = 1, 1
-				soundKey:play()
+				if (pressedKey == spriteKeyEnter) and (keyboardParam == "width" or keyboardParam == "stick" or keyboardParam == "diam" or keyboardParam == "offset") then
+					local weight1, weight2, weight3 = balance:getIntParam("rndweight0"), balance:getIntParam("rndweight1"), balance:getIntParam("rndweight2")
+					if weight1 ~= 0 or weight2 ~= 0 or weight3 ~= 0 then
+						playSound(SOUND_NORMAL, soundRecalc)
+					else
+						soundKey:play()
+					end
+				else
+					soundKey:play()
+				end
 				break
 			end
 		end

@@ -63,6 +63,7 @@ function onSoundInit()
 	soundBalance = Sound("soundBalance")
 	soundCalibrationWheel = Sound("soundCalibrationWheel")
 	soundCalibrationDisplay = Sound("soundCalibrationDisplay")
+	soundRecalc = Sound("soundRecalc")
 end
 
 function playSound(level, ...)
