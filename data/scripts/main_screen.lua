@@ -611,19 +611,25 @@ function onMainScreenMouseDown(x, y, key)
 		pressedButton, pressedButtonText = spriteLeftWeight, nil
 		pressedButton.frame = 1
 		balance:setIntParam("rotate", 0)
-		soundKey:play()
+		if math.abs(balance:getIntParam("wheelangle") - balance:getIntParam("wheelangle0")) > balance:getIntParam("angleepsilon") then
+			playSoundOrBeep(SOUND_NORMAL, soundKey, soundAutoRotationLeft)
+		end
 	elseif spriteRightWeight:isPointInside(x, y) and balance:getIntParam("rndweight1") ~= 0 then
 		-- send "rotate 1" command
 		pressedButton, pressedButtonText = spriteRightWeight, nil
 		pressedButton.frame = 1
 		balance:setIntParam("rotate", 1)
-		soundKey:play()
+		if math.abs(balance:getIntParam("wheelangle") - balance:getIntParam("wheelangle1")) > balance:getIntParam("angleepsilon") then
+			playSoundOrBeep(SOUND_NORMAL, soundKey, soundAutoRotationRight)
+		end
 	elseif spriteRightWeight2:isPointInside(x, y) and balance:getIntParam("rndweight2") ~= 0 then
 		-- send "rotate 2" command
 		pressedButton, pressedButtonText = spriteRightWeight2, nil
 		pressedButton.frame = 1
 		balance:setIntParam("rotate", 2)
-		soundKey:play()
+		if math.abs(balance:getIntParam("wheelangle") - balance:getIntParam("wheelangle2")) > balance:getIntParam("angleepsilon") then
+			playSoundOrBeep(SOUND_NORMAL, soundKey, soundAutoRotationRight)
+		end
 	elseif spriteUser1:isPointInside(x, y) then
 		-- send "user n" command
 		pressedButton, pressedButtonText = spriteUser1, nil

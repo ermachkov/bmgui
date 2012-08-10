@@ -72,6 +72,13 @@
 	<sample name="soundNumSpikesSelected" file="num_spikes_selected.wav" stream="yes"/>
 	<sample name="soundStaticBalance" file="static_balance.wav" stream="yes"/>
 	<sample name="soundDynamicBalance" file="dynamic_balance.wav" stream="yes"/>
+	<sample name="soundBalance1Weight" file="balance_1_weight.wav" stream="yes"/>
+	<sample name="soundBalance2Weight" file="balance_2_weight.wav" stream="yes"/>
 	<sample name="soundSafeShutdown" file="safe_shutdown.wav" stream="yes"/>
 	<sample name="soundShutdown" file="shutdown.wav" stream="yes"/>
+	<sample name="soundAutoRotationLeft" file="auto_rotation_left.wav" stream="yes"/>
+	<sample name="soundAutoRotationRight" file="auto_rotation_right.wav" stream="yes"/>
+	<sample name="soundBalance" file="balance.wav" stream="yes"/>
+	<sample name="soundCalibrationWheel" file="calibration_wheel.wav" stream="yes"/>
+	<sample name="soundCalibrationDisplay" file="calibration_display.wav" stream="yes"/>
 </resources>
