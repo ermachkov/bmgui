@@ -123,15 +123,15 @@ function onStartScreenMouseDown(x, y, key)
 	if isPointInside(x, y, spriteStartWorkButton.x, spriteStartWorkButton.y, spriteStartWorkButton.x + spriteStartWorkButton:getWidth(), spriteStartWorkText.y + spriteStartWorkText:getHeight()) then
 		pressedButton, pressedText = spriteStartWorkButton, spriteStartWorkText
 		pressedButton.frame = 1
-		soundKey:play()
+		playSoundOrBeep(SOUND_NORMAL, soundKey, soundBalance)
 	elseif isPointInside(x, y, spriteBalanceCalibrationButton.x, spriteBalanceCalibrationButton.y, spriteBalanceCalibrationButton.x + spriteBalanceCalibrationButton:getWidth(), spriteBalanceCalibrationText.y + spriteBalanceCalibrationText:getHeight()) then
 		pressedButton, pressedText = spriteBalanceCalibrationButton, spriteBalanceCalibrationText
 		pressedButton.frame = 1
-		soundKey:play()
+		playSoundOrBeep(SOUND_NORMAL, soundKey, soundCalibrationWheel)
 	elseif isPointInside(x, y, spriteTouchscreenCalibrationButton.x, spriteTouchscreenCalibrationButton.y, spriteTouchscreenCalibrationButton.x + spriteTouchscreenCalibrationButton:getWidth(), spriteTouchscreenCalibrationText.y + spriteTouchscreenCalibrationText:getHeight()) then
 		pressedButton, pressedText = spriteTouchscreenCalibrationButton, spriteTouchscreenCalibrationText
 		pressedButton.frame = 1
-		soundKey:play()
+		playSoundOrBeep(SOUND_NORMAL, soundKey, soundCalibrationDisplay)
 	end
 
 	return true

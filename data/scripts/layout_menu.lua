@@ -12,6 +12,7 @@ local prevSelDie
 local dynDies
 local statDies
 local lastMode = MODE_ALU
+local statDiesTable = {1, 3, 4, 5, 2}
 
 -- Shows the layout menu
 function showLayoutMenu()
@@ -21,7 +22,7 @@ function showLayoutMenu()
 		local mode = balance:getIntParam("mode")
 		local layout = unpackLayout(balance:getIntParam("layout"), mode)
 		selDynMode = mode ~= MODE_STAT
-		selDie = selDynMode and dynDies[layout + 1] or statDies[layout + 1]
+		selDie = selDynMode and dynDies[layout + 1] or statDies[statDiesTable[layout + 1]]
 		selDie.time = 0
 		prevSelDie = nil
 		spriteLayoutButton.frame, spriteLayoutButtonText.frame = 1, lang * 2 + 1
@@ -86,9 +87,15 @@ function onLayoutMenuUpdate(delta)
 
 		-- check menu dies
 		if spriteDynMenuDie:isPointInside(x, y) then
+			if not selDynMode then
+				playSound(SOUND_NORMAL, soundDynamicBalance)
+			end
 			selDynMode = true
 			spriteLayoutMenu.frame, spriteLayoutSubmenu.frame = 0, 0
 		elseif spriteStatMenuDie:isPointInside(x, y) then
+			if selDynMode then
+				playSound(SOUND_NORMAL, soundStaticBalance)
+			end
 			selDynMode = false
 			spriteLayoutMenu.frame, spriteLayoutSubmenu.frame = 1, 1
 		else
@@ -213,6 +220,11 @@ function onLayoutMenuMouseUp(x, y, key)
 			balance:setIntParam("mode", mode)
 		end
 		balance:setIntParam("layout", packLayout(balance:getIntParam("layout"), selDie.layout, mode))
+		if selDie.dynMode then
+			playSound(SOUND_NORMAL, soundBalance2Weight)
+		else
+			playSound(SOUND_NORMAL, soundBalance1Weight)
+		end
 	end
 
 	return true

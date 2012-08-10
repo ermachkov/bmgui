@@ -54,8 +54,15 @@ function onSoundInit()
 	soundNumSpikesSelected = Sound("soundNumSpikesSelected")
 	soundStaticBalance = Sound("soundStaticBalance")
 	soundDynamicBalance = Sound("soundDynamicBalance")
+	soundBalance1Weight = Sound("soundBalance1Weight")
+	soundBalance2Weight = Sound("soundBalance2Weight")
 	soundSafeShutdown = Sound("soundSafeShutdown")
 	soundShutdown = Sound("soundShutdown")
+	soundAutoRotationLeft = Sound("soundAutoRotationLeft")
+	soundAutoRotationRight = Sound("soundAutoRotationRight")
+	soundBalance = Sound("soundBalance")
+	soundCalibrationWheel = Sound("soundCalibrationWheel")
+	soundCalibrationDisplay = Sound("soundCalibrationDisplay")
 end
 
 function playSound(level, ...)
@@ -109,7 +116,7 @@ function onSoundUpdate(delta)
 				-- HACK: shutdown after playing the special sound
 				if soundQueue[1] == soundShutdown then
 					--os.exit(0)
-					os.execute("sudo shutdown -H now");
+					os.execute("sudo shutdown -H now")
 				end
 			end
 		end
