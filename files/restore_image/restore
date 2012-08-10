@@ -22,8 +22,7 @@ mdadm --manage -S /dev/md127
 lvremove vg_bm
 vgremove vg_bm
 
-dd if=/dev/zero of=/dev/sda2 bs=512 count=1
-dd if=/dev/zero of=/dev/sda3 bs=512 count=1
+mdadm --zero /dev/md127
 mdadm --create /dev/md0 --metadata=0.90 --level=1 --raid-devices=2 /dev/sda2 /dev/sda3
 mdadm --examine --scan > /etc/mdadm/mdadm.conf
 mdadm --manage -S /dev/md0
@@ -32,8 +31,8 @@ mdadm --assemble -U uuid /dev/md0 --uuid "48e6f261:63620c5b:f181bb94:a63053d0"
 vgcreate vg_bm /dev/md0
 lvcreate -l100%FREE vg_bm -n root
 vgchange -a y vg_bm
-cat /home/partimag/KONSULM-1.1/raid_vg_bm-root.img.gz | gunzip -c | partclone.ext4 -C -d -r -s - -o /dev/vg_bm/root
-dd if=/home/partimag/KONSULM-1.1/raid_vg_bm-sda1.img of=/dev/sda1
+cat /home/partimag/KONSULM-1.2/raid_vg_bm-root.img.gz | gunzip -c | partclone.ext4 -C -d -r -s - -o /dev/vg_bm/root
+dd if=/home/partimag/KONSULM-1.2/raid_vg_bm-sda1.img of=/dev/sda1
 e2fsck -f /dev/mapper/vg_bm-root
 resize2fs /dev/mapper/vg_bm-root
 mkdir /mnt/sys
@@ -43,7 +42,7 @@ mount -t proc none /mnt/sys/proc
 chroot /mnt/sys /bin/bash -c "/sbin/grub2-install /dev/sda"
 
 IFCFG=`ifconfig eth0`
-MAC=`expr "$IFCFG" : '.*HWaddr \(.*\)\n*\s*BROADCAST ' | tr -d ' '`
+MAC=`expr "$IFCFG" : '.*\([0-9abcdef]\{2\}:[0-9abcdef]\{2\}:[0-9abcdef]\{2\}:[0-9abcdef]\{2\}:[0-9abcdef]\{2\}:[0-9abcdef]\{2\}\).*' | tr -d ' '`
 echo "SUBSYSTEM==\"net\", ACTION==\"add\", DRIVERS==\"?*\", ATTR{address}==\"$MAC\", ATTR{dev_id}==\"0x0\", ATTR{type}==\"1\", KERNEL==\"eth*\", NAME=\"eth0\"" > /mnt/sys/etc/udev/rules.d/70-persistent-net.rules
 
 umount /mnt/sys/proc
