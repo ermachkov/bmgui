@@ -293,12 +293,16 @@ function onKeyboardMouseDown(x, y, key)
 			if key:isPointInside(x, y) then
 				pressedKey, pressedKeyText = key, keyTexts[i]
 				pressedKey.frame, pressedKeyText.frame = 1, 1
-				if (pressedKey == spriteKeyEnter) and (keyboardParam == "width" or keyboardParam == "stick" or keyboardParam == "diam" or keyboardParam == "offset") then
+
+				-- say about recalc
+				if pressedKey == spriteKeyEnter and (keyboardParam == "width" or keyboardParam == "stick" or keyboardParam == "diam" or keyboardParam == "offset") and tonumber(keyboardValue) ~= tonumber(formatNumber(balance:getFloatParam(keyboardParam))) and balance:getIntParam("result") == RESULT_SUCCESS then
 					local weight1, weight2, weight3 = balance:getIntParam("rndweight0"), balance:getIntParam("rndweight1"), balance:getIntParam("rndweight2")
-					if weight1 ~= 0 or weight2 ~= 0 or weight3 ~= 0 then
+					if weight1 > OVERLOAD_WEIGHT or weight2 > OVERLOAD_WEIGHT or weight3 > OVERLOAD_WEIGHT then
+						playSound(SOUND_NORMAL, soundOverload)
+					elseif weight1 ~= 0 or weight2 ~= 0 or weight3 ~= 0 then
 						playSound(SOUND_NORMAL, soundRecalc)
 					else
-						soundKey:play()
+						playSound(SOUND_NORMAL, soundWheelIsBalanced)
 					end
 				else
 					soundKey:play()

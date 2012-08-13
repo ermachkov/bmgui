@@ -174,7 +174,9 @@ function onUpdate(delta)
 
 	-- say about balance states
 	if (newBalanceState == STATE_BALANCE or (newBalanceState >= STATE_BALANCE_CAL0 and newBalanceState <= STATE_BALANCE_CAL3)) and not oscilloscopeActive then
-		if (newBalanceSubstate >= BALANCE_START and newBalanceSubstate <= BALANCE_STABLE_SPEED) and (balanceState == STATE_IDLE or (balanceState == newBalanceState and balanceSubstate == BALANCE_WAIT_COVER)) then
+		if newBalanceSubstate == BALANCE_WAIT_COVER and balanceState == STATE_IDLE then
+			playSound(SOUND_NORMAL, soundPushCover)
+		elseif (newBalanceSubstate >= BALANCE_START and newBalanceSubstate <= BALANCE_STABLE_SPEED) and (balanceState == STATE_IDLE or (balanceState == newBalanceState and balanceSubstate == BALANCE_WAIT_COVER)) then
 			playSound(SOUND_NORMAL, soundAccel)
 		elseif newBalanceSubstate == BALANCE_MEASURE and balanceSubstate ~= BALANCE_MEASURE then
 			playSound(SOUND_NORMAL, soundMeasure)
@@ -207,11 +209,17 @@ function onUpdate(delta)
 		end
 
 		-- process and save new errors
+		local oldNumErrors = numErrors
 		numErrors = 0
 		processErrors(newBalanceErrors0, balanceErrors0, 1)
 		processErrors(newBalanceErrors1, balanceErrors1, 33)
 		processErrors(newBalanceErrors2, balanceErrors2, 65)
 		balanceErrors0, balanceErrors1, balanceErrors2 = newBalanceErrors0, newBalanceErrors1, newBalanceErrors2
+
+		-- say about balance errors
+		if numErrors ~= 0 and oldNumErrors == 0 then
+			playSound(SOUND_IMPORTANT, soundError)
+		end
 	end
 
 	-- track balance results
@@ -229,28 +237,33 @@ function onUpdate(delta)
 
 		-- say about balance result
 		if newBalanceResult == RESULT_SUCCESS then
-			local weight1, weight2, weight3 = balance:getIntParam("rndweight0"), balance:getIntParam("rndweight1"), balance:getIntParam("rndweight2")
-			if weight1 ~= 0 or weight2 ~= 0 or weight3 ~= 0 then
-				-- adjust right weights
-				if weight2 == 0 then
-					weight2, weight3 = weight3, 0
-				end
+			if newBalanceState == STATE_BALANCE and not oscilloscopeActive then
+				local weight1, weight2, weight3 = balance:getIntParam("rndweight0"), balance:getIntParam("rndweight1"), balance:getIntParam("rndweight2")
+				if weight1 > OVERLOAD_WEIGHT or weight2 > OVERLOAD_WEIGHT or weight3 > OVERLOAD_WEIGHT then
+					-- say about overload
+					playSound(SOUND_NORMAL, soundOverload)
+				elseif weight1 ~= 0 or weight2 ~= 0 or weight3 ~= 0 then
+					-- adjust right weights
+					if weight2 == 0 then
+						weight2, weight3 = weight3, 0
+					end
 
-				-- say about balance weights
-				local sounds = {}
-				if soundLeftTable[weight1] then
-					sounds[#sounds + 1] = soundLeftTable[weight1]
+					-- say about balance weights
+					local sounds = {}
+					if soundLeftTable[weight1] then
+						sounds[#sounds + 1] = soundLeftTable[weight1]
+					end
+					if soundRightTable[weight2] then
+						sounds[#sounds + 1] = soundRightTable[weight2]
+					end
+					if soundRightTable[weight3] then
+						sounds[#sounds + 1] = soundRightTable[weight3]
+					end
+					playSound(SOUND_NORMAL, unpack(sounds))
+				else
+					-- say about balance completion
+					playSound(SOUND_NORMAL, soundWheelIsBalanced)
 				end
-				if soundRightTable[weight2] then
-					sounds[#sounds + 1] = soundRightTable[weight2]
-				end
-				if soundRightTable[weight3] then
-					sounds[#sounds + 1] = soundRightTable[weight3]
-				end
-				playSound(SOUND_NORMAL, unpack(sounds))
-			else
-				-- say about balance completion
-				playSound(SOUND_NORMAL, soundWheelIsBalanced)
 			end
 		else
 			-- say about emergency stop

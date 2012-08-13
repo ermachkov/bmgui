@@ -114,25 +114,25 @@ local function initMenus()
 					header = tr("{rotation_mode_0_header}"),
 					text = tr("{rotation_mode_0_text}"),
 					onUpdate = function(item) item.parent.onUpdate(item.parent) end,
-					onClick = function() balance:setIntParam("automode", 0) end
+					onClick = function() balance:setIntParam("automode", 0); playSound(SOUND_NORMAL, soundAutoRotationOff) end
 				},
 				{
 					icon = spriteRotationMode1Icon,
 					header = tr("{rotation_mode_1_header}"),
 					text = tr("{rotation_mode_1_text}"),
-					onClick = function() balance:setIntParam("automode", 1) end
+					onClick = function() balance:setIntParam("automode", 1); playSound(SOUND_NORMAL, soundAutoRotationOn) end
 				},
 				{
 					icon = spriteRotationMode2Icon,
 					header = tr("{rotation_mode_2_header}"),
 					text = tr("{rotation_mode_2_text}"),
-					onClick = function() balance:setIntParam("automode", 2) end
+					onClick = function() balance:setIntParam("automode", 2); playSound(SOUND_NORMAL, soundAutoRotationOn) end
 				},
 				{
 					icon = spriteRotationMode3Icon,
 					header = tr("{rotation_mode_3_header}"),
 					text = tr("{rotation_mode_3_text}"),
-					onClick = function() balance:setIntParam("automode", 3) end
+					onClick = function() balance:setIntParam("automode", 3); playSound(SOUND_NORMAL, soundAutoRotationOn) end
 				}
 			},
 			{
@@ -261,25 +261,25 @@ local function initMenus()
 					header = tr("{rotation_mode_0_header}"),
 					text = tr("{rotation_mode_0_text}"),
 					onUpdate = function(item) item.parent.onUpdate(item.parent) end,
-					onClick = function() balance:setIntParam("automode", 0) end
+					onClick = function() balance:setIntParam("automode", 0); playSound(SOUND_NORMAL, soundAutoRotationOff) end
 				},
 				{
 					icon = spriteRotationMode1Icon,
 					header = tr("{rotation_mode_1_header}"),
 					text = tr("{rotation_mode_1_text}"),
-					onClick = function() balance:setIntParam("automode", 1) end
+					onClick = function() balance:setIntParam("automode", 1); playSound(SOUND_NORMAL, soundAutoRotationOn) end
 				},
 				{
 					icon = spriteRotationMode2Icon,
 					header = tr("{rotation_mode_2_header}"),
 					text = tr("{rotation_mode_2_text}"),
-					onClick = function() balance:setIntParam("automode", 2) end
+					onClick = function() balance:setIntParam("automode", 2); playSound(SOUND_NORMAL, soundAutoRotationOn) end
 				},
 				{
 					icon = spriteRotationMode3Icon,
 					header = tr("{rotation_mode_3_header}"),
 					text = tr("{rotation_mode_3_text}"),
-					onClick = function() balance:setIntParam("automode", 3) end
+					onClick = function() balance:setIntParam("automode", 3); playSound(SOUND_NORMAL, soundAutoRotationOn) end
 				}
 			},
 			{
