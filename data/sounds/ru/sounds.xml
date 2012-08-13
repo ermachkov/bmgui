@@ -83,4 +83,8 @@
 	<sample name="soundCalibrationDisplay" file="calibration_display.wav" stream="yes"/>
 	<sample name="soundRecalc" file="recalc.wav" stream="yes"/>
 	<sample name="soundOverload" file="overload.wav" stream="yes"/>
+	<sample name="soundAutoRotationOn" file="auto_rotation_on.wav" stream="yes"/>
+	<sample name="soundAutoRotationOff" file="auto_rotation_off.wav" stream="yes"/>
+	<sample name="soundError" file="error.wav" stream="yes"/>
+	<sample name="soundPushCover" file="push_cover.wav" stream="yes"/>
 </resources>

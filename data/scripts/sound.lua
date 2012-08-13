@@ -65,6 +65,10 @@ function onSoundInit()
 	soundCalibrationDisplay = Sound("soundCalibrationDisplay")
 	soundRecalc = Sound("soundRecalc")
 	soundOverload = Sound("soundOverload")
+	soundAutoRotationOn = Sound("soundAutoRotationOn")
+	soundAutoRotationOff = Sound("soundAutoRotationOff")
+	soundError = Sound("soundError")
+	soundPushCover = Sound("soundPushCover")
 end
 
 function playSound(level, ...)
