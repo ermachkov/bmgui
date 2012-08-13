@@ -106,6 +106,9 @@ STATS_INCHES = 1
 STATS_WEIGHTS = 2
 STATS_TIME = 3
 
+-- Overload weight
+OVERLOAD_WEIGHT = 300
+
 -- Globals
 balanceState = STATE_IDLE
 balanceSubstate = BALANCE_IDLE

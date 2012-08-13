@@ -82,4 +82,5 @@
 	<sample name="soundCalibrationWheel" file="calibration_wheel.wav" stream="yes"/>
 	<sample name="soundCalibrationDisplay" file="calibration_display.wav" stream="yes"/>
 	<sample name="soundRecalc" file="recalc.wav" stream="yes"/>
+	<sample name="soundOverload" file="overload.wav" stream="yes"/>
 </resources>
