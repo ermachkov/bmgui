@@ -66,6 +66,10 @@ sprites =
 
 	["spriteMuxIcon", ["mux_icon"]],
 
+	["spriteSoundLevel0Icon", ["sound_level_0_icon"]],
+	["spriteSoundLevel1Icon", ["sound_level_1_icon"]],
+	["spriteSoundLevel2Icon", ["sound_level_2_icon"]],
+
 	["spriteEnglishIcon", ["english_icon"]],
 	["spriteRussianIcon", ["russian_icon"]],
 	["spriteChineseIcon", ["chinese_icon"]],
