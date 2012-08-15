@@ -16,6 +16,9 @@ function main_menu_createSprites()
 	spriteChineseIcon = Sprite("spriteChineseIcon", 0, 0)
 	spriteRussianIcon = Sprite("spriteRussianIcon", 0, 0)
 	spriteEnglishIcon = Sprite("spriteEnglishIcon", 0, 0)
+	spriteSoundLevel2Icon = Sprite("spriteSoundLevel2Icon", 0, 0)
+	spriteSoundLevel1Icon = Sprite("spriteSoundLevel1Icon", 0, 0)
+	spriteSoundLevel0Icon = Sprite("spriteSoundLevel0Icon", 0, 0)
 	spriteMuxIcon = Sprite("spriteMuxIcon", 0, 0)
 	spriteWheelDistanceIcon = Sprite("spriteWheelDistanceIcon", 0, 0)
 	spriteRulerRadiusIcon = Sprite("spriteRulerRadiusIcon", 0, 0)
@@ -185,6 +188,9 @@ function main_menu_deleteSprites()
 	spriteChineseIcon = nil
 	spriteRussianIcon = nil
 	spriteEnglishIcon = nil
+	spriteSoundLevel2Icon = nil
+	spriteSoundLevel1Icon = nil
+	spriteSoundLevel0Icon = nil
 	spriteMuxIcon = nil
 	spriteWheelDistanceIcon = nil
 	spriteRulerRadiusIcon = nil

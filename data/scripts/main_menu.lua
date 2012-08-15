@@ -1029,7 +1029,7 @@ function onMainMenuUpdate(delta)
 		autoAluIcons = {spriteAutoAlu0Icon, spriteAutoAlu1Icon}
 		trueModeIcons = {spriteTrueMode0Icon, spriteTrueMode1Icon}
 		languageIcons = {spriteEnglishIcon, spriteRussianIcon, spriteChineseIcon}
-		soundLevelIcons = {spriteEnglishIcon, spriteRussianIcon, spriteChineseIcon}
+		soundLevelIcons = {spriteSoundLevel0Icon, spriteSoundLevel1Icon, spriteSoundLevel2Icon}
 		menuButtons = {spriteMainMenuBackButton, spriteMainMenuCloseButton, spriteMainMenuUpButton, spriteMainMenuDownButton}
 
 		-- determine the clip rectangle

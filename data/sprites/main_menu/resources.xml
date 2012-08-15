@@ -2,22 +2,22 @@
 <resources>
 	<sprite name="spriteQuitIcon">
 		<image file="texture8.png">
-			<grid pos="296,148" size="147,147"/>
+			<grid pos="740,148" size="147,147"/>
 		</image>
 	</sprite>
 	<sprite name="spriteFactorySettingsIcon">
 		<image file="texture8.png">
-			<grid pos="444,148" size="146,146"/>
+			<grid pos="148,0" size="146,146"/>
 		</image>
 	</sprite>
 	<sprite name="spriteSaveSettingsIcon">
 		<image file="texture8.png">
-			<grid pos="148,148" size="147,147"/>
+			<grid pos="592,148" size="147,147"/>
 		</image>
 	</sprite>
 	<sprite name="spriteSoftwareUpdateIcon">
 		<image file="texture8.png">
-			<grid pos="740,296" size="147,147"/>
+			<grid pos="444,148" size="147,147"/>
 		</image>
 	</sprite>
 	<sprite name="spriteRemoteSupportIcon">
@@ -27,60 +27,75 @@
 	</sprite>
 	<sprite name="spriteRemoteControlEnabledIcon">
 		<image file="texture8.png">
-			<grid pos="592,296" size="147,147"/>
+			<grid pos="296,148" size="147,147"/>
 		</image>
 	</sprite>
 	<sprite name="spriteRemoteControlDisabledIcon">
 		<image file="texture8.png">
-			<grid pos="444,296" size="147,147"/>
+			<grid pos="148,148" size="147,147"/>
 		</image>
 	</sprite>
 	<sprite name="spriteDNSIcon">
 		<image file="texture8.png">
-			<grid pos="296,296" size="147,147"/>
+			<grid pos="740,296" size="147,147"/>
 		</image>
 	</sprite>
 	<sprite name="spriteGatewayIcon">
 		<image file="texture8.png">
-			<grid pos="148,296" size="147,147"/>
+			<grid pos="592,296" size="147,147"/>
 		</image>
 	</sprite>
 	<sprite name="spriteNetmaskIcon">
 		<image file="texture8.png">
-			<grid pos="740,444" size="147,147"/>
+			<grid pos="444,296" size="147,147"/>
 		</image>
 	</sprite>
 	<sprite name="spriteLocalAddrIcon">
 		<image file="texture8.png">
-			<grid pos="592,444" size="147,147"/>
+			<grid pos="296,296" size="147,147"/>
 		</image>
 	</sprite>
 	<sprite name="spriteServerAddrIcon">
 		<image file="texture8.png">
-			<grid pos="444,444" size="147,147"/>
+			<grid pos="148,296" size="147,147"/>
 		</image>
 	</sprite>
 	<sprite name="spriteNetworkIcon">
 		<image file="texture8.png">
-			<grid pos="296,444" size="147,147"/>
+			<grid pos="740,444" size="147,147"/>
 		</image>
 	</sprite>
 	<sprite name="spriteThemeIcon">
 		<image file="texture8.png">
-			<grid pos="148,444" size="147,147"/>
+			<grid pos="592,444" size="147,147"/>
 		</image>
 	</sprite>
 	<sprite name="spriteChineseIcon">
 		<image file="texture8.png">
-			<grid pos="740,592" size="147,147"/>
+			<grid pos="444,444" size="147,147"/>
 		</image>
 	</sprite>
 	<sprite name="spriteRussianIcon">
 		<image file="texture8.png">
-			<grid pos="592,592" size="147,147"/>
+			<grid pos="296,444" size="147,147"/>
 		</image>
 	</sprite>
 	<sprite name="spriteEnglishIcon">
+		<image file="texture8.png">
+			<grid pos="148,444" size="147,147"/>
+		</image>
+	</sprite>
+	<sprite name="spriteSoundLevel2Icon">
+		<image file="texture8.png">
+			<grid pos="740,592" size="147,147"/>
+		</image>
+	</sprite>
+	<sprite name="spriteSoundLevel1Icon">
+		<image file="texture8.png">
+			<grid pos="592,592" size="147,147"/>
+		</image>
+	</sprite>
+	<sprite name="spriteSoundLevel0Icon">
 		<image file="texture8.png">
 			<grid pos="444,592" size="147,147"/>
 		</image>
@@ -483,10 +498,10 @@
 	</sprite>
 	<sprite name="spriteMainMenuCloseButton">
 		<image file="texture8.png">
-			<grid pos="330,0" size="90,90"/>
+			<grid pos="766,0" size="90,90"/>
 		</image>
 		<image file="texture8.png">
-			<grid pos="239,0" size="90,90"/>
+			<grid pos="675,0" size="90,90"/>
 		</image>
 		<frame nr="0" x="0" y="0"/>
 		<frame nr="1" x="0" y="0"/>
@@ -583,10 +598,10 @@
 	</sprite>
 	<sprite name="spriteOscCloseButton">
 		<image file="texture8.png">
-			<grid pos="148,0" size="90,90"/>
+			<grid pos="584,0" size="90,90"/>
 		</image>
 		<image file="texture8.png">
-			<grid pos="896,148" size="90,90"/>
+			<grid pos="493,0" size="90,90"/>
 		</image>
 		<frame nr="0" x="0" y="0"/>
 		<frame nr="1" x="0" y="0"/>
@@ -909,10 +924,10 @@
 	</sprite>
 	<sprite name="spriteStatsNextButton">
 		<image file="texture8.png">
-			<grid pos="698,148" size="106,102"/>
+			<grid pos="295,0" size="106,102"/>
 		</image>
 		<image file="texture8.png">
-			<grid pos="591,148" size="106,102"/>
+			<grid pos="888,148" size="106,102"/>
 		</image>
 		<frame nr="0" x="0" y="0"/>
 		<frame nr="1" x="0" y="0"/>
@@ -1019,7 +1034,7 @@
 	</sprite>
 	<sprite name="spriteWizardCloseButton">
 		<image file="texture8.png">
-			<grid pos="805,148" size="90,90"/>
+			<grid pos="402,0" size="90,90"/>
 		</image>
 		<image file="texture6.png">
 			<grid pos="889,928" size="90,90"/>
