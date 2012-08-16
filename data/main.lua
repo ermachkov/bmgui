@@ -225,11 +225,16 @@ function onUpdate(delta)
 	-- track balance results
 	local newBalanceResult = balance:getIntParam("result")
 	if newBalanceResult ~= RESULT_IDLE and balanceResult == RESULT_IDLE then
+		-- delete row with the same timestamp
+		local datetime = os.date("%Y-%m-%d %H:%M:%S")
+		database:execQuery(string.format("DELETE FROM Balance WHERE Time = '%s'", datetime))
+		database:closeQuery()
+
 		-- write balance results to database
 		local mode = balance:getIntParam("mode")
 		local layout = unpackLayout(balance:getIntParam("layout"), mode)
-		local query = string.format("INSERT INTO Balance VALUES(datetime('now', 'localtime'), %s, %d, %d, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %d)",
-			balance:getParam("user"), mode, layout, balance:getParam("width"), balance:getParam("diam"), balance:getParam("offset"),
+		local query = string.format("INSERT INTO Balance VALUES('%s', %s, %d, %d, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %d)",
+			datetime, balance:getParam("user"), mode, layout, balance:getParam("width"), balance:getParam("diam"), balance:getParam("offset"),
 			balance:getParam("split"), balance:getParam("numsp"), balance:getParam("weight0"), balance:getParam("angle0"),
 			balance:getParam("weight1"), balance:getParam("angle1"), balance:getParam("weight2"), balance:getParam("angle2"), newBalanceResult)
 		database:execQuery(query)
@@ -262,10 +267,10 @@ function onUpdate(delta)
 					playSound(SOUND_NORMAL, unpack(sounds))
 				else
 					-- say about balance completion
-					playSound(SOUND_NORMAL, soundWheelIsBalanced)
+					playSound(SOUND_IMPORTANT, soundWheelIsBalanced)
 				end
 			end
-		else
+		elseif newBalanceState ~= STATE_IDLE then
 			-- say about emergency stop
 			stopSound()
 			playSound(SOUND_NORMAL, soundEmergencyStop)
