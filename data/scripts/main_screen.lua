@@ -220,6 +220,9 @@ function onMainScreenInit()
 	include("sprites/main_screen/sprites.lua")
 	main_screen_createSprites()
 
+	resourceManager:loadAllResources("sprites/main_screen/scream.xml")
+	spriteScream = Sprite("spriteScream", 0, 0)
+
 	-- update button labels
 	updateSpritesLanguage()
 

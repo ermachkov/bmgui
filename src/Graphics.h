@@ -23,9 +23,6 @@ public:
 	// Constructor
 	Graphics(Profile &profile);
 
-	// Destructor
-	~Graphics();
-
 	// Returns the display window
 	CL_DisplayWindow &getWindow();
 
