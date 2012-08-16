@@ -18,6 +18,8 @@ function onSoundInit()
 	soundRuler = Sound("soundRuler")
 	soundRulerSuccess = Sound("soundRulerSuccess")
 
+	soundScream = Sound("soundScream")
+
 	-- left weight
 	soundLeftTable = {}
 	for i = 5, 100, 5 do
@@ -122,8 +124,9 @@ function onSoundUpdate(delta)
 
 				-- HACK: shutdown after playing the special sound
 				if soundQueue[1] == soundShutdown then
-					--os.exit(0)
 					os.execute("sudo shutdown -H now")
+				elseif soundQueue[1] == soundScream then
+					error("СМЕРТЬ ПРОКЛЯТЫМ ПОПАМ И ПАТРИАРХУ СОДОМСКОМУ И ГОМОРРСКОМУ!!!")
 				end
 			end
 		end

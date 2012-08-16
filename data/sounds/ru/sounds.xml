@@ -7,6 +7,8 @@
 	<sample name="soundRuler" file="ruler.wav"/>
 	<sample name="soundRulerSuccess" file="ruler_success.wav"/>
 
+	<sample name="soundScream" file="scream.wav" stream="yes"/>
+
 	<sample name="soundLeft5" file="left_5.wav" stream="yes"/>
 	<sample name="soundLeft10" file="left_10.wav" stream="yes"/>
 	<sample name="soundLeft15" file="left_15.wav" stream="yes"/>

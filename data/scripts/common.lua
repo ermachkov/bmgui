@@ -124,6 +124,9 @@ local translationEnabled = true
 local translations = {TRANSLATION_EN, TRANSLATION_RU, TRANSLATION_CN}
 local translation = translations[lang + 1]
 
+screamEnabled = false
+screamCounter = 0
+
 -- Sets the current language
 function setLanguage(language)
 	-- set the translation table

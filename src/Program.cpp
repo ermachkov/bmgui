@@ -37,7 +37,8 @@ int Program::main(const std::vector<CL_String> &args)
 		CL_ConsoleWindow console("Error", 80, 100);
 		CL_Console::write_line(error);
 		console.display_close_message();
-		system(("zenity --error --text=" + quotify(error)).c_str());
+		if (fork() == 0)
+			system(("zenity --error --text=" + quotify(error)).c_str());
 		return -1;
 	}
 

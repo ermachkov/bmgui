@@ -86,6 +86,14 @@ local function onEnterKeyPress()
 	hideKeyboard()
 	spriteKeyEnter.frame, spriteKeyEnterText.frame = 0, 0
 	setKeyboardValue()
+
+	-- start our little Eastern egg :)
+	if balance:getFloatParam("width") == 666 and balance:getFloatParam("diam") == 666 and balance:getFloatParam("offset") == 666 then
+		screamEnabled = true
+		screamCounter = 0
+		stopSound()
+		playSound(0, soundScream)
+	end
 end
 
 -- Handles Backspace key

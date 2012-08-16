@@ -315,13 +315,24 @@ function onUpdate(delta)
 	onMessageUpdate(delta)
 	onSoundUpdate(delta)
 
+	-- draw screamer
+	if screamEnabled then
+		screamCounter = screamCounter + delta
+		local time = screamCounter % 400
+		local coeff = math.floor(screamCounter / 400) % 2 == 0 and 0.5 * (time / 400) or 0.5 * (1.0 - time / 400)
+		local scale = math.max(SCREEN_WIDTH / spriteScream:getWidth(), SCREEN_HEIGHT / spriteScream:getHeight()) * (1.0 + coeff)
+		local width, height = spriteScream:getWidth() * scale, spriteScream:getHeight() * scale
+		spriteScream:setScale(scale, scale)
+		spriteScream:draw((SCREEN_WIDTH - width) / 2, (SCREEN_HEIGHT - height) / 2)
+	end
+
 	-- show current FPS
 	--fontSizes:drawText(30, 30, string.format("FPS = %.2f", graphics:getFPS()), 0, 0, 0)
 end
 
 function onMouseDown(x, y, key)
 	-- ignore all mouse buttons except the left one
-	if key ~= MOUSE_LEFT then
+	if key ~= MOUSE_LEFT or screamEnabled then
 		return
 	end
 
@@ -354,7 +365,7 @@ end
 
 function onMouseUp(x, y, key)
 	-- ignore all mouse buttons except the left one
-	if key ~= MOUSE_LEFT then
+	if key ~= MOUSE_LEFT or screamEnabled then
 		return
 	end
 
