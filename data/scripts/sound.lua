@@ -86,12 +86,13 @@ function playSound(level, ...)
 		soundQueue[i] = sound
 	end
 
-	-- initialize all counters
-	isPlaying = true
-	currSound = 1
+	-- start playing if the queue is not empty
+	if #soundQueue > 0 then
+		isPlaying = true
+		currSound = 1
+		soundQueue[currSound]:play()
+	end
 
-	-- start the first sound
-	soundQueue[currSound]:play()
 	return true
 end
 

@@ -302,7 +302,7 @@ function onKeyboardMouseDown(x, y, key)
 					elseif weight1 ~= 0 or weight2 ~= 0 or weight3 ~= 0 then
 						playSound(SOUND_NORMAL, soundRecalc)
 					else
-						playSound(SOUND_NORMAL, soundWheelIsBalanced)
+						playSound(SOUND_IMPORTANT, soundWheelIsBalanced)
 					end
 				else
 					soundKey:play()
