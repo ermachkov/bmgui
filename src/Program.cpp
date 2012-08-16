@@ -37,8 +37,42 @@ int Program::main(const std::vector<CL_String> &args)
 		CL_ConsoleWindow console("Error", 80, 100);
 		CL_Console::write_line(error);
 		console.display_close_message();
+		system(("zenity --error --text=" + quotify(error)).c_str());
 		return -1;
 	}
 
 	return 0;
+}
+
+std::string Program::quotify(const std::string &text)
+{
+	std::string str;
+	for (std::string::const_iterator it = text.begin(); it != text.end(); ++it)
+	{
+		char ch = *it;
+		if (ch == '\n')
+		{
+			str += "\\n";
+		}
+		else if (ch == '&')
+		{
+			str += "&amp;";
+		}
+		else if (ch == '<')
+		{
+			str += "&lt;";
+		}
+		else if (ch == '>')
+		{
+			str += "&gt;";
+		}
+		else
+		{
+			if (ch == '\'' || ch == '\"' || ch == '\\')
+				str += '\\';
+			str += ch;
+		}
+	}
+
+	return "\"" + str + "\"";
 }

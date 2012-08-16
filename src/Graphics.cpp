@@ -48,6 +48,11 @@ Graphics::Graphics(Profile &profile)
 	profile.setInt("height", desc.get_size().height);
 }
 
+Graphics::~Graphics()
+{
+	mWindow.hide();
+}
+
 CL_DisplayWindow &Graphics::getWindow()
 {
 	return mWindow;
