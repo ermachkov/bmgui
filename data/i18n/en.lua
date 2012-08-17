@@ -126,8 +126,17 @@ TRANSLATION_EN =
    ["{factory_settings_header}"] = "Recovery",
    ["{factory_settings_text}"] = "Recovery factory settings.",
    ["{quit_header}"] = "Quit",
-   ["{quit_text}"] = "Quit from programm",
-   
+   ["{quit_text}"] = "Quit the application",
+
+	["{sound_level_header}"] = "Speech modes",
+	["{sound_level_text}"] = "In this menu select speech modes",
+	["{sound_level_0_header}"] = "Speech off",
+	["{sound_level_0_text}"] = "Speech is disabled",
+	["{sound_level_1_header}"] = "Important events",
+	["{sound_level_1_text}"] = "Only important events will be spoken",
+	["{sound_level_2_header}"] = "All events",
+	["{sound_level_2_text}"] = "Any events occured in the balance machine\nincluding the balance results will be spoken",
+
    ["{english_header}"] = "English",
    ["{english_text}"] = "English language selection",
    ["{russian_header}"] = "Русский",
@@ -325,5 +334,9 @@ TRANSLATION_EN =
     ["{ruler_radius_header}"] = "Radius",
     ["{ruler_radius_text}"] = "Ruler radius. Size between center\nof horizont axis ruler ang center\naxis of stick weight instalator",
 
+   ["{save_settings_header}"] = "Save settings",
+   ["{save_settings_text}"] = "Allows to save balancing settings",
 
+	["{mux_header}"] = "Multiplexor",
+	["{mux_text}"] = "Allows changing signal of shaft index marker\nby configuring multiplexor",
 }
