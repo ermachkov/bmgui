@@ -574,8 +574,9 @@ function onMainScreenUpdate(delta)
 
 	-- draw about message
 	if showAboutMessage then
+		local message = aboutMessage .. "Firmware version: " .. balance:getFirmwareVersion()
 		spriteAboutMessageBack:draw()
-		fontMessageText:drawText(spriteAboutMessageText.x, spriteAboutMessageText.y, aboutMessage, 73 / 255, 73 / 255, 73 / 255)
+		fontMessageText:drawText(spriteAboutMessageText.x, spriteAboutMessageText.y, message, 73 / 255, 73 / 255, 73 / 255)
 	end
 
 	-- draw cover message

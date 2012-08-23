@@ -1,6 +1,6 @@
 /*
 ** Lua binding: LuaBindings
-** Generated automatically by tolua++-1.0.92 on Sun Jul  1 23:09:06 2012.
+** Generated automatically by tolua++-1.0.92 on Thu Aug 23 17:53:01 2012.
 */
 
 #ifndef __cplusplus
@@ -743,6 +743,38 @@ static int tolua_LuaBindings_Balance_getAmplitudePhase00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'getAmplitudePhase'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getFirmwareVersion of class  Balance */
+#ifndef TOLUA_DISABLE_tolua_LuaBindings_Balance_getFirmwareVersion00
+static int tolua_LuaBindings_Balance_getFirmwareVersion00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const Balance",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const Balance* self = (const Balance*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getFirmwareVersion'", NULL);
+#endif
+  {
+   std::string tolua_ret = (std::string)  self->getFirmwareVersion();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getFirmwareVersion'.",&tolua_err);
  return 0;
 #endif
 }
@@ -3957,6 +3989,7 @@ TOLUA_API int tolua_LuaBindings_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setPlaying",tolua_LuaBindings_Balance_setPlaying00);
    tolua_function(tolua_S,"getMinMaxSamples",tolua_LuaBindings_Balance_getMinMaxSamples00);
    tolua_function(tolua_S,"getAmplitudePhase",tolua_LuaBindings_Balance_getAmplitudePhase00);
+   tolua_function(tolua_S,"getFirmwareVersion",tolua_LuaBindings_Balance_getFirmwareVersion00);
    tolua_function(tolua_S,"getParam",tolua_LuaBindings_Balance_getParam00);
    tolua_function(tolua_S,"getIntParam",tolua_LuaBindings_Balance_getIntParam00);
    tolua_function(tolua_S,"getFloatParam",tolua_LuaBindings_Balance_getFloatParam00);

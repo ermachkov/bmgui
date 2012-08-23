@@ -46,6 +46,9 @@ public:
 	// Returns current amplitude/phase
 	void getAmplitudePhase(float *amplitude1 = NULL, float *phase1 = NULL, float *amplitude2 = NULL, float *phase2 = NULL);
 
+	// Returns the firmware version string
+	std::string getFirmwareVersion() const;
+
 	// Returns the balance parameter
 	std::string getParam(const std::string &name) const;
 
@@ -147,6 +150,7 @@ private:
 	std::vector<std::string>    mReplies;           // Reply queue
 	bool                        mSocketNameChanged; // Socket change flag
 	CL_SocketName               mNewSocketName;     // New socket name
+	std::string                 mFirmwareVersion;   // Firmware version string
 
 	int                         mOscMode;                       // New oscilloscope mode
 	CL_Mutex                    mOscMutex;                      // Oscilloscope mutex

@@ -119,6 +119,11 @@ void Balance::getAmplitudePhase(float *amplitude1, float *phase1, float *amplitu
 	*phase2 = arg(mMainHarmonic[1]) * 180.0f / PI;
 }
 
+std::string Balance::getFirmwareVersion() const
+{
+	return mFirmwareVersion;
+}
+
 std::string Balance::getParam(const std::string &name) const
 {
 	ParamMap::const_iterator it = mParams.find(name);
@@ -345,6 +350,13 @@ void Balance::onUpdate(int delta)
 				mProtocolValid = false;
 			}
 		}
+		else if (command == "Version")
+		{
+			std::string version;
+			stream >> version;
+			if (!version.empty() && stream.good())
+				mFirmwareVersion = version;
+		}
 	}
 
 	mReplies.clear();
@@ -447,6 +459,15 @@ void Balance::run()
 					}
 					else if (oscMode == 0)
 					{
+						// send version request
+						if (mFirmwareVersion.empty())
+						{
+							std::string request = "g ver\r\n";
+							CL_Console::write_line("> " + request.substr(0, request.length() - 2));
+							connection.write(request.c_str(), request.length());
+						}
+
+						// send state request
 						std::string request = "state\r\n";
 						CL_Console::write_line("> " + request.substr(0, request.length() - 2));
 						connection.write(request.c_str(), request.length());
