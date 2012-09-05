@@ -49,18 +49,40 @@ fi
 
 sync
 
-bmgui --gateway="$DEFAULT_GW" --local_addr="$IP_ADDRESS" --netmask="$NETMASK" --dns="$DNS" --input_dev="$MOUSE" --server_status="$SERVER_ON" --available_update_version="$LASTVER"
+while true; do
 
-RET=$?
+  bmgui --gateway="$DEFAULT_GW" --local_addr="$IP_ADDRESS" --netmask="$NETMASK" --dns="$DNS" --input_dev="$MOUSE" --server_status="$SERVER_ON" --available_update_version="$LASTVER"
 
-if [ $RET -eq 13 ]; then
-  VER1=`cat /etc/bminfo`
-  roxterm -e bmgui_update&
-  wait $!
-  VER2=`cat /etc/bminfo`
-  if [ "$VER1" = "$VER2" ]; then
-    bmgui --gateway="$DEFAULT_GW" --local_addr="$IP_ADDRESS" --netmask="$NETMASK" --dns="$DNS" --input_dev="$MOUSE" --server_status="$SERVER_ON" --available_update_version="$LASTVER" --updated=0
-  else
-    bmgui --gateway="$DEFAULT_GW" --local_addr="$IP_ADDRESS" --netmask="$NETMASK" --dns="$DNS" --input_dev="$MOUSE" --server_status="$SERVER_ON" --available_update_version="$LASTVER" --updated=1
+  RET=$?
+
+  if [ $RET -eq 13 ]; then
+    VER1=`cat /etc/bminfo`
+    roxterm -e bmgui_update&
+    wait $!
+    VER2=`cat /etc/bminfo`
+    if [ "$VER1" = "$VER2" ]; then
+      bmgui --gateway="$DEFAULT_GW" --local_addr="$IP_ADDRESS" --netmask="$NETMASK" --dns="$DNS" --input_dev="$MOUSE" --server_status="$SERVER_ON" --available_update_version="$LASTVER" --updated=0
+      RET=$?
+    else
+      bmgui --gateway="$DEFAULT_GW" --local_addr="$IP_ADDRESS" --netmask="$NETMASK" --dns="$DNS" --input_dev="$MOUSE" --server_status="$SERVER_ON" --available_update_version="$LASTVER" --updated=1
+      RET=$?
+    fi
   fi
-fi
+
+  if [ $RET -eq 169 ]; then
+    roxterm -e "sudo bmgui_update_fw"&
+    wait $!
+    $FLASH_STATUS=`cat /tmp/flash_status`
+    rm /tmp/flash_status
+    if[ $FLASH_STATUS -eq 0 ]; then
+      bmgui --gateway="$DEFAULT_GW" --local_addr="$IP_ADDRESS" --netmask="$NETMASK" --dns="$DNS" --input_dev="$MOUSE" --server_status="$SERVER_ON" --available_update_version="$LASTVER" --updatedfw=1
+      RET=$?
+    fi
+      bmgui --gateway="$DEFAULT_GW" --local_addr="$IP_ADDRESS" --netmask="$NETMASK" --dns="$DNS" --input_dev="$MOUSE" --server_status="$SERVER_ON" --available_update_version="$LASTVER" --updatedfw=0
+      RET=$?
+  fi
+
+  if [ $RET -eq 0 ]; then
+    exit 0
+  fi
+done
