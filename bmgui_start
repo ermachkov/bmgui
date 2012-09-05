@@ -72,14 +72,16 @@ while true; do
   if [ $RET -eq 169 ]; then
     roxterm -e "sudo bmgui_update_fw"&
     wait $!
-    $FLASH_STATUS=`cat /tmp/flash_status`
+    FS="1"
+    FS=`cat /tmp/flash_status`
     rm /tmp/flash_status
-    if[ $FLASH_STATUS -eq 0 ]; then
+    if [ $FS -eq 0 ]; then
       bmgui --gateway="$DEFAULT_GW" --local_addr="$IP_ADDRESS" --netmask="$NETMASK" --dns="$DNS" --input_dev="$MOUSE" --server_status="$SERVER_ON" --available_update_version="$LASTVER" --updatedfw=1
       RET=$?
-    fi
+    else
       bmgui --gateway="$DEFAULT_GW" --local_addr="$IP_ADDRESS" --netmask="$NETMASK" --dns="$DNS" --input_dev="$MOUSE" --server_status="$SERVER_ON" --available_update_version="$LASTVER" --updatedfw=0
       RET=$?
+    fi
   fi
 
   if [ $RET -eq 0 ]; then
