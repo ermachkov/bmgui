@@ -1,4 +1,14 @@
 #!/bin/bash
+FW=`ls /usr/share/bmgui/fw/bsfw* -1 | grep -v backup`
+SERVER_IP=`expr "\`cat $HOME/.bmgui/bmgui.xml\`" : '.*server_addr" value="\([0-9]*.[0-9]*.[0-9]*.[0-9]*\)'`
+sudo bmgui_flash $SERVER_IP $FW
+RET=$?
+echo $RET > /tmp/flash_status
+sleep 3
+
+
+[bm@bm ~]$ cat /usr/bin/bmgui_start 
+#!/bin/bash
 
 #Already run?
 if [ `ps -A u| grep bmgui | grep -v grep| grep -v bmgui_start -c` -gt 0 ]; then
@@ -50,10 +60,11 @@ fi
 sync
 
 bmgui --gateway="$DEFAULT_GW" --local_addr="$IP_ADDRESS" --netmask="$NETMASK" --dns="$DNS" --input_dev="$MOUSE" --server_status="$SERVER_ON" --available_update_version="$LASTVER"
+RET=$?
 
 while true; do
 
-  RET=$?
+  echo $RET
 
   if [ $RET -eq 13 ]; then
     VER1=`cat /etc/bminfo`
@@ -67,28 +78,26 @@ while true; do
       bmgui --gateway="$DEFAULT_GW" --local_addr="$IP_ADDRESS" --netmask="$NETMASK" --dns="$DNS" --input_dev="$MOUSE" --server_status="$SERVER_ON" --available_update_version="$LASTVER" --updated=1
       RET=$?
     fi
-  fi
-
-  if [ $RET -eq 169 ]; then
-    roxterm -e "sudo bmgui_update_fw"&
-    wait $!
-    FS="1"
-    FS=`cat /tmp/flash_status`
-    rm /tmp/flash_status
-    if [ $FS -eq 0 ]; then
-      bmgui --gateway="$DEFAULT_GW" --local_addr="$IP_ADDRESS" --netmask="$NETMASK" --dns="$DNS" --input_dev="$MOUSE" --server_status="$SERVER_ON" --available_update_version="$LASTVER" --updatedfw=1
-      RET=$?
+  else
+    if [ $RET -eq 169 ]; then
+      roxterm -e bmgui_update_fw&
+      wait $!
+      FS="1"
+      FS=`cat /tmp/flash_status`
+      rm /tmp/flash_status
+      if [ $FS -eq 0 ]; then
+        bmgui --gateway="$DEFAULT_GW" --local_addr="$IP_ADDRESS" --netmask="$NETMASK" --dns="$DNS" --input_dev="$MOUSE" --server_status="$SERVER_ON" --available_update_version="$LASTVER" --updatedfw=1
+        RET=$?
+      else
+        bmgui --gateway="$DEFAULT_GW" --local_addr="$IP_ADDRESS" --netmask="$NETMASK" --dns="$DNS" --input_dev="$MOUSE" --server_status="$SERVER_ON" --available_update_version="$LASTVER" --updatedfw=0
+        RET=$?
+      fi
     else
-      bmgui --gateway="$DEFAULT_GW" --local_addr="$IP_ADDRESS" --netmask="$NETMASK" --dns="$DNS" --input_dev="$MOUSE" --server_status="$SERVER_ON" --available_update_version="$LASTVER" --updatedfw=0
-      RET=$?
+      if [ $RET -eq 0 ]; then
+        exit 0
+      else
+        exit 1
+      fi
     fi
-  fi
-
-  if [ $RET -eq 0 ]; then
-    exit 0
-  fi
-
-  if [ $RET -eq 1 ]; then
-    exit 1
   fi
 done
