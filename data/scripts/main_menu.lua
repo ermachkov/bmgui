@@ -824,7 +824,7 @@ local function initMenus()
 				header = tr("{firmware_update_header}"),
 				text = tr("{firmware_update_text}"),
 				password = true,
-				onClick = function() os.exit(13) end
+				onClick = function() os.exit(169) end
 			},
 			{
 				icon = spriteSaveSettingsIcon,

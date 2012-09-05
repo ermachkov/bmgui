@@ -38,6 +38,9 @@ public:
 	// Returns true if the application was updated
 	bool isUpdated() const;
 
+	// Returns the firmware update status
+	std::string getFirmwareUpdated() const;
+
 	// Returns the company name
 	std::string getCompanyName() const;
 
@@ -86,6 +89,7 @@ private:
 
 	std::string                     mDataDirectory;
 	bool                            mUpdated;
+	std::string                     mFirmwareUpdated;
 	std::string                     mCompanyName;
 	std::string                     mApplicationName;
 	std::string                     mApplicationVersion;

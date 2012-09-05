@@ -122,6 +122,13 @@ function onInit()
 		showMessage(tr("{successful_update_text}"), MESSAGE_OK, MESSAGE_WARNING)
 	end
 
+	-- show firmware update message
+	if application:getFirmwareUpdated() == "1" then
+		showMessage(tr("{successful_firmware_update_text}"), MESSAGE_OK, MESSAGE_WARNING)
+	elseif application:getFirmwareUpdated() == "0" then
+		showMessage(tr("{unsuccessful_firmware_update_text}"), MESSAGE_OK, MESSAGE_ERROR)
+	end
+
 	-- show warning if touchscreen not found
 	if profile:getInt("input_dev") == 0 then
 		showMessage(tr("{no_touchscreen_text}"), MESSAGE_OK, MESSAGE_NO_TOUCHSCREEN)

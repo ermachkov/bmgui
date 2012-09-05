@@ -39,7 +39,7 @@ int Program::main(const std::vector<CL_String> &args)
 		console.display_close_message();
 		if (fork() == 0)
 			system(("zenity --error --text=" + quotify(error)).c_str());
-		return -1;
+		return 1;
 	}
 
 	return 0;

@@ -43,6 +43,7 @@ Application::Application(const std::vector<CL_String> &args, lua_State *luaState
 	commandLine.add_option('s', "server_status", "FLAG", "Server status");
 	commandLine.add_option('u', "available_update_version", "VERSION", "Available update version");
 	commandLine.add_option('U', "updated", "FLAG", "Software update flag");
+	commandLine.add_option('W', "updatedfw", "FLAG", "Firmware update flag");
 	commandLine.add_option('D', "datadir", "PATH", "Path to the data directory");
 	commandLine.add_option('h', "help", "", "Show this help");
 	commandLine.parse_args(argv.size(), &argv[0]);
@@ -79,6 +80,9 @@ Application::Application(const std::vector<CL_String> &args, lua_State *luaState
 			break;
 		case 'U':
 			mUpdated = CL_StringHelp::text_to_bool(commandLine.get_argument());
+			break;
+		case 'W':
+			mFirmwareUpdated = commandLine.get_argument();
 			break;
 		case 'D':
 			mDataDirectory = CL_PathHelp::add_trailing_slash(commandLine.get_argument());
@@ -159,6 +163,11 @@ std::string Application::getDataDirectory() const
 bool Application::isUpdated() const
 {
 	return mUpdated;
+}
+
+std::string Application::getFirmwareUpdated() const
+{
+	return mFirmwareUpdated;
 }
 
 std::string Application::getCompanyName() const

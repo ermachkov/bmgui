@@ -1,6 +1,6 @@
 /*
 ** Lua binding: LuaBindings
-** Generated automatically by tolua++-1.0.92 on Thu Aug 23 17:53:01 2012.
+** Generated automatically by tolua++-1.0.92 on Wed Sep  5 16:46:30 2012.
 */
 
 #ifndef __cplusplus
@@ -135,6 +135,38 @@ static int tolua_LuaBindings_Application_isUpdated00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'isUpdated'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getFirmwareUpdated of class  Application */
+#ifndef TOLUA_DISABLE_tolua_LuaBindings_Application_getFirmwareUpdated00
+static int tolua_LuaBindings_Application_getFirmwareUpdated00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const Application",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const Application* self = (const Application*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getFirmwareUpdated'", NULL);
+#endif
+  {
+   std::string tolua_ret = (std::string)  self->getFirmwareUpdated();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getFirmwareUpdated'.",&tolua_err);
  return 0;
 #endif
 }
@@ -3968,6 +4000,7 @@ TOLUA_API int tolua_LuaBindings_open (lua_State* tolua_S)
   tolua_beginmodule(tolua_S,"Application");
    tolua_function(tolua_S,"getDataDirectory",tolua_LuaBindings_Application_getDataDirectory00);
    tolua_function(tolua_S,"isUpdated",tolua_LuaBindings_Application_isUpdated00);
+   tolua_function(tolua_S,"getFirmwareUpdated",tolua_LuaBindings_Application_getFirmwareUpdated00);
    tolua_function(tolua_S,"getCompanyName",tolua_LuaBindings_Application_getCompanyName00);
    tolua_function(tolua_S,"setCompanyName",tolua_LuaBindings_Application_setCompanyName00);
    tolua_function(tolua_S,"getApplicationName",tolua_LuaBindings_Application_getApplicationName00);
