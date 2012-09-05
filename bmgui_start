@@ -49,9 +49,9 @@ fi
 
 sync
 
-while true; do
+bmgui --gateway="$DEFAULT_GW" --local_addr="$IP_ADDRESS" --netmask="$NETMASK" --dns="$DNS" --input_dev="$MOUSE" --server_status="$SERVER_ON" --available_update_version="$LASTVER"
 
-  bmgui --gateway="$DEFAULT_GW" --local_addr="$IP_ADDRESS" --netmask="$NETMASK" --dns="$DNS" --input_dev="$MOUSE" --server_status="$SERVER_ON" --available_update_version="$LASTVER"
+while true; do
 
   RET=$?
 
@@ -86,5 +86,9 @@ while true; do
 
   if [ $RET -eq 0 ]; then
     exit 0
+  fi
+
+  if [ $RET -eq 1 ]; then
+    exit 1
   fi
 done
