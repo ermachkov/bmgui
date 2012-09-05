@@ -820,6 +820,13 @@ local function initMenus()
 				onClick = function() os.exit(13) end
 			},
 			{
+				icon = spriteSoftwareUpdateIcon,
+				header = tr("{firmware_update_header}"),
+				text = tr("{firmware_update_text}"),
+				password = true,
+				onClick = function() os.exit(13) end
+			},
+			{
 				icon = spriteSaveSettingsIcon,
 				header = tr("{save_settings_header}"),
 				text = tr("{save_settings_text}"),

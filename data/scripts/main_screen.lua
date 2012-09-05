@@ -606,7 +606,7 @@ function onMainScreenMouseDown(x, y, key)
 		pressedButton.frame, pressedButtonText.frame = 1, lang * 2 + 1
 		balance:setParam("stop")
 		if balanceState == STATE_IDLE and (balance:getIntParam("rndweight0") ~= 0 or balance:getIntParam("rndweight1") ~= 0 or balance:getIntParam("rndweight2") ~= 0) then
-			playSoundOrBeep(SOUND_NORMAL, soundStopKey, soundRoundOn)
+			playSoundOrBeep(SOUND_NORMAL, soundStopKey, soundRoundOff)
 		else
 			soundStopKey:play()
 		end
@@ -663,7 +663,9 @@ function onMainScreenMouseDown(x, y, key)
 		-- show shutdown confirmation dialog
 		pressedButton, pressedButtonText = nil, nil
 		spriteShutdownButton.frame = 1
-		showMessage(tr("{shutdown_confirm}"), MESSAGE_YES_NO, MESSAGE_WARNING, function() playSound(SOUND_IMPORTANT, soundShutdown); spriteShutdownButton.frame = 0 end, function() spriteShutdownButton.frame = 0 end)
+		showMessage(tr("{shutdown_confirm}"), MESSAGE_YES_NO, MESSAGE_WARNING,
+			function() if profile:getInt("sound_level") == 0 then os.execute("sudo shutdown -H now") else onMouseDown, onMouseUp = nil, nil; stopSound(); playSound(SOUND_IMPORTANT, soundShutdown); spriteShutdownButton.frame = 0 end end,
+			function() spriteShutdownButton.frame = 0 end)
 		playSoundOrBeep(SOUND_IMPORTANT, soundKey, soundSafeShutdown)
 	elseif spriteWidthIcon:isPointInside(x, y) or spriteWidthStickButton:isPointInside(x, y) then
 		local mode = balance:getIntParam("mode")
@@ -699,7 +701,7 @@ function onMainScreenMouseUp(x, y, key)
 		elseif pressedButton == spriteUser1 then
 			spriteUser2.frame = 0
 		elseif pressedButton == spriteStopButton and balanceState == STATE_IDLE and (balance:getIntParam("rndweight0") ~= 0 or balance:getIntParam("rndweight1") ~= 0 or balance:getIntParam("rndweight2") ~= 0) then
-			playSound(SOUND_NORMAL, soundRoundOff)
+			playSound(SOUND_NORMAL, soundRoundOn)
 		end
 
 		pressedButton.frame = 0
