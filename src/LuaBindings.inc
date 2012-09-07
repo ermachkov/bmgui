@@ -1,6 +1,6 @@
 /*
 ** Lua binding: LuaBindings
-** Generated automatically by tolua++-1.0.92 on Wed Sep  5 16:46:30 2012.
+** Generated automatically by tolua++-1.0.92 on Fri Sep  7 17:54:17 2012.
 */
 
 #ifndef __cplusplus
@@ -780,9 +780,9 @@ static int tolua_LuaBindings_Balance_getAmplitudePhase00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getFirmwareVersion of class  Balance */
-#ifndef TOLUA_DISABLE_tolua_LuaBindings_Balance_getFirmwareVersion00
-static int tolua_LuaBindings_Balance_getFirmwareVersion00(lua_State* tolua_S)
+/* method: getHardwareVersion of class  Balance */
+#ifndef TOLUA_DISABLE_tolua_LuaBindings_Balance_getHardwareVersion00
+static int tolua_LuaBindings_Balance_getHardwareVersion00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -796,17 +796,81 @@ static int tolua_LuaBindings_Balance_getFirmwareVersion00(lua_State* tolua_S)
  {
   const Balance* self = (const Balance*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getFirmwareVersion'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getHardwareVersion'", NULL);
 #endif
   {
-   std::string tolua_ret = (std::string)  self->getFirmwareVersion();
+   std::string tolua_ret = (std::string)  self->getHardwareVersion();
    tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
   }
  }
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getFirmwareVersion'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'getHardwareVersion'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getCPUFirmwareVersion of class  Balance */
+#ifndef TOLUA_DISABLE_tolua_LuaBindings_Balance_getCPUFirmwareVersion00
+static int tolua_LuaBindings_Balance_getCPUFirmwareVersion00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const Balance",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const Balance* self = (const Balance*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getCPUFirmwareVersion'", NULL);
+#endif
+  {
+   std::string tolua_ret = (std::string)  self->getCPUFirmwareVersion();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getCPUFirmwareVersion'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getDSPFirmwareVersion of class  Balance */
+#ifndef TOLUA_DISABLE_tolua_LuaBindings_Balance_getDSPFirmwareVersion00
+static int tolua_LuaBindings_Balance_getDSPFirmwareVersion00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const Balance",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const Balance* self = (const Balance*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getDSPFirmwareVersion'", NULL);
+#endif
+  {
+   std::string tolua_ret = (std::string)  self->getDSPFirmwareVersion();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getDSPFirmwareVersion'.",&tolua_err);
  return 0;
 #endif
 }
@@ -4022,7 +4086,9 @@ TOLUA_API int tolua_LuaBindings_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setPlaying",tolua_LuaBindings_Balance_setPlaying00);
    tolua_function(tolua_S,"getMinMaxSamples",tolua_LuaBindings_Balance_getMinMaxSamples00);
    tolua_function(tolua_S,"getAmplitudePhase",tolua_LuaBindings_Balance_getAmplitudePhase00);
-   tolua_function(tolua_S,"getFirmwareVersion",tolua_LuaBindings_Balance_getFirmwareVersion00);
+   tolua_function(tolua_S,"getHardwareVersion",tolua_LuaBindings_Balance_getHardwareVersion00);
+   tolua_function(tolua_S,"getCPUFirmwareVersion",tolua_LuaBindings_Balance_getCPUFirmwareVersion00);
+   tolua_function(tolua_S,"getDSPFirmwareVersion",tolua_LuaBindings_Balance_getDSPFirmwareVersion00);
    tolua_function(tolua_S,"getParam",tolua_LuaBindings_Balance_getParam00);
    tolua_function(tolua_S,"getIntParam",tolua_LuaBindings_Balance_getIntParam00);
    tolua_function(tolua_S,"getFloatParam",tolua_LuaBindings_Balance_getFloatParam00);

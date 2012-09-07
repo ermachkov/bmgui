@@ -119,9 +119,19 @@ void Balance::getAmplitudePhase(float *amplitude1, float *phase1, float *amplitu
 	*phase2 = arg(mMainHarmonic[1]) * 180.0f / PI;
 }
 
-std::string Balance::getFirmwareVersion() const
+std::string Balance::getHardwareVersion() const
 {
-	return mFirmwareVersion;
+	return mHardwareVersion;
+}
+
+std::string Balance::getCPUFirmwareVersion() const
+{
+	return mCPUFirmwareVersion;
+}
+
+std::string Balance::getDSPFirmwareVersion() const
+{
+	return mDSPFirmwareVersion;
 }
 
 std::string Balance::getParam(const std::string &name) const
@@ -350,12 +360,23 @@ void Balance::onUpdate(int delta)
 				mProtocolValid = false;
 			}
 		}
-		else if (command == "Version")
+		else if (command == "Ver")
 		{
-			std::string version;
-			stream >> version;
-			if (!version.empty() && stream.good())
-				mFirmwareVersion = version;
+			std::string deviceName;
+			int numComponents = 0;
+			stream >> deviceName >> numComponents;
+			if (numComponents >= 4 && stream.good())
+			{
+				std::vector<std::string> components(numComponents);
+				for (int i = 0; i < numComponents; ++i)
+					stream >> components[i];
+				if (stream.good())
+				{
+					mHardwareVersion = components[0];
+					mCPUFirmwareVersion = components[2];
+					mDSPFirmwareVersion = components[3];
+				}
+			}
 		}
 	}
 
@@ -460,9 +481,9 @@ void Balance::run()
 					else if (oscMode == 0)
 					{
 						// send version request
-						if (mFirmwareVersion.empty())
+						if (mHardwareVersion.empty())
 						{
-							std::string request = "g ver\r\n";
+							std::string request = "g extver\r\n";
 							CL_Console::write_line("> " + request.substr(0, request.length() - 2));
 							connection.write(request.c_str(), request.length());
 						}

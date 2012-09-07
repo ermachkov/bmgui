@@ -574,7 +574,8 @@ function onMainScreenUpdate(delta)
 
 	-- draw about message
 	if showAboutMessage then
-		local message = aboutMessage .. "Firmware version: " .. balance:getFirmwareVersion()
+		local message = string.format("%sHardware version: %s\nCPU firmware version: %s\nDSP firmware version: %s",
+			aboutMessage, balance:getHardwareVersion(), balance:getCPUFirmwareVersion(), balance:getDSPFirmwareVersion())
 		spriteAboutMessageBack:draw()
 		fontMessageText:drawText(spriteAboutMessageText.x, spriteAboutMessageText.y, message, 73 / 255, 73 / 255, 73 / 255)
 	end
