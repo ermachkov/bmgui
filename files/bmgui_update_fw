@@ -1,9 +1,8 @@
 #!/bin/bash
 FW=`ls /usr/share/bmgui/fw/bsfw* -1 | grep -v backup`
 SERVER_IP=`expr "\`cat $HOME/.bmgui/bmgui.xml\`" : '.*server_addr" value="\([0-9]*.[0-9]*.[0-9]*.[0-9]*\)'`
-bmgui_flash $SERVER_IP $FW
+sudo bmgui_flash $SERVER_IP $FW
 RET=$?
 echo $RET > /tmp/flash_status
 sleep 3
-
 
