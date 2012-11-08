@@ -2,7 +2,8 @@
 
 echo "1. GPT Rewrite"
 echo "2. Restore Image"
-echo "3. Exit to clonezilla menu"
+echo "3. Full clean harddisk"
+echo "4. Exit to clonezilla menu"
 read comm
 
 if [ $comm -eq 1 ] ; then
@@ -12,7 +13,14 @@ if [ $comm -eq 1 ] ; then
   exit 0
 else
   if [ $comm -eq 3 ] ; then
-    exit 0
+    vgchange -a n vg_bm
+    mdadm --manage -S /dev/md127
+    dd if=/dev/zero of=/dev/sda bs=8M
+    reboot
+  else
+    if [ $comm -eq 4 ] ; then
+      exit 0
+    fi
   fi
 fi
 
