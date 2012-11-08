@@ -39,8 +39,8 @@ mdadm --assemble -U uuid /dev/md0 --uuid "48e6f261:63620c5b:f181bb94:a63053d0"
 vgcreate vg_bm /dev/md0
 lvcreate -l100%FREE vg_bm -n root
 vgchange -a y vg_bm
-cat /home/partimag/KONSULM-1.3/raid_vg_bm-root.img.gz | gunzip -c | partclone.ext4 -C -d -r -s - -o /dev/vg_bm/root
-dd if=/home/partimag/KONSULM-1.3/raid_vg_bm-sda1.img of=/dev/sda1
+cat /home/partimag/KONSULM/raid_vg_bm-root.img.gz | gunzip -c | partclone.ext4 -C -d -r -s - -o /dev/vg_bm/root
+dd if=/home/partimag/KONSULM/raid_vg_bm-sda1.img of=/dev/sda1
 e2fsck -f /dev/mapper/vg_bm-root
 resize2fs /dev/mapper/vg_bm-root
 mkdir /mnt/sys
